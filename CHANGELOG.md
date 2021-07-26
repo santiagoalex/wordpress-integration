@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.12.0] - 2021-07-26
+
 ### Added
 
 - When searching posts, query tag names that match the searched terms, and return the associated posts.
