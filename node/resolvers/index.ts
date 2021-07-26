@@ -1,5 +1,6 @@
 import { LogLevel } from '@vtex/api'
 
+import searchPostTagsAndContent from '../utils/search'
 import { addCSShandles, addHeaderTags } from '../utils/jsdom'
 
 /* eslint-disable @typescript-eslint/camelcase */
@@ -97,6 +98,18 @@ export const queries = {
     const total_count = headers['x-wp-total']
     const result = { posts, total_count }
     return result
+  },
+  wpPostsSearch: async (
+    _: any,
+    query: {
+      page: number
+      per_page: number
+      search?: string
+      customDomain?: string
+    },
+    ctx: Context
+  ): Promise<{ posts: WpPost[]; total_count: number }> => {
+    return searchPostTagsAndContent(ctx, query)
   },
   wpPost: async (
     _: any,

@@ -4,7 +4,7 @@ query SearchPosts(
   $terms: String
   $customDomain: String
 ) {
-  wpPosts(
+  wpPostsSearch(
     page: $wp_page
     per_page: $wp_per_page
     search: $terms

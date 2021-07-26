@@ -547,6 +547,12 @@ type Query {
     sticky: Boolean
     customDomain: String
   ): WPPostsResult @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+  wpPostsSearch(
+    page: Int = 1
+    per_page: Int = 10
+    search: String
+    customDomain: String
+  ): WPPostsResult @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
   wpPost(id: Int!, password: String, customDomain: String): WPPost
     @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
   wpCategories(
