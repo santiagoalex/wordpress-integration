@@ -28,7 +28,8 @@ const WordpressPostContainer: StorefrontFunctionComponent<PostProps> = props => 
       : undefined
 
   const query = useQuery(SinglePostBySlug, {
-    variables: { slug: params.slug, customDomain },
+    variables: { slug: params.slug || params.slug_id, customDomain },
+    skip: !params?.slug && !params?.slug_id,
   })
 
   return (

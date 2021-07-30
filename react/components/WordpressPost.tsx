@@ -199,7 +199,11 @@ const WordpressPostInner: FunctionComponent<WordpressPostInnerProps> = props => 
   } = props.postData
 
   const dateObj = new Date(date)
-  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }
   const formattedDate = dateObj.toLocaleDateString(locale, dateOptions)
 
   const productIds = tags
@@ -318,6 +322,7 @@ const WordpressPost: StorefrontFunctionComponent<PostProps> = ({
 
   const { loading, error, data } = useQuery(SinglePostBySlug, {
     variables: { slug: params.slug || params.slug_id, customDomain },
+    skip: !params?.slug && !params?.slug_id,
   })
 
   if (loading) {

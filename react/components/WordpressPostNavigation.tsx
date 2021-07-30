@@ -51,7 +51,7 @@ const WordpressPostNavigation: StorefrontFunctionComponent = () => {
               <div>
                 <Link
                   page="store.blog-post"
-                  params={{ slug: slugPrev }}
+                  params={{ slug: slugPrev, slug_id: slugPrev }}
                   className={`${handles.postNavigationLink}`}
                 >
                   {dataPrev?.wpPosts?.posts[0]?.title.rendered}
@@ -74,7 +74,7 @@ const WordpressPostNavigation: StorefrontFunctionComponent = () => {
               <div>
                 <Link
                   page="store.blog-post"
-                  params={{ slug: slugNext }}
+                  params={{ slug: slugNext, slug_id: slugNext }}
                   className={`${handles.postNavigationLink}`}
                 >
                   {dataNext?.wpPosts?.posts[0]?.title.rendered}
