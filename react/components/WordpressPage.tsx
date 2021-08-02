@@ -141,7 +141,11 @@ const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
   const { date, title, content, author, featured_media } = props.pageData
 
   const dateObj = new Date(date)
-  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }
   const formattedDate = dateObj.toLocaleDateString(locale, dateOptions)
 
   const titleHtml = useMemo(() => {
@@ -243,7 +247,8 @@ const WordpressPage: StorefrontFunctionComponent<PageProps> = ({
       : undefined
 
   const { loading, error, data } = useQuery(SinglePageBySlug, {
-    variables: { slug: params.slug, customDomain },
+    variables: { slug: params.slug || params.slug_id, customDomain },
+    skip: !params?.slug && !params?.slug_id,
   })
 
   if (loading) {
