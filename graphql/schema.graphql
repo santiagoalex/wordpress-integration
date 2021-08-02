@@ -166,8 +166,8 @@ type WPCategory {
     exclude: [Int]
     include: [Int]
     offset: Int
-    order: WPOrder = "desc"
-    orderby: WPOrderBy = "date"
+    order: WPOrder = desc
+    orderby: WPOrderBy = date
     slug: [String]
     status: [String] = ["publish"]
     tags: [Int]
@@ -205,8 +205,8 @@ type WPTag {
     exclude: [Int]
     include: [Int]
     offset: Int
-    order: WPOrder = "desc"
-    orderby: WPOrderBy = "date"
+    order: WPOrder = desc
+    orderby: WPOrderBy = date
     slug: [String]
     status: [String] = ["publish"]
     tags: [Int]
@@ -536,8 +536,8 @@ type Query {
     exclude: [Int]
     include: [Int]
     offset: Int
-    order: WPOrder = "desc"
-    orderby: WPOrderBy = "date"
+    order: WPOrder = desc
+    orderby: WPOrderBy = date
     slug: [String]
     status: [String] = ["publish"]
     categories: [Int]
