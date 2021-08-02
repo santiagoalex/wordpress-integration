@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Change default query arguments to enums instead of strings where appropriate
+
 ## [2.12.1] - 2021-08-02
 
 ### Added
