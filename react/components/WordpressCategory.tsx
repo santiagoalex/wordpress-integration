@@ -107,7 +107,11 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
       currentItemFrom={(page - 1) * perPage + 1}
       currentItemTo={page * perPage}
       textOf="of"
-      textShowRows="posts per page"
+      textShowRows={
+        dataS?.appSettings?.displayShowRowsText === false
+          ? null
+          : 'posts per page'
+      }
       totalItems={data?.wpCategories?.categories[0]?.wpPosts?.total_count ?? 0}
       onRowsChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
         setPage(1)

@@ -15,6 +15,7 @@ import { useCssHandles } from 'vtex.css-handles'
 import WordpressTeaser from './WordpressTeaser'
 import withSearchContext from './withSearchContext'
 import SearchPosts from '../graphql/SearchPosts.graphql'
+import Settings from '../graphql/Settings.graphql'
 
 interface Props {
   searchQuery: any
@@ -46,6 +47,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(postsPerPage)
   const handles = useCssHandles(CSS_HANDLES)
+  const { data: dataS } = useQuery(Settings)
   const { loading, error, data, fetchMore } = useQuery(SearchPosts, {
     skip: !searchQuery,
     variables: {
@@ -87,7 +89,11 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
       currentItemFrom={(page - 1) * perPage + 1}
       currentItemTo={page * perPage}
       textOf="of"
-      textShowRows="posts per page"
+      textShowRows={
+        dataS?.appSettings?.displayShowRowsText === false
+          ? null
+          : 'posts per page'
+      }
       totalItems={data?.wpPosts?.total_count ?? 0}
       onRowsChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
         setPage(1)

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Option to hide Pagination "Posts Per Page" text in app settings.
+
 ## [2.12.2] - 2021-08-02
 
 ### Fixed
