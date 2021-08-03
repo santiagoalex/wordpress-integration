@@ -8,7 +8,7 @@ import React, {
   useRef,
 } from 'react'
 import { useQuery } from 'react-apollo'
-import { defineMessages } from 'react-intl'
+import { defineMessages, useIntl } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import { Spinner, Pagination } from 'vtex.styleguide'
 import Helmet from 'react-helmet'
@@ -35,6 +35,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
   customDomains,
   postsPerPage,
 }) => {
+  const intl = useIntl()
   const {
     route: { id, params },
     pages,
@@ -110,7 +111,8 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
       textShowRows={
         dataS?.appSettings?.displayShowRowsText === false
           ? null
-          : 'posts per page'
+          : // eslint-disable-next-line @typescript-eslint/no-use-before-define
+            intl.formatMessage(messages.postsPerPage)
       }
       totalItems={data?.wpCategories?.categories[0]?.wpPosts?.total_count ?? 0}
       onRowsChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -279,6 +281,10 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
 }
 
 const messages = defineMessages({
+  postsPerPage: {
+    defaultMessage: 'posts per page',
+    id: 'store/wordpress-integration.wordpressPagination.postsPerPage',
+  },
   title: {
     defaultMessage: '',
     id: 'admin/editor.wordpressCategory.title',

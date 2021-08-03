@@ -79,6 +79,7 @@
   "admin/editor.wordpressExcludeCategories.description": "Posts containing any of the listed categories will be excluded",
   "store/wordpress-integration.wordpressPostNavigation.next": "Next Article >",
   "store/wordpress-integration.wordpressPostNavigation.previous": "< Previous Article",
+  "store/wordpress-integration.wordpressPagination.postsPerPage": "posts per page",
   "store/wordpress-integration.wordpressPost.postedIn": "Posted {formattedDate} in ",
   "store/wordpress-integration.wordpressPost.byAuthor": " by {name}",
   "store/wordpress-integration.wordpressPage.posted": "Posted {formattedDate} ",

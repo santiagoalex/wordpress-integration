@@ -8,7 +8,7 @@ import React, {
   useRef,
 } from 'react'
 import { Helmet } from 'react-helmet'
-import { defineMessages } from 'react-intl'
+import { defineMessages, useIntl } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import { Spinner, Pagination } from 'vtex.styleguide'
@@ -39,6 +39,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
   subcategoryUrls,
   postsPerPage,
 }) => {
+  const intl = useIntl()
   const {
     route: { id, params },
     pages,
@@ -94,7 +95,8 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
       textShowRows={
         dataS?.appSettings?.displayShowRowsText === false
           ? null
-          : 'posts per page'
+          : // eslint-disable-next-line @typescript-eslint/no-use-before-define
+            intl.formatMessage(messages.postsPerPage)
       }
       totalItems={data?.wpPosts?.total_count ?? 0}
       onRowsChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -249,6 +251,10 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
 }
 
 const messages = defineMessages({
+  postsPerPage: {
+    defaultMessage: 'posts per page',
+    id: 'store/wordpress-integration.wordpressPagination.postsPerPage',
+  },
   title: {
     defaultMessage: '',
     id: 'admin/editor.wordpressAllPosts.title',

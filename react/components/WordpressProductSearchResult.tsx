@@ -7,7 +7,7 @@ import React, {
   useEffect,
   useRef,
 } from 'react'
-import { defineMessages } from 'react-intl'
+import { defineMessages, useIntl } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { Spinner, Pagination } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
@@ -44,6 +44,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
   subcategoryUrls,
   postsPerPage,
 }) => {
+  const intl = useIntl()
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(postsPerPage)
   const handles = useCssHandles(CSS_HANDLES)
@@ -92,7 +93,8 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
       textShowRows={
         dataS?.appSettings?.displayShowRowsText === false
           ? null
-          : 'posts per page'
+          : // eslint-disable-next-line @typescript-eslint/no-use-before-define
+            intl.formatMessage(messages.postsPerPage)
       }
       totalItems={data?.wpPosts?.total_count ?? 0}
       onRowsChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -223,6 +225,10 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
 }
 
 const messages = defineMessages({
+  postsPerPage: {
+    defaultMessage: 'posts per page',
+    id: 'store/wordpress-integration.wordpressPagination.postsPerPage',
+  },
   title: {
     defaultMessage: '',
     id: 'admin/editor.wordpressSearchResult.title',
