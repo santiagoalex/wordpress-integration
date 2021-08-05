@@ -8,7 +8,7 @@ import React, {
   useRef,
 } from 'react'
 import { Helmet } from 'react-helmet'
-import { defineMessages } from 'react-intl'
+import { defineMessages, useIntl } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import { Spinner, Pagination } from 'vtex.styleguide'
@@ -39,6 +39,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
   subcategoryUrls,
   postsPerPage,
 }) => {
+  const intl = useIntl()
   const {
     route: { id, params },
     pages,
@@ -49,6 +50,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
   const initialPage = params.page ?? query?.page ?? '1'
   const [page, setPage] = useState(parseInt(initialPage, 10))
   const [perPage, setPerPage] = useState(postsPerPage)
+  const [selectedOption, setSelectedOption] = useState(postsPerPage)
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data, fetchMore } = useQuery(AllPosts, {
@@ -88,10 +90,16 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
         postsPerPage * 3,
         postsPerPage * 4,
       ]}
+      selectedOption={selectedOption}
       currentItemFrom={(page - 1) * perPage + 1}
       currentItemTo={page * perPage}
       textOf="of"
-      textShowRows="posts per page"
+      textShowRows={
+        dataS?.appSettings?.displayShowRowsText === false
+          ? null
+          : // eslint-disable-next-line @typescript-eslint/no-use-before-define
+            intl.formatMessage(messages.postsPerPage)
+      }
       totalItems={data?.wpPosts?.total_count ?? 0}
       onRowsChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
         setPage(1)
@@ -105,6 +113,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
         } else {
           setQuery({ page: '1' })
         }
+        setSelectedOption(+value)
         setPerPage(+value)
         fetchMore({
           variables: {
@@ -245,6 +254,10 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
 }
 
 const messages = defineMessages({
+  postsPerPage: {
+    defaultMessage: 'posts per page',
+    id: 'store/wordpress-integration.wordpressPagination.postsPerPage',
+  },
   title: {
     defaultMessage: '',
     id: 'admin/editor.wordpressAllPosts.title',

@@ -78,6 +78,7 @@
   "admin/editor.wordpressExcludeCategories.title": "admin/editor.wordpressExcludeCategories.title",
   "store/wordpress-integration.wordpressPostNavigation.next": "store/wordpress-integration.wordpressPostNavigation.next",
   "store/wordpress-integration.wordpressPostNavigation.previous": "store/wordpress-integration.wordpressPostNavigation.previous",
+  "store/wordpress-integration.wordpressPagination.postsPerPage": "store/wordpress-integration.wordpressPagination.postsPerPage",
   "store/wordpress-integration.wordpressPost.postedIn": "store/wordpress-integration.wordpressPost.postedIn",
   "store/wordpress-integration.wordpressPost.byAuthor": "store/wordpress-integration.wordpressPost.byAuthor",
   "store/wordpress-integration.wordpressPage.posted": "store/wordpress-integration.wordpressPage.posted",

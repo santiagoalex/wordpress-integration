@@ -511,6 +511,7 @@ type WPUsersResult {
 type Settings {
   titleTag: String
   blogRoute: String
+  displayShowRowsText: Boolean
 }
 
 type HeaderTags {

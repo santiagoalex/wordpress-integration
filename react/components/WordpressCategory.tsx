@@ -8,7 +8,7 @@ import React, {
   useRef,
 } from 'react'
 import { useQuery } from 'react-apollo'
-import { defineMessages } from 'react-intl'
+import { defineMessages, useIntl } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import { Spinner, Pagination } from 'vtex.styleguide'
 import Helmet from 'react-helmet'
@@ -35,6 +35,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
   customDomains,
   postsPerPage,
 }) => {
+  const intl = useIntl()
   const {
     route: { id, params },
     pages,
@@ -58,6 +59,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
   const initialPage = params.page ?? query?.page ?? '1'
   const [page, setPage] = useState(parseInt(initialPage, 10))
   const [perPage, setPerPage] = useState(postsPerPage)
+  const [selectedOption, setSelectedOption] = useState(postsPerPage)
   const categoryVariable = {
     categorySlug:
       params.subcategoryslug_id ||
@@ -104,10 +106,16 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
         postsPerPage * 3,
         postsPerPage * 4,
       ]}
+      selectedOption={selectedOption}
       currentItemFrom={(page - 1) * perPage + 1}
       currentItemTo={page * perPage}
       textOf="of"
-      textShowRows="posts per page"
+      textShowRows={
+        dataS?.appSettings?.displayShowRowsText === false
+          ? null
+          : // eslint-disable-next-line @typescript-eslint/no-use-before-define
+            intl.formatMessage(messages.postsPerPage)
+      }
       totalItems={data?.wpCategories?.categories[0]?.wpPosts?.total_count ?? 0}
       onRowsChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
         setPage(1)
@@ -121,6 +129,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
         } else {
           setQuery({ page: '1' })
         }
+        setSelectedOption(+value)
         setPerPage(+value)
         fetchMore({
           variables: {
@@ -275,6 +284,10 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
 }
 
 const messages = defineMessages({
+  postsPerPage: {
+    defaultMessage: 'posts per page',
+    id: 'store/wordpress-integration.wordpressPagination.postsPerPage',
+  },
   title: {
     defaultMessage: '',
     id: 'admin/editor.wordpressCategory.title',
