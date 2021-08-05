@@ -64,6 +64,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
   const initialPage = params.page ?? query?.page ?? '1'
   const [page, setPage] = useState(parseInt(initialPage, 10))
   const [perPage, setPerPage] = useState(postsPerPage)
+  const [selectedOption, setSelectedOption] = useState(postsPerPage)
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data, fetchMore } = useQuery(SearchPosts, {
@@ -108,6 +109,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
         postsPerPage * 3,
         postsPerPage * 4,
       ]}
+      selectedOption={selectedOption}
       currentItemFrom={(page - 1) * perPage + 1}
       currentItemTo={page * perPage}
       textOf="of"
@@ -130,6 +132,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
         } else {
           setQuery({ page: '1' })
         }
+        setSelectedOption(+value)
         setPerPage(+value)
         fetchMore({
           variables: {

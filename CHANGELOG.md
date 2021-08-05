@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Option to hide Pagination "Posts Per Page" text in app settings.
 
+### Fixed
+
+- When changed, the selected "Posts Per Page" option is updated in both instances of the pagination component.
+
 ## [2.12.2] - 2021-08-02
 
 ### Fixed

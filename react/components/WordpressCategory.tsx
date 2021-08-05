@@ -59,6 +59,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
   const initialPage = params.page ?? query?.page ?? '1'
   const [page, setPage] = useState(parseInt(initialPage, 10))
   const [perPage, setPerPage] = useState(postsPerPage)
+  const [selectedOption, setSelectedOption] = useState(postsPerPage)
   const categoryVariable = {
     categorySlug:
       params.subcategoryslug_id ||
@@ -105,6 +106,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
         postsPerPage * 3,
         postsPerPage * 4,
       ]}
+      selectedOption={selectedOption}
       currentItemFrom={(page - 1) * perPage + 1}
       currentItemTo={page * perPage}
       textOf="of"
@@ -127,6 +129,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
         } else {
           setQuery({ page: '1' })
         }
+        setSelectedOption(+value)
         setPerPage(+value)
         fetchMore({
           variables: {
