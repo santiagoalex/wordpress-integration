@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed product term search query for posts
+
 ## [2.12.3] - 2021-08-05
 
 ### Added

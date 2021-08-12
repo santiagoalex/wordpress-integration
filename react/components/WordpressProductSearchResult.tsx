@@ -98,7 +98,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
           : // eslint-disable-next-line @typescript-eslint/no-use-before-define
             intl.formatMessage(messages.postsPerPage)
       }
-      totalItems={data?.wpPosts?.total_count ?? 0}
+      totalItems={data?.wpPostsSearch?.total_count ?? 0}
       onRowsChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
         setSelectedOption(+value)
         setPage(1)
@@ -179,12 +179,12 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
             Error: {error.message}
           </div>
         )}
-        {data?.wpPosts ? (
+        {data?.wpPostsSearch ? (
           <Fragment>
             <div
               className={`${handles.listFlex} ${handles.searchListFlex} mv4 flex flex-row flex-wrap`}
             >
-              {data.wpPosts.posts.map((post: PostData, index: number) => (
+              {data.wpPostsSearch.posts.map((post: PostData, index: number) => (
                 <div
                   key={index}
                   className={`${handles.listFlexItem} ${handles.searchListFlexItem} mv3 w-100-s w-50-l ph4`}
