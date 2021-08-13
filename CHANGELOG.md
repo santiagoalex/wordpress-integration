@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Option to ignore robots meta tag from Yoast SEO plugin.
+
 ## [2.12.4] - 2021-08-12
 
 ### Fixed

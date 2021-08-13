@@ -29,8 +29,15 @@ export const addCSShandles = (content: string) => {
   return document.body.innerHTML
 }
 
-export const addHeaderTags = (post: WpPost): HeaderTags | null => {
+export const addHeaderTags = async (
+  ctx: Context,
+  post: WpPost
+): Promise<HeaderTags | null> => {
   if (!post.yoast_head) return null
+
+  const settings = await ctx.clients.apps.getAppSettings(
+    process.env.VTEX_APP_ID as string
+  )
 
   const dom = new JSDOM(`<!DOCTYPE html><header>${post.yoast_head}</header>`)
 
@@ -41,6 +48,10 @@ export const addHeaderTags = (post: WpPost): HeaderTags | null => {
   const metaTags: MetaTag[] = []
 
   for (const element of metaElements) {
+    if (element.name === 'robots' && settings.ignoreRobotsMetaTag) {
+      continue
+    }
+
     metaTags.push({
       name: element.name,
       property: element.getAttribute('property') ?? '',
