@@ -93,7 +93,7 @@ export const queries = {
     const posts = data
     if (data.length) {
       posts[0].content.rendered = addCSShandles(data[0].content.rendered)
-      posts[0].headerTags = addHeaderTags(data[0])
+      posts[0].headerTags = await addHeaderTags(ctx, data[0])
     }
     const total_count = headers['x-wp-total']
     const result = { posts, total_count }
@@ -329,7 +329,7 @@ export const queries = {
     const pages = data
     if (data.length) {
       pages[0].content.rendered = addCSShandles(data[0].content.rendered)
-      pages[0].headerTags = addHeaderTags(data[0])
+      pages[0].headerTags = addHeaderTags(ctx, data[0])
     }
     const total_count = headers['x-wp-total']
     const result = { pages, total_count }

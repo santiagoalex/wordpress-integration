@@ -38,9 +38,7 @@
     },
     "free": true,
     "type": "free",
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "settingsSchema": {
     "title": "Wordpress Integration",
@@ -71,6 +69,12 @@
         "description": "In the Pagination component, display the 'Posts Per Page' text",
         "type": "boolean",
         "default": true
+      },
+      "ignoreRobotsMetaTag": {
+        "title": "Ignore Yoast SEO Robots Meta Tag",
+        "description": "Ignore the robots meta tag that is provided by the Yoast SEO plugin. This option only applies if you are using the Yoast SEO plugin in your WordPress installation",
+        "type": "boolean",
+        "default": false
       },
       "initializeSitemap": {
         "title": "Create Sitemap Entries",
