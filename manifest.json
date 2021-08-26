@@ -38,13 +38,12 @@
     },
     "free": true,
     "type": "free",
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "settingsSchema": {
     "title": "Wordpress Integration",
     "type": "object",
+    "bindingBounded": true,
     "properties": {
       "endpoint": {
         "title": "Wordpress URL",

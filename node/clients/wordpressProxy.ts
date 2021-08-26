@@ -10,19 +10,35 @@ export default class WordpressProxyDataSource extends ExternalClient {
     super(``, context, options)
   }
 
-  private async getEndpoint(vtex: IOContext) {
+  private async getAppSettings(vtex: IOContext) {
     const apps = new Apps(vtex)
     const appId = process.env.VTEX_APP_ID as string
-    const settings = await apps.getAppSettings(appId)
-    const endpoint = settings.endpoint || 'http://demo.wp-api.org/'
+    const appSettings = (await apps.getAppSettings(appId)) as AppSettings
+    const hasBindingSettings =
+      appSettings.bindingBounded && appSettings.settings
+        ? appSettings.settings.length > 0
+        : false
+
+    if (hasBindingSettings && appSettings.settings) {
+      const bindingSetting = appSettings.settings.find(
+        s => s.bindingId === vtex.binding?.id
+      )
+
+      return bindingSetting ?? appSettings
+    }
+
+    return appSettings
+  }
+
+  private async getEndpoint(vtex: IOContext) {
+    const settings = await this.getAppSettings(vtex)
+    const endpoint = settings.endpoint ?? 'http://demo.wp-api.org/'
     this.endpoint = endpoint.replace('https://', 'http://')
   }
 
   private async getApiPath(vtex: IOContext) {
-    const apps = new Apps(vtex)
-    const appId = process.env.VTEX_APP_ID as string
-    const settings = await apps.getAppSettings(appId)
-    const apiPath = settings.apiPath || DEFAULT_API_PATH
+    const settings = await this.getAppSettings(vtex)
+    const apiPath = settings.apiPath ?? DEFAULT_API_PATH
     this.apiPath = apiPath
   }
 
