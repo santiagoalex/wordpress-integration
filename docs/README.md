@@ -21,12 +21,13 @@ Using your terminal and [VTEX IO Toolbelt](https://vtex.io/docs/recipes/developm
 In your VTEX account's admin, perform the following actions:
 
 1. Access the **Apps** section and then **My Apps**.
-2. Select the **Wordpress Integration** app box.
-3. In the Settings section, enter your **Wordpress URL**. This should be the domain where the Wordpress API endpoint is hosted and Wordpress is administered.
-4. If your Wordpress installation's API is hosted under a path other than `wp-json/wp/v2/`, enter the path in the **Wordpress API path** field. For example, if the `posts` endpoint looks like `https://example.wordpress.com/index.php?rest_route=/wp/v2/posts`, enter `index.php?rest_route=/wp/v2/` here. If unsure, leave the field blank.
-5. Enter the **Title tag for block homepage** which will determine the title tag for the Wordpress portions of your store.
-6. Enter the **Store blog home path** which is used to include Wordpress posts in the sitemap and be indexed by search engines. For example, the path to your store's blog is www.my-store.com/blog, you would enter 'blog'.
-7. Save your changes.
+2. Select the **Wordpress Integration** app box and open the Settings section.
+3. If your VTEX store uses multiple bindings, enable the **configuration by binding** option to configure the app settings specific to each binding.
+4. Enter your **Wordpress URL**. This should be the domain where the Wordpress API endpoint is hosted and Wordpress is administered.
+5. If your Wordpress installation's API is hosted under a path other than `wp-json/wp/v2/`, enter the path in the **Wordpress API path** field. For example, if the `posts` endpoint looks like `https://example.wordpress.com/index.php?rest_route=/wp/v2/posts`, enter `index.php?rest_route=/wp/v2/` here. If unsure, leave the field blank.
+6. Enter the **Title tag for block homepage** which will determine the title tag for the Wordpress portions of your store.
+7. Enter the **Store blog home path** which is used to include Wordpress posts in the sitemap and be indexed by search engines. For example, the path to your store's blog is www.my-store.com/blog, you would enter 'blog'.
+8. Save your changes.
 
 ⚠️ If you have a security plugin installed on your WordPress installation (such as WordFence), ensure it is not blocking requests to `/users` or `/?author=N` queries.
 
