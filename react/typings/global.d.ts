@@ -110,9 +110,17 @@ interface WPMediaDetails {
   file: string
   height: number
   image_meta: WPImageMeta
-  sizes: [WPMediaSize]
+  sizes: WPMediaSize
   width: number
 }
+interface WPMediaSize {
+  thumbnail: WPMediaSizeDetail
+  medium: WPMediaSizeDetail
+  medium_large: WPMediaSizeDetail
+  large: WPMediaSizeDetail
+  full: WPMediaSizeDetail
+}
+type MediaSize = 'thumbnail' | 'medium' | 'medium_large' | 'full'
 interface WPImageMeta {
   aperture: string
   camera: string
@@ -127,7 +135,7 @@ interface WPImageMeta {
   shutter_speed: string
   title: string
 }
-interface WPMediaSize {
+interface WPMediaSizeDetail {
   file: string
   height: number
   mime_type: string

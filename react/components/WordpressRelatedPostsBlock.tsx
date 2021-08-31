@@ -25,6 +25,7 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
   subcategoryUrls,
   absoluteLinks,
   numberOfPosts,
+  mediaSize,
   customDomain,
   customDomainSlug,
 }) => {
@@ -69,9 +70,8 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
                     categories={post.categories}
                     subcategoryUrls={subcategoryUrls}
                     customDomainSlug={customDomainSlug}
-                    image={post.featured_media?.source_url ?? ''}
-                    altText={post.featured_media?.alt_text ?? ''}
-                    mediaType={post.featured_media?.media_type ?? ''}
+                    featuredMedia={post.featured_media}
+                    mediaSize={mediaSize}
                     showCategory={showCategories}
                     showDate={showDates}
                     showAuthor={showAuthors}
@@ -102,6 +102,7 @@ interface WPRelatedPostsBlockProps {
   subcategoryUrls: boolean
   absoluteLinks: boolean
   productQuery: ProductQuery
+  mediaSize: MediaSize
   customDomain: string
   customDomainSlug: string
 }
@@ -172,6 +173,7 @@ WordpressRelatedPostsBlock.defaultProps = {
   showExcerpts: false,
   subcategoryUrls: false,
   absoluteLinks: false,
+  mediaSize: undefined,
   customDomain: undefined,
   customDomainSlug: undefined,
 }
@@ -273,6 +275,14 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressSubcategoryUrls.description',
   },
+  mediaSizeTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressMediaSize.title',
+  },
+  mediaSizeDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressMediaSize.description',
+  },
 })
 
 WordpressRelatedPostsBlock.schema = {
@@ -354,6 +364,15 @@ WordpressRelatedPostsBlock.schema = {
       title: messages.subcategoryUrlsTitle.id,
       description: messages.subcategoryUrlsDescription.id,
       type: 'boolean',
+      isLayout: false,
+      default: '',
+    },
+    mediaSize: {
+      title: messages.mediaSizeTitle.id,
+      description: messages.mediaSizeDescription.id,
+      type: 'string',
+      enum: ['thumbnail', 'medium', 'medium_large', 'large', 'full'],
+      enumNames: ['Thumbnail', 'Medium', 'Medium Large', 'Large', 'Full'],
       isLayout: false,
       default: '',
     },
