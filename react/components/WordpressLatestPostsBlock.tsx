@@ -29,6 +29,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
   subcategoryUrls,
   absoluteLinks,
   numberOfPosts,
+  mediaSize,
   tags,
   excludeTags,
   excludeCategories,
@@ -90,9 +91,8 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     excerpt={posts[0].excerpt.rendered}
                     categories={posts[0].categories}
                     subcategoryUrls={subcategoryUrls}
-                    image={posts[0].featured_media?.source_url ?? ''}
-                    altText={posts[0].featured_media?.alt_text ?? ''}
-                    mediaType={posts[0].featured_media?.media_type ?? ''}
+                    featuredMedia={posts[0].featured_media}
+                    mediaSize={mediaSize}
                     showCategory={showCategories}
                     showDate={showDates}
                     showAuthor={showAuthors}
@@ -120,9 +120,8 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                         excerpt={post.excerpt.rendered}
                         categories={posts[0].categories}
                         subcategoryUrls={subcategoryUrls}
-                        image={post.featured_media?.source_url ?? ''}
-                        altText={post.featured_media?.alt_text ?? ''}
-                        mediaType={post.featured_media?.media_type ?? ''}
+                        featuredMedia={post.featured_media}
+                        mediaSize={mediaSize}
                         showCategory={showCategories}
                         showDate={showDates}
                         showAuthor={showAuthors}
@@ -151,9 +150,8 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     excerpt={post.excerpt.rendered}
                     categories={posts[0].categories}
                     subcategoryUrls={subcategoryUrls}
-                    image={post.featured_media?.source_url ?? ''}
-                    altText={post.featured_media?.alt_text ?? ''}
-                    mediaType={post.featured_media?.media_type ?? ''}
+                    featuredMedia={post.featured_media}
+                    mediaSize={mediaSize}
                     showCategory={showCategories}
                     showDate={showDates}
                     showAuthor={showAuthors}
@@ -192,6 +190,7 @@ interface WPLatestPostsBlockProps {
   excludeCategories: number[]
   subcategoryUrls: boolean
   absoluteLinks: boolean
+  mediaSize: MediaSize
   customDomain: string
   customDomainSlug: string
 }
@@ -208,6 +207,7 @@ WordpressLatestPostsBlock.defaultProps = {
   tags: undefined,
   excludeTags: undefined,
   excludeCategories: undefined,
+  mediaSize: undefined,
   customDomain: undefined,
   subcategoryUrls: false,
   absoluteLinks: false,
@@ -335,6 +335,14 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressSubcategoryUrls.description',
   },
+  mediaSizeTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressMediaSize.title',
+  },
+  mediaSizeDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressMediaSize.description',
+  },
 })
 
 WordpressLatestPostsBlock.schema = {
@@ -456,6 +464,15 @@ WordpressLatestPostsBlock.schema = {
       title: messages.subcategoryUrlsTitle.id,
       description: messages.subcategoryUrlsDescription.id,
       type: 'boolean',
+      isLayout: false,
+      default: '',
+    },
+    mediaSize: {
+      title: messages.mediaSizeTitle.id,
+      description: messages.mediaSizeDescription.id,
+      type: 'string',
+      enum: ['thumbnail', 'medium', 'medium_large', 'large', 'full'],
+      enumNames: ['Thumbnail', 'Medium', 'Medium Large', 'Large', 'Full'],
       isLayout: false,
       default: '',
     },

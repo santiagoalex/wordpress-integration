@@ -76,6 +76,8 @@
   "admin/editor.wordpressTagsItem.title": "admin/editor.wordpressTagsItem.title",
   "admin/editor.wordpressExcludeTags.title": "admin/editor.wordpressExcludeTags.title",
   "admin/editor.wordpressExcludeCategories.title": "admin/editor.wordpressExcludeCategories.title",
+  "admin/editor.wordpressMediaSize.title": "admin/editor.wordpressMediaSize.title",
+  "admin/editor.wordpressMediaSize.description": "admin/editor.wordpressMediaSize.description",
   "store/wordpress-integration.wordpressPostNavigation.next": "store/wordpress-integration.wordpressPostNavigation.next",
   "store/wordpress-integration.wordpressPostNavigation.previous": "store/wordpress-integration.wordpressPostNavigation.previous",
   "store/wordpress-integration.wordpressPagination.postsPerPage": "store/wordpress-integration.wordpressPagination.postsPerPage",

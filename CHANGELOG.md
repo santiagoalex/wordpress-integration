@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Add image size selection in Post/Page Teaser component.
+
 ## [2.13.1] - 2021-08-27
 
 ### Added

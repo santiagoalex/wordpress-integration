@@ -21,6 +21,7 @@ import Settings from '../graphql/Settings.graphql'
 interface CategoryProps {
   customDomains: string
   postsPerPage: number
+  mediaSize: MediaSize
 }
 
 const CSS_HANDLES = [
@@ -34,6 +35,7 @@ const CSS_HANDLES = [
 const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
   customDomains,
   postsPerPage,
+  mediaSize,
 }) => {
   const intl = useIntl()
   const {
@@ -251,9 +253,8 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
                       slug={post.slug}
                       link={post.link}
                       customDomainSlug={params.customdomainslug}
-                      image={post.featured_media?.source_url ?? ''}
-                      altText={post.featured_media?.alt_text ?? ''}
-                      mediaType={post.featured_media?.media_type ?? ''}
+                      featuredMedia={post.featured_media}
+                      mediaSize={mediaSize}
                       showAuthor={false}
                       showCategory={false}
                       showDate
@@ -304,11 +305,20 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressCustomDomain.description',
   },
+  mediaSizeTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressMediaSize.title',
+  },
+  mediaSizeDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressMediaSize.description',
+  },
 })
 
 WordpressCategory.defaultProps = {
   customDomains: undefined,
   postsPerPage: 10,
+  mediaSize: undefined,
 }
 
 WordpressCategory.schema = {
@@ -320,6 +330,15 @@ WordpressCategory.schema = {
       title: messages.customDomainsTitle.id,
       description: messages.customDomainsDescription.id,
       type: 'string',
+      isLayout: false,
+      default: '',
+    },
+    mediaSize: {
+      title: messages.mediaSizeTitle.id,
+      description: messages.mediaSizeDescription.id,
+      type: 'string',
+      enum: ['thumbnail', 'medium', 'medium_large', 'large', 'full'],
+      enumNames: ['Thumbnail', 'Medium', 'Medium Large', 'Large', 'Full'],
       isLayout: false,
       default: '',
     },

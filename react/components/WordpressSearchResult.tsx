@@ -21,6 +21,7 @@ import Settings from '../graphql/Settings.graphql'
 interface SearchProps {
   customDomains: string
   subcategoryUrls: boolean
+  mediaSize: MediaSize
   postsPerPage: number
 }
 
@@ -39,6 +40,7 @@ const CSS_HANDLES = [
 const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
   customDomains,
   subcategoryUrls,
+  mediaSize,
   postsPerPage,
 }) => {
   const intl = useIntl()
@@ -259,9 +261,8 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
                     id={post.id}
                     slug={post.slug}
                     link={post.link}
-                    image={post.featured_media?.source_url ?? ''}
-                    altText={post.featured_media?.alt_text ?? ''}
-                    mediaType={post.featured_media?.media_type ?? ''}
+                    featuredMedia={post.featured_media}
+                    mediaSize={mediaSize}
                     showAuthor={false}
                     showCategory
                     showDate
@@ -315,11 +316,20 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressSubcategoryUrls.description',
   },
+  mediaSizeTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressMediaSize.title',
+  },
+  mediaSizeDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressMediaSize.description',
+  },
 })
 
 WordpressSearchResult.defaultProps = {
   customDomains: undefined,
   subcategoryUrls: false,
+  mediaSize: undefined,
   postsPerPage: 10,
 }
 
@@ -339,6 +349,15 @@ WordpressSearchResult.schema = {
       title: messages.subcategoryUrlsTitle.id,
       description: messages.subcategoryUrlsDescription.id,
       type: 'boolean',
+      isLayout: false,
+      default: '',
+    },
+    mediaSize: {
+      title: messages.mediaSizeTitle.id,
+      description: messages.mediaSizeDescription.id,
+      type: 'string',
+      enum: ['thumbnail', 'medium', 'medium_large', 'large', 'full'],
+      enumNames: ['Thumbnail', 'Medium', 'Medium Large', 'Large', 'Full'],
       isLayout: false,
       default: '',
     },

@@ -32,6 +32,25 @@ query CategoryPosts(
           source_url
           alt_text
           media_type
+          media_details {
+            sizes {
+              thumbnail {
+                source_url
+              }
+              medium {
+                source_url
+              }
+              medium_large {
+                source_url
+              }
+              large {
+                source_url
+              }
+              full {
+                source_url
+              }
+            }
+          }
         }
         date
         id

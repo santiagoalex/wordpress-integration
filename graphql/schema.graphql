@@ -356,7 +356,7 @@ type WPMediaDetails {
   file: String
   height: Int
   image_meta: WPImageMeta
-  sizes: [WPMediaSize]
+  sizes: WPMediaSize
   width: Int
 }
 
@@ -376,6 +376,14 @@ type WPImageMeta {
 }
 
 type WPMediaSize {
+  thumbnail: WPMediaSizeDetail
+  medium: WPMediaSizeDetail
+  medium_large: WPMediaSizeDetail
+  large: WPMediaSizeDetail
+  full: WPMediaSizeDetail
+}
+
+type WPMediaSizeDetail {
   file: String
   height: Int
   mime_type: String

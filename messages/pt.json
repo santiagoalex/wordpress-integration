@@ -77,6 +77,8 @@
   "admin/editor.wordpressExcludeTags.title": "Exclude Tag IDs",
   "admin/editor.wordpressExcludeCategories.title": "Exclude Category IDs",
   "admin/editor.wordpressExcludeCategories.description": "Posts containing any of the listed categories will be excluded",
+  "admin/editor.wordpressMediaSize.title": "WordPress Media Tamanho",
+  "admin/editor.wordpressMediaSize.description": "Selecione o tamanho da imagem que deve ser usada no bloco de preview. A imagem de origem é usada por padrão",
   "store/wordpress-integration.wordpressPostNavigation.next": "Próximo Artigo >",
   "store/wordpress-integration.wordpressPostNavigation.previous": "< Artigo Anterior",
   "store/wordpress-integration.wordpressPagination.postsPerPage": "postagens por página",

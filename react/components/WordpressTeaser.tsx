@@ -17,9 +17,8 @@ interface TeaserProps {
   id: number
   slug: string
   link: string
-  image: string
-  altText: string
-  mediaType: string
+  featuredMedia: WPMedia
+  mediaSize?: MediaSize
   showCategory: boolean
   showAuthor: boolean
   showDate: boolean
@@ -62,9 +61,8 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   date,
   slug,
   link,
-  mediaType,
-  image,
-  altText,
+  featuredMedia,
+  mediaSize,
   showCategory,
   showAuthor,
   showDate,
@@ -86,6 +84,15 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   const sanitizedExcerpt = useMemo(() => {
     return insane(excerpt, sanitizerConfigStripAll)
   }, [excerpt, sanitizerConfigStripAll])
+  const {
+    media_type: mediaType,
+    alt_text: altText,
+    media_details: mediaDetail,
+  } = featuredMedia || {}
+
+  const mediaSourceURL =
+    (mediaSize && mediaDetail?.sizes[mediaSize]?.source_url) ||
+    featuredMedia?.source_url
 
   const category = categories?.length && categories?.find(c => c.parent === 0)
   const subcategory =
@@ -134,7 +141,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
               <div className="tc-m db relative">
                 <img
                   className={`${handles.teaserImage} w-100`}
-                  src={image}
+                  src={mediaSourceURL}
                   alt={altText}
                 ></img>
                 <div
@@ -236,7 +243,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                   >
                     <img
                       className={`${handles.teaserImage}`}
-                      src={image}
+                      src={mediaSourceURL}
                       alt={altText}
                     ></img>
                   </Link>
@@ -252,7 +259,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                   >
                     <img
                       className={`${handles.teaserImage}`}
-                      src={image}
+                      src={mediaSourceURL}
                       alt={altText}
                     ></img>
                   </Link>
