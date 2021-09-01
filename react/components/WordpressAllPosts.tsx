@@ -233,33 +233,66 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
       {data?.wpPosts ? (
         <Fragment>
           <div className={`${handles.listFlex} mv4 flex flex-row flex-wrap`}>
-            {data.wpPosts.posts.map((post: PostData, index: number) => (
-              <div
-                key={index}
-                className={`${handles.listFlexItem} mv3 w-100-s w-50-l ph4`}
-              >
-                <WordpressTeaser
-                  title={post.title.rendered}
-                  author={post.author ? post.author.name : ''}
-                  categories={post.categories}
-                  subcategoryUrls={subcategoryUrls}
-                  excerpt={post.excerpt.rendered}
-                  date={post.date}
-                  id={post.id}
-                  slug={post.slug}
-                  link={post.link}
-                  customDomainSlug={customDomainSlug}
-                  featuredMedia={post.featured_media}
-                  mediaSize={mediaSize}
-                  showAuthor={false}
-                  showCategory
-                  showDate
-                  showExcerpt
-                  useTextOverlay={false}
-                  absoluteLinks={false}
-                />
-              </div>
-            ))}
+            {(selectedCategory && selectedCategory !== "all") ?
+              data.wpPosts.posts
+                .filter((post: any) => post.categories.find((category: any) => category.name === selectedCategory))
+                .map((post: PostData, index: number) => (
+                  <div
+                    key={index}
+                    className={`${handles.listFlexItem} mv3 w-100-s w-50-l ph4`}
+                  >
+                    <WordpressTeaser
+                      title={post.title.rendered}
+                      author={post.author ? post.author.name : ''}
+                      categories={post.categories}
+                      subcategoryUrls={subcategoryUrls}
+                      excerpt={post.excerpt.rendered}
+                      date={post.date}
+                      id={post.id}
+                      slug={post.slug}
+                      link={post.link}
+                      customDomainSlug={customDomainSlug}
+                      featuredMedia={post.featured_media}
+                      mediaSize={mediaSize}
+                      showAuthor={false}
+                      showCategory
+                      showDate
+                      showExcerpt
+                      useTextOverlay={false}
+                      absoluteLinks={false}
+                    />
+                  </div>
+                ))
+              :
+              data.wpPosts.posts
+                .map((post: PostData, index: number) => (
+                  <div
+                    key={index}
+                    className={`${handles.listFlexItem} mv3 w-100-s w-50-l ph4`}
+                  >
+                    <WordpressTeaser
+                      title={post.title.rendered}
+                      author={post.author ? post.author.name : ''}
+                      categories={post.categories}
+                      subcategoryUrls={subcategoryUrls}
+                      excerpt={post.excerpt.rendered}
+                      date={post.date}
+                      id={post.id}
+                      slug={post.slug}
+                      link={post.link}
+                      customDomainSlug={customDomainSlug}
+                      featuredMedia={post.featured_media}
+                      mediaSize={mediaSize}
+                      showAuthor={false}
+                      showCategory
+                      showDate
+                      showExcerpt
+                      useTextOverlay={false}
+                      absoluteLinks={false}
+                    />
+                  </div>
+                ))
+            }
           </div>
           <div className={`${handles.paginationComponent} ph3 mb7`}>
             {PaginationComponent}
