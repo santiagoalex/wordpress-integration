@@ -17,6 +17,7 @@ import { useCssHandles } from 'vtex.css-handles'
 import WordpressTeaser from './WordpressTeaser'
 import Settings from '../graphql/Settings.graphql'
 import AllPosts from '../graphql/AllPosts.graphql'
+import WordpressCategorySelect from './WordpressCategorySelect'
 
 const CSS_HANDLES = [
   'listTitle',
@@ -24,6 +25,7 @@ const CSS_HANDLES = [
   'listFlex',
   'listFlexItem',
   'paginationComponent',
+  'categorySelect'
 ] as const
 
 interface AllPostsProps {
@@ -53,6 +55,8 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
   const [page, setPage] = useState(parseInt(initialPage, 10))
   const [perPage, setPerPage] = useState(postsPerPage)
   const [selectedOption, setSelectedOption] = useState(postsPerPage)
+  const [selectedCategory, setSelectedCategory] = useState("")
+  const [categories, setCategories] = useState([])
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data, fetchMore } = useQuery(AllPosts, {
@@ -83,6 +87,18 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
       })
     }
   }, [page])
+  useEffect(() => {
+    setCategories(data.wpPosts.posts
+      .reduce((acc: any, el: any) => [...acc, ...el.categories], [])
+      .reduce((acc: any, current: any) => {
+        const x = acc.find((item: any) => item.id === current.id);
+        if (!x) {
+          return acc.concat([current]);
+        } else {
+          return acc;
+        }
+      }, []))
+  }, [data])
 
   const PaginationComponent = (
     <Pagination
@@ -100,7 +116,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
         dataS?.appSettings?.displayShowRowsText === false
           ? null
           : // eslint-disable-next-line @typescript-eslint/no-use-before-define
-            intl.formatMessage(messages.postsPerPage)
+          intl.formatMessage(messages.postsPerPage)
       }
       totalItems={data?.wpPosts?.total_count ?? 0}
       onRowsChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -196,6 +212,13 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
       )}
       <div className={`${handles.paginationComponent} ph3`}>
         {PaginationComponent}
+      </div>
+      <div className={`${handles.categorySelect} mt3 ph3`}>
+        <WordpressCategorySelect
+          categories={categories}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
       </div>
       {(loading || loadingS) && (
         <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
