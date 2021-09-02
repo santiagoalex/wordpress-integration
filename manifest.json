@@ -87,13 +87,13 @@
       },
       "filterByCategories": {
         "title": "Filter by categories",
-        "description": "Show a dropdown containing all categories allowing you to filter your posts by the selected category.",
+        "description": "Shows a dropdown containing all categories allowing you to filter your posts by the selected category.",
         "type": "boolean",
         "default": false
       },
       "filterByTags": {
         "title": "Filter by tags",
-        "description": "Show a dropdown containing all tags allowing you to filter your posts by the selected tag.",
+        "description": "Shows a dropdown containing all tags allowing you to filter your posts by the selected tag.",
         "type": "boolean",
         "default": false
       }

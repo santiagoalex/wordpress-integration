@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Dropdown } from 'vtex.styleguide'
-import { FormattedMessage } from 'react-intl'
-
+import { defineMessages, useIntl } from 'react-intl'
 
 interface WordpressTagSelectProps {
   tags: any,
@@ -14,34 +13,36 @@ const WordpressTagSelect: StorefrontFunctionComponent<WordpressTagSelectProps> =
   selectedTag,
   setSelectedTag
 }) => {
-
+  const intl = useIntl()
   const tagOptions = [
     {
-      value: "all", label: "All tags"
+      value: "all", label: intl.formatMessage(messages.allTags) 
     },
     ...tags.map((tag: any) => (
-      { value: tag["id"].toString(), label: tag["__typename"] }
+      { value: tag.id, label: tag.__typename }
     ))
   ]
 
-  useEffect(() => {
-    console.log("tagOptions:", tagOptions);
-  }, [tags])
-
   return (
     <Dropdown
-      placeholder={
-        <FormattedMessage
-          id={'store/wordpress-integration.WordpressTagSelect.filterByTag'}
-          defaultMessage={'Filter by tag'}
-        />
-      }
+      placeholder={ intl.formatMessage(messages.filterByTag) }
       options={tagOptions}
       value={selectedTag}
       onChange={(_: any, l: any) => setSelectedTag(l)}
     />
   )
 }
+
+const messages = defineMessages({
+  allTags: {
+    defaultMessage: 'All tags',
+    id: "store/wordpress-integration.WordpressTagSelect.allTags"
+  },
+  filterByTag: {
+    defaultMessage: 'Filter by tag',
+    id: "store/wordpress-integration.WordpressTagSelect.filterByTag"
+  }
+})
 
 
 export default WordpressTagSelect
