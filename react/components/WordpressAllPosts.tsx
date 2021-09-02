@@ -27,7 +27,7 @@ const CSS_HANDLES = [
   'listFlexItem',
   'paginationComponent',
   'categorySelect',
-  'tagSelect'
+  'tagSelect',
 ] as const
 
 interface AllPostsProps {
@@ -57,9 +57,9 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
   const [page, setPage] = useState(parseInt(initialPage, 10))
   const [perPage, setPerPage] = useState(postsPerPage)
   const [selectedOption, setSelectedOption] = useState(postsPerPage)
-  const [selectedCategory, setSelectedCategory] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState('')
   const [categories, setCategories] = useState([])
-  const [selectedTag, setSelectedTag] = useState("")
+  const [selectedTag, setSelectedTag] = useState('')
   const [tags, setTags] = useState([])
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
@@ -92,28 +92,22 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
     }
   }, [page])
   useEffect(() => {
-    console.log(data);
-
-    setCategories(data.wpPosts.posts
-      .reduce((acc: any, el: any) => [...acc, ...el.categories], [])
-      .reduce((acc: any, current: any) => {
-        const x = acc.find((item: any) => item.id === current.id);
-        if (!x) {
-          return acc.concat([current]);
-        } else {
-          return acc;
-        }
-      }, []))
-    setTags(data.wpPosts.posts
-      .reduce((acc: any, el: any) => [...acc, ...el.tags], [])
-      .reduce((acc: any, current: any) => {
-        const x = acc.find((item: any) => item.id === current.id);
-        if (!x) {
-          return acc.concat([current]);
-        } else {
-          return acc;
-        }
-      }, []))
+    setCategories(
+      data.wpPosts.posts
+        .reduce((acc: any, el: any) => [...acc, ...el.categories], [])
+        .reduce((acc: any, current: any) => {
+          const x = acc.find((item: any) => item.id === current.id)
+          return !x ? acc.concat([current]) : acc
+        }, [])
+    )
+    setTags(
+      data.wpPosts.posts
+        .reduce((acc: any, el: any) => [...acc, ...el.tags], [])
+        .reduce((acc: any, el: any) => {
+          const x = acc.find((item: any) => item.id === el.id)
+          return !x ? acc.concat([el]) : acc
+        }, [])
+    )
   }, [data])
 
   const PaginationComponent = (
@@ -132,7 +126,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
         dataS?.appSettings?.displayShowRowsText === false
           ? null
           : // eslint-disable-next-line @typescript-eslint/no-use-before-define
-          intl.formatMessage(messages.postsPerPage)
+            intl.formatMessage(messages.postsPerPage)
       }
       totalItems={data?.wpPosts?.total_count ?? 0}
       onRowsChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -229,7 +223,9 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
       <div className={`${handles.paginationComponent} ph3`}>
         {PaginationComponent}
       </div>
-      <div className={`${handles.categorySelect} flex flex-row justify-between mt3 ph3`}>
+      <div
+        className={`${handles.categorySelect} flex flex-row justify-between mt3 ph3`}
+      >
         {dataS?.appSettings?.filterByCategories && (
           <div className={`w-40`}>
             <WordpressCategorySelect
@@ -262,49 +258,47 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
       {data?.wpPosts ? (
         <Fragment>
           <div className={`${handles.listFlex} mv4 flex flex-row flex-wrap`}>
-            {
-              data.wpPosts.posts
-                .filter((post: any) => (
-                  (
-                    (selectedCategory && selectedCategory !== "all") ? (
-                      post.categories.find((category: any) => category.name === selectedCategory)
-                    ) : post
-                  )
-                  &&
-                  (
-                    (selectedTag && selectedTag !== "all") ? (
-                      post.tags.find((tag: any) => tag.id == selectedTag)
-                    ) : post
-                  )
-                ))
-                .map((post: PostData, index: number) => (
-                  <div
-                    key={index}
-                    className={`${handles.listFlexItem} mv3 w-100-s w-50-l ph4`}
-                  >
-                    <WordpressTeaser
-                      title={post.title.rendered}
-                      author={post.author ? post.author.name : ''}
-                      categories={post.categories}
-                      subcategoryUrls={subcategoryUrls}
-                      excerpt={post.excerpt.rendered}
-                      date={post.date}
-                      id={post.id}
-                      slug={post.slug}
-                      link={post.link}
-                      customDomainSlug={customDomainSlug}
-                      featuredMedia={post.featured_media}
-                      mediaSize={mediaSize}
-                      showAuthor={false}
-                      showCategory
-                      showDate
-                      showExcerpt
-                      useTextOverlay={false}
-                      absoluteLinks={false}
-                    />
-                  </div>
-                ))
-            }
+            {data.wpPosts.posts
+              .filter(
+                (post: any) =>
+                  (selectedCategory && selectedCategory !== 'all'
+                    ? post.categories.find(
+                        (category: any) => category.name === selectedCategory
+                      )
+                    : post) &&
+                  (selectedTag && selectedTag !== 'all'
+                    ? post.tags.find(
+                        (tag: any) => tag.id === parseInt(selectedTag, 10)
+                      )
+                    : post)
+              )
+              .map((post: PostData, index: number) => (
+                <div
+                  key={index}
+                  className={`${handles.listFlexItem} mv3 w-100-s w-50-l ph4`}
+                >
+                  <WordpressTeaser
+                    title={post.title.rendered}
+                    author={post.author ? post.author.name : ''}
+                    categories={post.categories}
+                    subcategoryUrls={subcategoryUrls}
+                    excerpt={post.excerpt.rendered}
+                    date={post.date}
+                    id={post.id}
+                    slug={post.slug}
+                    link={post.link}
+                    customDomainSlug={customDomainSlug}
+                    featuredMedia={post.featured_media}
+                    mediaSize={mediaSize}
+                    showAuthor={false}
+                    showCategory
+                    showDate
+                    showExcerpt
+                    useTextOverlay={false}
+                    absoluteLinks={false}
+                  />
+                </div>
+              ))}
           </div>
           <div className={`${handles.paginationComponent} ph3 mb7`}>
             {PaginationComponent}
