@@ -520,6 +520,8 @@ type Settings {
   titleTag: String
   blogRoute: String
   displayShowRowsText: Boolean
+  filterByCategories: Boolean
+  filterByTags: Boolean
 }
 
 type HeaderTags {

@@ -7,6 +7,8 @@ interface Settings {
   displayShowRowsText?: boolean
   ignoreRobotsMetaTag?: boolean
   initializeSitemap?: boolean
+  filterByCategories?: boolean
+  filterByTags?: boolean
 }
 
 interface AppSettings extends Settings {

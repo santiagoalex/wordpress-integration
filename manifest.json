@@ -84,6 +84,18 @@
         "description": "Create the initial sitemap entries (/blog-posts and /blog-categories) in the stores root sitemap. If setting up the app for the first time, leave this enabled so the sitemap is updated with these entries. If this is not the first time you have set up the Wordpress app, ensure the sitemap entries are not in your sitemap before changing this setting, it could result in duplicate sitemap entries.",
         "type": "boolean",
         "default": true
+      },
+      "filterByCategories": {
+        "title": "Filter by categories",
+        "description": "Show a dropdown containing all categories allowing you to filter your posts by the selected category.",
+        "type": "boolean",
+        "default": false
+      },
+      "filterByTags": {
+        "title": "Filter by tags",
+        "description": "Show a dropdown containing all tags allowing you to filter your posts by the selected tag.",
+        "type": "boolean",
+        "default": false
       }
     }
   },

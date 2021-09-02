@@ -15,7 +15,7 @@ const WordpressCategorySelect: StorefrontFunctionComponent<WordpressCategorySele
 }) => {
 
   const categoryOptions = [
-    { value: "all", label: "All" },
+    { value: "all", label: "All categories" },
     ...categories.map((cat: any) => (
       { value: cat.name, label: cat.name }
     ))
