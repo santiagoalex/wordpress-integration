@@ -1,5 +1,6 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Dropdown } from 'vtex.styleguide'
+import { FormattedMessage } from 'react-intl'
 
 
 interface WordpressTagSelectProps {
@@ -8,48 +9,39 @@ interface WordpressTagSelectProps {
   setSelectedTag: any
 }
 
-const WordpressCategorySelect: StorefrontFunctionComponent<WordpressTagSelectProps> = ({
+const WordpressTagSelect: StorefrontFunctionComponent<WordpressTagSelectProps> = ({
   tags,
   selectedTag,
   setSelectedTag
 }) => {
 
-  
-
-
-
-  // const tagOptions = [
-  //   { value: 'all', label: 'All' },
-  //   { value: 'mastercard', label: 'Mastercard' },
-  //   { value: 'elo', label: 'Elo' },
-  //   { value: 'diners', label: 'Diners' },
-  //   { value: 'giftcard', label: 'Gift Card' },
-  //   { value: 'amex', label: 'American Express' },
-  // ]
-
   const tagOptions = [
-    { value: "all", label: "All tags" },
+    {
+      value: "all", label: "All tags"
+    },
     ...tags.map((tag: any) => (
-      { value: tag["id"].toString(), label: tag["id"] }
+      { value: tag["id"].toString(), label: tag["__typename"] }
     ))
   ]
 
   useEffect(() => {
-   console.log("tagOptions:", tagOptions);
-   
+    console.log("tagOptions:", tagOptions);
   }, [tags])
 
   return (
     <Dropdown
-      placeholder="Filter by tag"
+      placeholder={
+        <FormattedMessage
+          id={'store/wordpress-integration.WordpressTagSelect.filterByTag'}
+          defaultMessage={'Filter by tag'}
+        />
+      }
       options={tagOptions}
       value={selectedTag}
       onChange={(_: any, l: any) => setSelectedTag(l)}
     />
   )
-
-  
 }
 
 
-export default WordpressCategorySelect
+export default WordpressTagSelect
