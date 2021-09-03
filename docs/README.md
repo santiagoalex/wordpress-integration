@@ -27,7 +27,7 @@ In your VTEX account's admin, perform the following actions:
 5. If your Wordpress installation's API is hosted under a path other than `wp-json/wp/v2/`, enter the path in the **Wordpress API path** field. For example, if the `posts` endpoint looks like `https://example.wordpress.com/index.php?rest_route=/wp/v2/posts`, enter `index.php?rest_route=/wp/v2/` here. If unsure, leave the field blank.
 6. Enter the **Title tag for block homepage** which will determine the title tag for the Wordpress portions of your store.
 7. Enter the **Store blog home path** which is used to include Wordpress posts in the sitemap and be indexed by search engines. For example, the path to your store's blog is www.my-store.com/blog, you would enter 'blog'.
-8. Select the filters that you want to show, this filters will appear as part of the pagination in the both search posts and all posts views, you can filter by category or/and tag.
+8. Select the filters that you want to show, this filters will appear as part of the pagination in both search posts and all posts views, you can filter by category or/and tag.
 9. Save your changes.
 
 ⚠️ If you have a security plugin installed on your WordPress installation (such as WordFence), ensure it is not blocking requests to `/users` or `/?author=N` queries.
