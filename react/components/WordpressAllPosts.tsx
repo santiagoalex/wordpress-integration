@@ -26,8 +26,9 @@ const CSS_HANDLES = [
   'listFlex',
   'listFlexItem',
   'paginationComponent',
-  'categorySelect',
-  'tagSelect',
+  'filtersContainer',
+  'categorySelectContainer',
+  'tagSelectContainer',
 ] as const
 
 interface AllPostsProps {
@@ -224,10 +225,10 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
         {PaginationComponent}
       </div>
       <div
-        className={`${handles.categorySelect} flex flex-row justify-between mt3 ph3`}
+        className={`${handles.filtersContainer} flex flex-row justify-between mt3 ph3`}
       >
         {dataS?.appSettings?.filterByCategories && (
-          <div className={`w-40`}>
+          <div className={`${handles.categorySelectContainer} w-40`}>
             <WordpressCategorySelect
               categories={categories}
               selectedCategory={selectedCategory}
@@ -236,7 +237,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
           </div>
         )}
         {dataS?.appSettings?.filterByTags && (
-          <div className={`w-40`}>
+          <div className={`${handles.tagSelectContainer} w-40`}>
             <WordpressTagSelect
               selectedTag={selectedTag}
               setSelectedTag={setSelectedTag}

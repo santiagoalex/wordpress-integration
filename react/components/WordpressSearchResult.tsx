@@ -36,7 +36,8 @@ const CSS_HANDLES = [
   'listFlexItem',
   'searchListFlexItem',
   'paginationComponent',
-  'categorySelect',
+  'filtersContainer',
+  'categorySelectContainer',
 ] as const
 
 const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
@@ -246,10 +247,10 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
           {paginationComponent}
         </div>
         <div
-          className={`${handles.categorySelect} flex flex-row justify-between mt3 ph3`}
+          className={`${handles.filtersContainer} flex flex-row justify-between mt3 ph3`}
         >
           {dataS?.appSettings?.filterByCategories && (
-            <div className={`w-40`}>
+            <div className={`${handles.categorySelectContainer} w-40`}>
               <WordpressCategorySelect
                 categories={categories}
                 selectedCategory={selectedCategory}
