@@ -20,6 +20,10 @@ query SearchPosts(
       excerpt {
         rendered
       }
+      tags {
+        id
+        name
+      }
       categories(customDomain: $customDomain) {
         name
         id

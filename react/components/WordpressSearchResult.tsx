@@ -18,6 +18,7 @@ import WordpressTeaser from './WordpressTeaser'
 import SearchPosts from '../graphql/SearchPosts.graphql'
 import Settings from '../graphql/Settings.graphql'
 import WordpressCategorySelect from './WordpressCategorySelect'
+import WordpressTagSelect from './WordpressTagSelect'
 
 interface SearchProps {
   customDomains: string
@@ -38,6 +39,7 @@ const CSS_HANDLES = [
   'paginationComponent',
   'filtersContainer',
   'categorySelectContainer',
+  'tagSelectContainer',
 ] as const
 
 const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
@@ -72,6 +74,8 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
   const [selectedOption, setSelectedOption] = useState(postsPerPage)
   const [selectedCategory, setSelectedCategory] = useState('')
   const [categories, setCategories] = useState([])
+  const [selectedTag, setSelectedTag] = useState('')
+  const [tags, setTags] = useState([])
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data, fetchMore } = useQuery(SearchPosts, {
@@ -105,14 +109,24 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
   }, [page])
 
   useEffect(() => {
-    setCategories(
-      [...data.wpPostsSearch.posts]
-        .reduce((acc: any, el: any) => [...acc, ...el.categories], [])
-        .reduce((acc: any, current: any) => {
-          const x = acc.find((item: any) => item.id === current.id)
-          return !x ? acc.concat([current]) : acc
-        }, [])
-    )
+    data &&
+      setCategories(
+        data.wpPostsSearch.posts
+          .reduce((acc: any, el: any) => [...acc, ...el.categories], [])
+          .reduce((acc: any, current: any) => {
+            const x = acc.find((item: any) => item.id === current.id)
+            return !x ? acc.concat([current]) : acc
+          }, [])
+      )
+    data &&
+      setTags(
+        data.wpPostsSearch.posts
+          .reduce((acc: any, el: any) => [...acc, ...el.tags], [])
+          .reduce((acc: any, el: any) => {
+            const x = acc.find((item: any) => item.id === el.id)
+            return !x ? acc.concat([el]) : acc
+          }, [])
+      )
   }, [data])
 
   if (!params?.term && !params?.term_id) return null
@@ -258,6 +272,15 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
               />
             </div>
           )}
+          {dataS?.appSettings?.filterByTags && (
+            <div className={`${handles.tagSelectContainer} w-40`}>
+              <WordpressTagSelect
+                selectedTag={selectedTag}
+                setSelectedTag={setSelectedTag}
+                tags={tags}
+              />
+            </div>
+          )}
         </div>
         {(loading || loadingS) && (
           <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
@@ -275,12 +298,16 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
               className={`${handles.listFlex} ${handles.searchListFlex} mv4 flex flex-row flex-wrap`}
             >
               {data.wpPostsSearch.posts
-                .filter((post: any) =>
-                  selectedCategory && selectedCategory !== 'all'
-                    ? post.categories.find(
-                        (category: any) => category.name === selectedCategory
-                      )
-                    : post
+                .filter(
+                  (post: any) =>
+                    (selectedCategory && selectedCategory !== 'all'
+                      ? post.categories.find(
+                          (category: any) => category.name === selectedCategory
+                        )
+                      : post) &&
+                    (selectedTag && selectedTag !== 'all'
+                      ? post.tags.find((tag: any) => tag.name === selectedTag)
+                      : post)
                 )
                 .map((post: PostData, index: number) => (
                   <div

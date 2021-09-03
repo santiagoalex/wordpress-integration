@@ -93,22 +93,24 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
     }
   }, [page])
   useEffect(() => {
-    setCategories(
-      data.wpPosts.posts
-        .reduce((acc: any, el: any) => [...acc, ...el.categories], [])
-        .reduce((acc: any, current: any) => {
-          const x = acc.find((item: any) => item.id === current.id)
-          return !x ? acc.concat([current]) : acc
-        }, [])
-    )
-    setTags(
-      data.wpPosts.posts
-        .reduce((acc: any, el: any) => [...acc, ...el.tags], [])
-        .reduce((acc: any, el: any) => {
-          const x = acc.find((item: any) => item.id === el.id)
-          return !x ? acc.concat([el]) : acc
-        }, [])
-    )
+    data &&
+      setCategories(
+        data.wpPosts.posts
+          .reduce((acc: any, el: any) => [...acc, ...el.categories], [])
+          .reduce((acc: any, current: any) => {
+            const x = acc.find((item: any) => item.id === current.id)
+            return !x ? acc.concat([current]) : acc
+          }, [])
+      )
+    data &&
+      setTags(
+        data.wpPosts.posts
+          .reduce((acc: any, el: any) => [...acc, ...el.tags], [])
+          .reduce((acc: any, el: any) => {
+            const x = acc.find((item: any) => item.id === el.id)
+            return !x ? acc.concat([el]) : acc
+          }, [])
+      )
   }, [data])
 
   const PaginationComponent = (
