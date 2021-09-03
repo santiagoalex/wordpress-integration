@@ -20,7 +20,7 @@ const WordpressTagSelect: StorefrontFunctionComponent<WordpressTagSelectProps> =
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
       label: intl.formatMessage(messages.allTags),
     },
-    ...tags.map((tag: any) => ({ value: tag.id, label: tag.__typename })),
+    ...tags.map((tag: any) => ({ value: tag.id, label: tag.name })),
   ]
 
   return (
