@@ -26,6 +26,7 @@ query AllPosts(
       }
       tags {
         id
+        name
       }
       categories(customDomain: $customDomain) {
         name

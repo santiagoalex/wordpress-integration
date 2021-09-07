@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Add filters in WordpressAllPosts and WordpressSearchResult.
+
 ## [2.14.0] - 2021-09-01
 
 ### Added

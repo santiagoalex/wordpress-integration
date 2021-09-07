@@ -17,6 +17,8 @@ import { useCssHandles } from 'vtex.css-handles'
 import WordpressTeaser from './WordpressTeaser'
 import SearchPosts from '../graphql/SearchPosts.graphql'
 import Settings from '../graphql/Settings.graphql'
+import WordpressCategorySelect from './WordpressCategorySelect'
+import WordpressTagSelect from './WordpressTagSelect'
 
 interface SearchProps {
   customDomains: string
@@ -35,6 +37,9 @@ const CSS_HANDLES = [
   'listFlexItem',
   'searchListFlexItem',
   'paginationComponent',
+  'filtersContainer',
+  'categorySelectContainer',
+  'tagSelectContainer',
 ] as const
 
 const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
@@ -67,6 +72,10 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
   const [page, setPage] = useState(parseInt(initialPage, 10))
   const [perPage, setPerPage] = useState(postsPerPage)
   const [selectedOption, setSelectedOption] = useState(postsPerPage)
+  const [selectedCategory, setSelectedCategory] = useState('')
+  const [categories, setCategories] = useState([])
+  const [selectedTag, setSelectedTag] = useState('')
+  const [tags, setTags] = useState([])
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data, fetchMore } = useQuery(SearchPosts, {
@@ -98,6 +107,27 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
       })
     }
   }, [page])
+
+  useEffect(() => {
+    data &&
+      setCategories(
+        data.wpPostsSearch.posts
+          .reduce((acc: any, el: any) => [...acc, ...el.categories], [])
+          .reduce((acc: any, current: any) => {
+            const x = acc.find((item: any) => item.id === current.id)
+            return !x ? acc.concat([current]) : acc
+          }, [])
+      )
+    data &&
+      setTags(
+        data.wpPostsSearch.posts
+          .reduce((acc: any, el: any) => [...acc, ...el.tags], [])
+          .reduce((acc: any, el: any) => {
+            const x = acc.find((item: any) => item.id === el.id)
+            return !x ? acc.concat([el]) : acc
+          }, [])
+      )
+  }, [data])
 
   if (!params?.term && !params?.term_id) return null
 
@@ -230,6 +260,28 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
         <div className={`${handles.paginationComponent} ph3`}>
           {paginationComponent}
         </div>
+        <div
+          className={`${handles.filtersContainer} flex flex-row justify-between mt3 ph3`}
+        >
+          {dataS?.appSettings?.filterByCategories && (
+            <div className={`${handles.categorySelectContainer} w-40`}>
+              <WordpressCategorySelect
+                categories={categories}
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+              />
+            </div>
+          )}
+          {dataS?.appSettings?.filterByTags && (
+            <div className={`${handles.tagSelectContainer} w-40`}>
+              <WordpressTagSelect
+                selectedTag={selectedTag}
+                setSelectedTag={setSelectedTag}
+                tags={tags}
+              />
+            </div>
+          )}
+        </div>
         {(loading || loadingS) && (
           <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
             <Spinner />
@@ -245,33 +297,45 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
             <div
               className={`${handles.listFlex} ${handles.searchListFlex} mv4 flex flex-row flex-wrap`}
             >
-              {data.wpPostsSearch.posts.map((post: PostData, index: number) => (
-                <div
-                  key={index}
-                  className={`${handles.listFlexItem} ${handles.searchListFlexItem} mv3 w-100-s w-50-l ph4`}
-                >
-                  <WordpressTeaser
-                    title={post.title.rendered}
-                    author={post.author.name}
-                    categories={post.categories}
-                    subcategoryUrls={subcategoryUrls}
-                    customDomainSlug={params.customdomainslug}
-                    excerpt={post.excerpt.rendered}
-                    date={post.date}
-                    id={post.id}
-                    slug={post.slug}
-                    link={post.link}
-                    featuredMedia={post.featured_media}
-                    mediaSize={mediaSize}
-                    showAuthor={false}
-                    showCategory
-                    showDate
-                    showExcerpt
-                    absoluteLinks={false}
-                    useTextOverlay={false}
-                  />
-                </div>
-              ))}
+              {data.wpPostsSearch.posts
+                .filter(
+                  (post: any) =>
+                    (selectedCategory && selectedCategory !== 'all'
+                      ? post.categories.find(
+                          (category: any) => category.name === selectedCategory
+                        )
+                      : post) &&
+                    (selectedTag && selectedTag !== 'all'
+                      ? post.tags.find((tag: any) => tag.name === selectedTag)
+                      : post)
+                )
+                .map((post: PostData, index: number) => (
+                  <div
+                    key={index}
+                    className={`${handles.listFlexItem} ${handles.searchListFlexItem} mv3 w-100-s w-50-l ph4`}
+                  >
+                    <WordpressTeaser
+                      title={post.title.rendered}
+                      author={post.author.name}
+                      categories={post.categories}
+                      subcategoryUrls={subcategoryUrls}
+                      customDomainSlug={params.customdomainslug}
+                      excerpt={post.excerpt.rendered}
+                      date={post.date}
+                      id={post.id}
+                      slug={post.slug}
+                      link={post.link}
+                      featuredMedia={post.featured_media}
+                      mediaSize={mediaSize}
+                      showAuthor={false}
+                      showCategory
+                      showDate
+                      showExcerpt
+                      absoluteLinks={false}
+                      useTextOverlay={false}
+                    />
+                  </div>
+                ))}
             </div>
             <div className={`${handles.paginationComponent} ph3 mb7`}>
               {paginationComponent}

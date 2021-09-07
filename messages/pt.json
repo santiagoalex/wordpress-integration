@@ -85,5 +85,9 @@
   "store/wordpress-integration.wordpressPost.postedIn": "Postado {formattedDate} em ",
   "store/wordpress-integration.wordpressPost.byAuthor": " por {name}",
   "store/wordpress-integration.wordpressPage.posted": "Postado {formattedDate} ",
-  "store/wordpress-integration.wordpressPage.byAuthor": " por {name}"
+  "store/wordpress-integration.wordpressPage.byAuthor": " por {name}",
+  "store/wordpress-integration.wordpressCategorySelect.allCategories": "Todas as categorias",
+  "store/wordpress-integration.wordpressCategorySelect.filterByCategory": "Filtrar por categoria",
+  "store/wordpress-integration.WordpressTagSelect.allTags": "Todas as tags",
+  "store/wordpress-integration.WordpressTagSelect.filterByTag": "Filtrar por tags"
 }
