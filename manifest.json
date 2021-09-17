@@ -38,9 +38,7 @@
     },
     "free": true,
     "type": "free",
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "settingsSchema": {
     "title": "Wordpress Integration",
@@ -60,11 +58,6 @@
       "titleTag": {
         "title": "Title tag for blog homepage",
         "description": "Will also be appended to inner blog pages",
-        "type": "string"
-      },
-      "blogPath": {
-        "title": "Store blog home path",
-        "description": "The app adds blog URLs to the sitemap, allowing for these pages to be index by search engines. Enter the path used to the store's blog home page, as found in the theme's `routes.json` file. Enter the string used without a beginning or ending slash, if '/blog', simply enter 'blog'",
         "type": "string"
       },
       "displayShowRowsText": {
@@ -112,6 +105,13 @@
       "attrs": {
         "host": "*",
         "path": "/wp-json/wp/v2/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "*",
+        "path": "/?__pickRuntime=pages"
       }
     },
     {
