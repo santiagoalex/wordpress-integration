@@ -1,9 +1,25 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { LogLevel, method } from '@vtex/api'
 
+import { getStoreBindings } from '../utils/bindings'
 import { queries } from './index'
 
 const API_MAX_QUANTITY = 100
+
+const isValidBaseAddress = (address: string) => {
+  return address.indexOf('myvtex') === -1 && address.indexOf('http') === -1
+}
+
+const getBaseUrl = async (ctx: Context) => {
+  const [storeBindings] = await getStoreBindings(ctx.clients.tenant)
+  const { canonicalBaseAddress } = storeBindings
+
+  const baseUrl = isValidBaseAddress(canonicalBaseAddress)
+    ? String(canonicalBaseAddress)
+    : String(ctx.vtex.host)
+
+  return baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl
+}
 
 const buildSitemap = (entries: string[]) => {
   return `
@@ -15,19 +31,19 @@ const buildSitemap = (entries: string[]) => {
 const buildEntries = ({
   entries,
   date,
-  host,
+  baseUrl,
   path,
 }: {
   entries: Array<WpCategory | WpPost> | null
   date: string
-  host: string | undefined
+  baseUrl: string
   path: string
 }) => {
-  if (!entries || !host) return []
+  if (!entries) return []
 
   return entries.map(
     entry => `<url>
-                <loc>https://${host}${path}${entry.slug}</loc>
+                <loc>https://${baseUrl}${path}${entry.slug}</loc>
                 <lastmod>${date}</lastmod>
                 <changefreq>monthly</changefreq>
                 <priority>0.7</priority>
@@ -39,6 +55,7 @@ export const routes = {
   postsSitemap: method({
     GET: async (ctx: Context) => {
       const path = await ctx.clients.storeRoutes.getPath('store.blog-post')
+      const baseUrl = await getBaseUrl(ctx)
       const sitemapContent = []
 
       if (path) {
@@ -66,7 +83,7 @@ export const routes = {
 
             const entries = buildEntries({
               entries: response?.posts,
-              host: ctx.vtex.host,
+              baseUrl,
               date,
               path,
             })
@@ -90,6 +107,7 @@ export const routes = {
   categoriesSitemap: method({
     GET: async (ctx: Context) => {
       const path = await ctx.clients.storeRoutes.getPath('store.blog-category')
+      const baseUrl = await getBaseUrl(ctx)
       const sitemapContent = []
 
       if (path) {
@@ -116,7 +134,7 @@ export const routes = {
 
             const entries = buildEntries({
               entries: response?.categories,
-              host: ctx.vtex.host,
+              baseUrl,
               date,
               path,
             })

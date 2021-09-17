@@ -21,9 +21,13 @@ export default class StoreRoutes extends ExternalClient {
   }
 
   public async getPath(page: BlogPage) {
+    const workspace = this.context.production
+      ? ''
+      : `${this.context.workspace}--`
+
     try {
       const routes = await this.http.get<PagesRuntime>(
-        `http://${this.context.host}/?__pickRuntime=pages`,
+        `http://${workspace}${this.context.account}.myvtex.com/?__pickRuntime=pages`,
         {
           headers: {
             'X-Vtex-Use-Https': true,
