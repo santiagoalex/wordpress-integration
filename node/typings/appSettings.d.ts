@@ -3,7 +3,6 @@ interface Settings {
   endpoint?: string
   apiPath?: string
   titleTag?: string
-  blogPath?: string
   displayShowRowsText?: boolean
   ignoreRobotsMetaTag?: boolean
   initializeSitemap?: boolean

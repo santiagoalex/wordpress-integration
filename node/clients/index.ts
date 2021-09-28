@@ -1,6 +1,7 @@
 import { ClientsConfig, IOClients, LRUCache } from '@vtex/api'
 
 import Sitemap from './sitemap'
+import StoreRoutes from './storeRoutes'
 import WordpressProxyDataSource from './wordpressProxy'
 
 const TIMEOUT_MS = 8000
@@ -17,6 +18,10 @@ metrics.trackCache('wordpressProxy', cacheStorage)
 export class Clients extends IOClients {
   public get wordpressProxy() {
     return this.getOrSet('wordpressProxy', WordpressProxyDataSource)
+  }
+
+  public get storeRoutes() {
+    return this.getOrSet('storeRoutes', StoreRoutes)
   }
 
   public get sitemap() {
