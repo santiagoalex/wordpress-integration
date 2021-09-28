@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.16.0] - 2021-09-28
+
 ### Added
 
 - Remove blog URL path entry in app settings and use store's routes to build sitemap
