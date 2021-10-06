@@ -170,6 +170,8 @@ The Wordpress Integration app provides the following blocks for your use:
 
 | `absoluteLinks` | `boolean` | Whether the links from each blog post should point to the external blog in a new tab (`true`) or not (`false`). | `false` |
 
+| `showPostButton` | `boolean` | Displays a button that allows the user to link directly to WP post (`true`) or not (`false`). | `false` |
+
 #### `blog-search.wordpress-search` props
 
 | Prop Name     | Type     | Description                    | Default value        |

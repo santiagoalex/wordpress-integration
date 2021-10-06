@@ -1,8 +1,9 @@
 import React, { FunctionComponent, Fragment, useMemo } from 'react'
-import { Card } from 'vtex.styleguide'
+import { Card, Button } from 'vtex.styleguide'
 import { Link, useRuntime } from 'vtex.render-runtime'
 import insane from 'insane'
 import { useCssHandles } from 'vtex.css-handles'
+import { defineMessages, useIntl } from 'react-intl'
 
 import linkParams from '../utils/categoryLinkParams'
 
@@ -25,6 +26,7 @@ interface TeaserProps {
   showExcerpt: boolean
   absoluteLinks: boolean
   useTextOverlay: boolean
+  showPostButton?: boolean
 }
 
 const sanitizerConfigStripAll = {
@@ -49,7 +51,16 @@ const CSS_HANDLES = [
   'teaserAuthor',
   'teaserDate',
   'teaserSeparator',
+  'titleAndExcerptContainer',
+  'teaserShowPostButton',
 ] as const
+
+const messages = defineMessages({
+  showPostButton: {
+    defaultMessage: 'Show post',
+    id: 'store/wordpress-integration.WordpressTeaser.showPostButton',
+  },
+})
 
 const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   title,
@@ -69,7 +80,9 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   showExcerpt,
   absoluteLinks,
   useTextOverlay,
+  showPostButton,
 }) => {
+  const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
   const {
     culture: { locale },
@@ -264,72 +277,76 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                     ></img>
                   </Link>
                 )}
-                <h3
-                  className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}
-                >
-                  {absoluteLinks ? (
-                    <Link
-                      className={`${handles.teaserTitleLink}`}
-                      to={link}
-                      target="_blank"
-                    >
-                      <span
-                        dangerouslySetInnerHTML={{ __html: sanitizedTitle }}
-                      />
-                    </Link>
-                  ) : (
-                    <Link
-                      className={`${handles.teaserTitleLink}`}
-                      page="store.blog-post"
-                      params={{
-                        slug,
-                        slug_id: slug,
-                        customdomainslug: customDomainSlug,
-                      }}
-                    >
-                      <span
-                        dangerouslySetInnerHTML={{ __html: sanitizedTitle }}
-                      />
-                    </Link>
-                  )}
-                </h3>
               </Fragment>
             )}
           </Fragment>
         )}
 
-        {mediaType !== 'image' && (
-          <h3 className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}>
-            {absoluteLinks ? (
-              <Link
-                className={`${handles.teaserTitleLink}`}
-                to={link}
-                target="_blank"
+        <div className={`${handles.titleAndExcerptContainer} flex-column`}>
+          {mediaType !== 'image' ||
+            (mediaType === 'image' && !useTextOverlay && (
+              <h3
+                className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}
               >
-                <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
-              </Link>
-            ) : (
-              <Link
-                className={`${handles.teaserTitleLink}`}
-                page="store.blog-post"
-                params={{
-                  slug,
-                  slug_id: slug,
-                  customdomainslug: customDomainSlug,
-                }}
-              >
-                <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
-              </Link>
-            )}
-          </h3>
-        )}
-
-        {showExcerpt && (
-          <div
-            className={`${handles.teaserBody} ph6 pb6`}
-            dangerouslySetInnerHTML={{ __html: sanitizedExcerpt }}
-          />
-        )}
+                {absoluteLinks ? (
+                  <Link
+                    className={`${handles.teaserTitleLink}`}
+                    to={link}
+                    target="_blank"
+                  >
+                    <span
+                      dangerouslySetInnerHTML={{ __html: sanitizedTitle }}
+                    />
+                  </Link>
+                ) : (
+                  <Link
+                    className={`${handles.teaserTitleLink}`}
+                    page="store.blog-post"
+                    params={{
+                      slug,
+                      slug_id: slug,
+                      customdomainslug: customDomainSlug,
+                    }}
+                  >
+                    <span
+                      dangerouslySetInnerHTML={{ __html: sanitizedTitle }}
+                    />
+                  </Link>
+                )}
+              </h3>
+            ))}
+          {showExcerpt && (
+            <div
+              className={`${handles.teaserBody} ph6 pb6`}
+              dangerouslySetInnerHTML={{ __html: sanitizedExcerpt }}
+            />
+          )}
+          {showPostButton && (
+            <>
+              {absoluteLinks ? (
+                <Link
+                  className={`${handles.teaserShowPostButton}`}
+                  to={link}
+                  target="_blank"
+                >
+                  <Button>{intl.formatMessage(messages.showPostButton)}</Button>
+                </Link>
+              ) : (
+                <Link
+                  className={`${handles.teaserShowPostButton}`}
+                  page="store.blog-post"
+                  params={{
+                    slug,
+                    slug_id: slug,
+                    customdomainslug: customDomainSlug,
+                  }}
+                >
+                  <Button>{intl.formatMessage(messages.showPostButton)}</Button>
+                </Link>
+              )}
+            </>
+          )}
+        </div>
       </Card>
     </div>
   )

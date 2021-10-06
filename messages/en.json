@@ -89,5 +89,6 @@
   "store/wordpress-integration.wordpressCategorySelect.allCategories": "All categories",
   "store/wordpress-integration.wordpressCategorySelect.filterByCategory": "Filter by category",
   "store/wordpress-integration.WordpressTagSelect.allTags": "All tags",
-  "store/wordpress-integration.WordpressTagSelect.filterByTag": "Filter by tags"
+  "store/wordpress-integration.WordpressTagSelect.filterByTag": "Filter by tags",
+  "store/wordpress-integration.WordpressTeaser.showPostButton": "Show post"
 }
