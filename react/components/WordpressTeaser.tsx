@@ -284,7 +284,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
 
         <div className={`${handles.titleAndExcerptContainer} flex-column`}>
           {mediaType !== 'image' ||
-            (mediaType === 'image' && !useTextOverlay && (
+            mediaType === 'image' && !useTextOverlay && (
               <h3
                 className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}
               >
@@ -314,7 +314,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                   </Link>
                 )}
               </h3>
-            ))}
+          )}
           {showExcerpt && (
             <div
               className={`${handles.teaserBody} ph6 pb6`}
