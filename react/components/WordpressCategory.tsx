@@ -82,6 +82,14 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
 
   const containerRef = useRef<null | HTMLElement>(null)
   const initialPageLoad = useRef(true)
+  const [loadingPage, setLoadingPage] = useState(true)
+
+  useEffect(() => {
+    setLoadingPage(true)
+  }, [page])
+  useEffect(() => {
+    data && setLoadingPage(false)
+  }, [data])
 
   useEffect(() => {
     if (initialPageLoad.current) {
@@ -225,7 +233,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
         <div className={`${handles.paginationComponent} ph3`}>
           {PaginationComponent}
         </div>
-        {(loading || loadingS) && (
+        {(loading || loadingS || loadingPage) && (
           <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
             <Spinner />
           </div>

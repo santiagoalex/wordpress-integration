@@ -90,6 +90,14 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
 
   const containerRef = useRef<null | HTMLElement>(null)
   const initialPageLoad = useRef(true)
+  const [loadingPage, setLoadingPage] = useState(true)
+
+  useEffect(() => {
+    setLoadingPage(true)
+  }, [page])
+  useEffect(() => {
+    data && setLoadingPage(false)
+  }, [data])
 
   useEffect(() => {
     if (initialPageLoad.current) {
@@ -282,7 +290,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
             </div>
           )}
         </div>
-        {(loading || loadingS) && (
+        {(loading || loadingS || loadingPage) && (
           <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
             <Spinner />
           </div>

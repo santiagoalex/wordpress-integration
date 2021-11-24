@@ -4,7 +4,7 @@ import Sitemap from './sitemap'
 import StoreRoutes from './storeRoutes'
 import WordpressProxyDataSource from './wordpressProxy'
 
-const TIMEOUT_MS = 8000
+const TIMEOUT_MS = 15000
 
 const defaultClientOptions = {
   retries: 2,
