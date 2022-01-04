@@ -171,7 +171,8 @@ const WordpressBreadcrumb: StorefrontFunctionComponent<Props> = ({
   try {
     parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
   } catch (e) {
-    console.error(e)
+    console.error(`${e.name}: ${e.message}`)
+    return null
   }
 
   const customDomain =
