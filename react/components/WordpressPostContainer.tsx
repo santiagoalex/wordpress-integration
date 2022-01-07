@@ -10,8 +10,10 @@ interface PostProps {
   customDomains: string
 }
 
-const WordpressPostContainer: StorefrontFunctionComponent<PostProps> = props => {
-  const { customDomains } = props
+const WordpressPostContainer: StorefrontFunctionComponent<PostProps> = ({
+  customDomains,
+  children,
+}) => {
   const {
     route: { params },
   } = useRuntime() as any
@@ -19,7 +21,8 @@ const WordpressPostContainer: StorefrontFunctionComponent<PostProps> = props => 
   try {
     parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
   } catch (e) {
-    console.error(e)
+    console.error(`${e.name}: ${e.message}`)
+    return null
   }
 
   const customDomain: string =
@@ -34,7 +37,7 @@ const WordpressPostContainer: StorefrontFunctionComponent<PostProps> = props => 
 
   return (
     <WPPostContainerContext.Provider value={{ query }}>
-      <div>{props.children}</div>
+      <div>{children}</div>
     </WPPostContainerContext.Provider>
   )
 }
