@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Quality engineering GitHub Actions (SonarCloud and Lint)
+
 ## [2.16.2] - 2022-01-07
 
 ### Added
