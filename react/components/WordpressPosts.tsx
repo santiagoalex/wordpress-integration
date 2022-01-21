@@ -49,7 +49,7 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
   const {
     route: { params },
     query,
-  } = useRuntime() as any
+  } = useRuntime()
 
   const initialPage = params.page ?? query?.page ?? '1'
   const [page, setPage] = useState(parseInt(initialPage, 10))
@@ -75,7 +75,6 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
   })
   const containerRef = useRef<null | HTMLElement>(null)
   const initialPageLoad = useRef(true)
-  const [loadingPage, setLoadingPage] = useState(true)
   const { terms: term } = variables
   const isSearchPosts = !!term
   const posts = isSearchPosts
@@ -83,14 +82,10 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
     : data?.wpPosts?.posts
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search)
-    const pageParam = queryParams.get('page')
-    pageParam && setPage(parseInt(pageParam, 10))
+    query?.page && setPage(parseInt(query.page, 10))
   }, [])
 
   useEffect(() => {
-    setLoadingPage(true)
-
     if (initialPageLoad.current) {
       initialPageLoad.current = false
       return
@@ -107,7 +102,6 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
   }, [page])
 
   useEffect(() => {
-    posts && setLoadingPage(false)
     posts &&
       setCategories(
         posts
@@ -200,7 +194,7 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
             </div>
           )}
         </div>
-        {(loading || loadingS || loadingPage) && (
+        {(loading || loadingS) && (
           <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
             <Spinner />
           </div>

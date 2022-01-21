@@ -20,7 +20,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
 }) => {
   const {
     route: { params },
-  } = useRuntime() as any
+  } = useRuntime()
   let parsedCustomDomains = null
   try {
     parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null

@@ -306,8 +306,7 @@ const WordpressPost: StorefrontFunctionComponent<PostProps> = ({
 }) => {
   const {
     route: { params },
-  } = useRuntime() as any
-
+  } = useRuntime()
   let parsedCustomDomains = null
   try {
     parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null

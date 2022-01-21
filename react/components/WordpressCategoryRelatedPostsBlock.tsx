@@ -112,7 +112,7 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
   const handles = useCssHandles(CSS_HANDLES)
   const {
     route: { params },
-  } = useRuntime() as any
+  } = useRuntime()
 
   if (!categoryIdentifier) {
     categoryIdentifier = params.id || ''

@@ -15,14 +15,12 @@ interface PaginationComponentProps {
   customDomain: any
   categoryVariable: any
 }
-
 const messages = defineMessages({
   postsPerPage: {
     defaultMessage: 'posts per page',
     id: 'store/wordpress-integration.wordpressPagination.postsPerPage',
   },
 })
-
 const PaginationComponent: FunctionComponent<PaginationComponentProps> = ({
   postsPerPage,
   page,
@@ -31,35 +29,20 @@ const PaginationComponent: FunctionComponent<PaginationComponentProps> = ({
   dataS,
   data,
   setPerPage,
-  fetchMore,
-  customDomain,
-  categoryVariable,
 }): JSX.Element => {
   const intl = useIntl()
-
   const {
     route: { id, params },
     pages,
     setQuery,
     navigate,
-  } = useRuntime() as any
-
+  } = useRuntime()
   const [selectedOption, setSelectedOption] = useState(postsPerPage)
-
   const totalItems =
     data?.wpPosts?.total_count ||
     data?.wpPostsSearch?.total_count ||
     data?.wpCategories?.categories[0]?.wpPosts?.total_count ||
     0
-
-  const variables = {
-    wp_page: page,
-    customDomain,
-  }
-
-  const fetchMoreVariables = categoryVariable
-    ? variables
-    : { ...variables, ...categoryVariable }
   return (
     <Pagination
       rowsOptions={[
@@ -93,13 +76,6 @@ const PaginationComponent: FunctionComponent<PaginationComponentProps> = ({
         }
         setSelectedOption(+value)
         setPerPage(+value)
-        fetchMore({
-          variables: { ...fetchMoreVariables, wp_per_page: +value },
-          updateQuery: (prev: any, { fetchMoreResult }: any) => {
-            if (!fetchMoreResult) return prev
-            return fetchMoreResult
-          },
-        })
       }}
       onPrevClick={() => {
         if (page <= 1) return
@@ -115,13 +91,6 @@ const PaginationComponent: FunctionComponent<PaginationComponentProps> = ({
         } else {
           setQuery({ page: prevPage.toString() })
         }
-        fetchMore({
-          variables: { ...fetchMoreVariables, wp_per_page: perPage },
-          updateQuery: (prev: any, { fetchMoreResult }: any) => {
-            if (!fetchMoreResult) return prev
-            return fetchMoreResult
-          },
-        })
       }}
       onNextClick={() => {
         const nextPage = page + 1
@@ -136,16 +105,8 @@ const PaginationComponent: FunctionComponent<PaginationComponentProps> = ({
         } else {
           setQuery({ page: nextPage.toString() })
         }
-        fetchMore({
-          variables: { ...fetchMoreVariables, wp_per_page: perPage },
-          updateQuery: (prev: any, { fetchMoreResult }: any) => {
-            if (!fetchMoreResult) return prev
-            return fetchMoreResult
-          },
-        })
       }}
     />
   )
 }
-
 export default PaginationComponent
