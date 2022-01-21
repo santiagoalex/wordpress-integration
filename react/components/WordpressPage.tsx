@@ -232,7 +232,7 @@ const WordpressPage: StorefrontFunctionComponent<PageProps> = ({
 }) => {
   const {
     route: { params },
-  } = useRuntime() as any
+  } = useRuntime()
 
   let parsedCustomDomains = null
   try {

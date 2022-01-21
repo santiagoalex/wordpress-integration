@@ -36,7 +36,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
     route: { params },
 
     query,
-  } = useRuntime() as any
+  } = useRuntime()
 
   let parsedCustomDomains = null
   try {
@@ -65,7 +65,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
   const { loading, error, data, fetchMore } = useQuery(CategoryPostsBySlug, {
     variables: {
       ...categoryVariable,
-      wp_page: 1,
+      wp_page: page,
       wp_per_page: perPage,
       customDomain,
     },
@@ -74,14 +74,10 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
 
   const containerRef = useRef<null | HTMLElement>(null)
   const initialPageLoad = useRef(true)
-  const [loadingPage, setLoadingPage] = useState(true)
 
   useEffect(() => {
-    setLoadingPage(true)
-  }, [page])
-  useEffect(() => {
-    data && setLoadingPage(false)
-  }, [data])
+    query?.page && setPage(parseInt(query.page, 10))
+  }, [])
 
   useEffect(() => {
     if (initialPageLoad.current) {
@@ -135,7 +131,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
             categoryVariable={categoryVariable}
           />
         </div>
-        {(loading || loadingS || loadingPage) && (
+        {(loading || loadingS) && (
           <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
             <Spinner />
           </div>
