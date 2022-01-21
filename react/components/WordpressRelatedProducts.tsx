@@ -1,5 +1,4 @@
 import { ProductList } from 'vtex.shelf'
-
 import React from 'react'
 import { Query, DataProps } from 'react-apollo'
 import { defineMessages } from 'react-intl'

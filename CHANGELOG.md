@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Remove duplicated lines between components by fucioning them.
+
 ### Added
 
 - Quality engineering GitHub Actions (SonarCloud and Lint)
