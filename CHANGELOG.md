@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.16.4] - 2022-01-21
+
 ### Fixed
 
 - Set page at the first loading dpeending on the url params.
