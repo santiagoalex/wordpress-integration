@@ -239,7 +239,6 @@ const WordpressPage: StorefrontFunctionComponent<PageProps> = ({
     parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
   } catch (e) {
     console.error(`${e.name}: ${e.message}`)
-    return null
   }
 
   const customDomain =

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Remove the null returns from the resolvers.
+
 ## [2.16.4] - 2022-01-21
 
 ### Fixed

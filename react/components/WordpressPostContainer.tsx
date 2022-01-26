@@ -22,7 +22,6 @@ const WordpressPostContainer: StorefrontFunctionComponent<PostProps> = ({
     parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
   } catch (e) {
     console.error(`${e.name}: ${e.message}`)
-    return null
   }
 
   const customDomain: string =
