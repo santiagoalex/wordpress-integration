@@ -14,7 +14,7 @@ export const postResolvers = {
     try {
       return await wordpressProxy.getUser(author, customDomain)
     } catch (e) {
-      return console.error(`${e.name}: ${e.message}`)
+      console.error(`${e.name}: ${e.message}`)
     }
   },
   categories: async (
@@ -97,10 +97,9 @@ export const postResolvers = {
       try {
         return await wordpressProxy.getMediaSingle(featured_media, customDomain)
       } catch (e) {
-        return console.error(`${e.name}: ${e.message}`)
+        console.error(`${e.name}: ${e.message}`)
       }
-    } else {
-      return null
     }
+    return null
   },
 }

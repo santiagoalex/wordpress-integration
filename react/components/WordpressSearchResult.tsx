@@ -26,7 +26,6 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
     parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
   } catch (e) {
     console.error(`${e.name}: ${e.message}`)
-    return null
   }
   const customDomain =
     params.customdomainslug && parsedCustomDomains

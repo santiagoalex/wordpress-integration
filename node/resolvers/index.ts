@@ -191,7 +191,7 @@ export const queries = {
       if (!result) return null
       return result
     } catch (e) {
-      return console.error(`${e.name}: ${e.message}`)
+      console.error(`${e.name}: ${e.message}`)
     }
   },
   wpTags: async (
