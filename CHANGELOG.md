@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix the documentation table about `mediaSize` props values and names.
+
 ## [2.17.0] - 2022-02-08
 ### Added
 
