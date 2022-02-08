@@ -35,6 +35,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
   numberOfPosts,
   customDomain,
   customDomainSlug,
+  showPostButton,
 }) => {
   const { route } = useRuntime()
   const { loading, error, data } = useQuery(CategoryPosts, {
@@ -107,6 +108,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
                   showExcerpt={showExcerpts}
                   useTextOverlay={useTextOverlays}
                   absoluteLinks={absoluteLinks}
+                  showPostButton={showPostButton}
                 />
               </div>
             ))}
@@ -168,6 +170,7 @@ interface WPCategoryBlockProps {
   mediaSize: MediaSize
   customDomain: string
   customDomainSlug: string
+  showPostButton: boolean
 }
 
 WordpressCategoryBlock.defaultProps = {
