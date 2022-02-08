@@ -224,11 +224,11 @@ The Wordpress Integration app provides the following blocks for your use:
 
 | Enum Name      | Enum Value     | Description                                                   |
 | -------------- | -------------- | ------------------------------------------------------------- |
-| `thumbnail`    | `Thumbnail`    | Uses the WordPress Media Settings `Thumbnail size` values.    |
-| `medium`       | `Medium`       | Uses the WordPress Media Settings `Medium size` values.       |
-| `medium_large` | `Medium Large` | Uses the WordPress Media Settings `Medium Large size` values. |
-| `large`        | `Large`        | Uses the WordPress Media Settings `Large size` values.        |
-| `full`         | `Full`         | Uses the original image size values.                          |
+| `Thumbnail`    | `thumbnail`    | Uses the WordPress Media Settings `Thumbnail size` values.    |
+| `Medium`       | `medium`       | Uses the WordPress Media Settings `Medium size` values.       |
+| `Medium Large` | `medium_large` | Uses the WordPress Media Settings `Medium Large size` values. |
+| `Large`        | `large`        | Uses the WordPress Media Settings `Large size` values.        |
+| `Full`         | `full`         | Uses the original image size values.                          |
 
 ### Paginated List Customization
 
