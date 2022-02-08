@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.17.0] - 2022-02-08
 ### Added
 
 - `showPostButton` prop to `blog-category-preview.wordpress-category-preview`, displays a button that allows the user to link directly to WP post
