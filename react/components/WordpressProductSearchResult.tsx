@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
 import React, {
@@ -11,6 +12,7 @@ import { defineMessages, useIntl } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { Spinner, Pagination } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
+import { useRuntime } from 'vtex.render-runtime'
 
 import WordpressTeaser from './WordpressTeaser'
 import withSearchContext from './withSearchContext'
@@ -46,21 +48,36 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
   mediaSize,
   postsPerPage,
 }) => {
+  const {
+    route: { params },
+    query,
+  } = useRuntime()
   const intl = useIntl()
-  const [page, setPage] = useState(1)
+  const initialPage = params.page ?? query?.page ?? '1'
+  const [page, setPage] = useState(parseInt(initialPage, 10))
   const [perPage, setPerPage] = useState(postsPerPage)
   const [selectedOption, setSelectedOption] = useState(postsPerPage)
   const handles = useCssHandles(CSS_HANDLES)
   const { data: dataS } = useQuery(Settings)
+  const [
+    {
+      categories: [category],
+    },
+  ] = searchQuery?.data?.productSearch.products ?? null
+  const terms = params?.term ?? category?.replaceAll('/', ' ').trim()
+  const variables = {
+    terms,
+    wp_page: 1,
+    wp_per_page: perPage,
+    customDomain,
+  }
   const { loading, error, data, fetchMore } = useQuery(SearchPosts, {
     skip: !searchQuery,
-    variables: {
-      terms: searchQuery?.data?.searchMetadata?.titleTag ?? null,
-      wp_page: 1,
-      wp_per_page: perPage,
-      customDomain,
-    },
+    variables,
   })
+  useEffect(() => {
+    console.log('terms::', terms)
+  }, [terms])
 
   const containerRef = useRef<null | HTMLElement>(null)
   const initialPageLoad = useRef(true)
@@ -109,7 +126,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
           variables: {
             wp_page: 1,
             wp_per_page: +value,
-            terms: searchQuery.data.searchMetadata.titleTag,
+            terms,
             customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
@@ -126,7 +143,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
           variables: {
             wp_page: prevPage,
             wp_per_page: perPage,
-            terms: searchQuery.data.searchMetadata.titleTag,
+            terms,
             customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
@@ -142,7 +159,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
           variables: {
             wp_page: nextPage,
             wp_per_page: perPage,
-            terms: searchQuery.data.searchMetadata.titleTag,
+            terms,
             customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
@@ -186,33 +203,35 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
             <div
               className={`${handles.listFlex} ${handles.searchListFlex} mv4 flex flex-row flex-wrap`}
             >
-              {data.wpPostsSearch.posts.map((post: PostData, index: number) => (
-                <div
-                  key={index}
-                  className={`${handles.listFlexItem} ${handles.searchListFlexItem} mv3 w-100-s w-50-l ph4`}
-                >
-                  <WordpressTeaser
-                    title={post.title.rendered}
-                    author={post.author.name}
-                    categories={post.categories}
-                    subcategoryUrls={subcategoryUrls}
-                    customDomainSlug={customDomainSlug}
-                    excerpt={post.excerpt.rendered}
-                    date={post.date}
-                    id={post.id}
-                    slug={post.slug}
-                    link={post.link}
-                    featuredMedia={post.featured_media}
-                    mediaSize={mediaSize}
-                    showAuthor={false}
-                    showCategory
-                    showDate
-                    showExcerpt
-                    useTextOverlay={false}
-                    absoluteLinks={false}
-                  />
-                </div>
-              ))}
+              {data.wpPostsSearch.posts
+                .filter((post: PostData) => post.featured_media)
+                .map((post: PostData, index: number) => (
+                  <div
+                    key={index}
+                    className={`${handles.listFlexItem} ${handles.searchListFlexItem} mv3 w-100-s w-50-l ph4`}
+                  >
+                    <WordpressTeaser
+                      title={post.title.rendered}
+                      author={post.author.name}
+                      categories={post.categories}
+                      subcategoryUrls={subcategoryUrls}
+                      customDomainSlug={customDomainSlug}
+                      excerpt={post.excerpt.rendered}
+                      date={post.date}
+                      id={post.id}
+                      slug={post.slug}
+                      link={post.link}
+                      featuredMedia={post.featured_media}
+                      mediaSize={mediaSize}
+                      showAuthor={false}
+                      showCategory
+                      showDate
+                      showExcerpt
+                      useTextOverlay={false}
+                      absoluteLinks={false}
+                    />
+                  </div>
+                ))}
             </div>
             <div className={`${handles.paginationComponent} ph3`}>
               {paginationComponent}
