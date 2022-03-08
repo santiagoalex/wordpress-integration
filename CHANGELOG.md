@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+-  Turn off initialize site map setting when the account has a secondary bindings.
+
 ## [2.18.0] - 2022-02-16
 
 ### Added
