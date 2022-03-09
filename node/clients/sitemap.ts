@@ -31,6 +31,21 @@ export default class Sitemap extends AppGraphQLClient {
       return false
     }
 
+    if (settings.bindingBounded && settings.settings.length > 0) {
+      const hasInitMap = settings.settings.find(
+        (binding: any) => binding.initializeSitemap
+      )
+      if (hasInitMap) {
+        for (let i = 0; i < settings.settings.length; i++) {
+          const binding = settings.settings[i]
+          binding.initializeSitemap = false
+        }
+        await apps.saveAppSettings(appId, settings)
+
+        return false
+      }
+    }
+
     return true
   }
 
