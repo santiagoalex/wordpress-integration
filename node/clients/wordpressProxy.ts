@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { ExternalClient, InstanceOptions, IOContext, Apps } from '@vtex/api'
 
 const DEFAULT_API_PATH = 'wp-json/wp/v2/'
@@ -77,7 +78,6 @@ export default class WordpressProxyDataSource extends ExternalClient {
       combinedArgs = await this.buildArgs(wpOptions)
       if (wpOptions.customDomain) endpoint = wpOptions.customDomain
     }
-
     return this.http.getRaw<WpPost[]>(
       `${endpoint}${this.apiPath}posts${combinedArgs}`,
       {

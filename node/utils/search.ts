@@ -8,8 +8,7 @@ const postsWithTag = async (
     slug: search,
     customDomain,
   })
-
-  const total = tags.reduce((sum, tag) => sum + tag.count, 0)
+  const total = tags.length
 
   if (!total)
     return {
@@ -20,7 +19,7 @@ const postsWithTag = async (
     }
 
   const pages = Math.ceil(total / perPage)
-  const partialPage = perPage - (total % perPage)
+  const partialPage = perPage - (total % perPage) - 1
   const tagIds = tags.map(tag => tag.id)
 
   if (page > pages) {
@@ -36,6 +35,7 @@ const postsWithTag = async (
   const { data } = await wordpressProxy.getPosts({
     page,
     per_page: perPage,
+    search,
     tags: tagIds,
     customDomain,
   })
