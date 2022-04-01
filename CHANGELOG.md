@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.18.2] - 2022-04-01
+
 ### Fixed
 
 - Take the search terms from the params, if no params terms, use first product category to create the terms.
