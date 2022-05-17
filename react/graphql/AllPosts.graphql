@@ -5,6 +5,9 @@ query AllPosts(
   $tags_exclude: [Int]
   $categories_exclude: [Int]
   $customDomain: String
+  $before: String
+  $after: String
+  $categories: [Int]
 ) {
   wpPosts(
     page: $wp_page
@@ -13,6 +16,9 @@ query AllPosts(
     tags_exclude: $tags_exclude
     categories_exclude: $categories_exclude
     customDomain: $customDomain
+    before: $before
+    after: $after
+    categories: $categories
   ) {
     posts {
       title {

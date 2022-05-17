@@ -12,7 +12,9 @@ import SearchPosts from '../graphql/SearchPosts.graphql'
 import WordpressTeaser from './WordpressTeaser'
 import WordpressCategorySelect from './WordpressCategorySelect'
 import WordpressTagSelect from './WordpressTagSelect'
+import WordpressDateSelect from './WordpressDateSelect'
 import PaginationComponent from './PaginationComponent'
+import getNextDay from '../utils/getNextDay'
 
 const CSS_HANDLES = [
   'listTitle',
@@ -23,6 +25,7 @@ const CSS_HANDLES = [
   'filtersContainer',
   'categorySelectContainer',
   'tagSelectContainer',
+  'dateSelectContainer',
   'searchListTitle',
   'searchListContainer',
   'searchListFlex',
@@ -55,24 +58,57 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
   const [page, setPage] = useState(parseInt(initialPage, 10))
   const [perPage, setPerPage] = useState(postsPerPage)
   const [selectedCategory, setSelectedCategory] = useState('')
+  const [selectedCategoryId, setSelectedCategoryId] = useState(undefined)
   const [categories, setCategories] = useState([])
   const [selectedTag, setSelectedTag] = useState('')
+  const [selectedTagId, setSelectedTagId] = useState(undefined)
   const [tags, setTags] = useState([])
+  const [date, setDate] = useState<Date | undefined>(undefined)
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined)
+  const [dateFilter, setDateFilter] = useState(false)
   const handles = useCssHandles(CSS_HANDLES)
+
+  const { loading: loadingS, data: dataS } = useQuery(Settings)
+
+  const filteredDateVariables =
+    dataS?.appSettings?.filterByDate && dateFilter
+      ? {
+          after: date?.toISOString(),
+          before: endDate
+            ? getNextDay(endDate)?.toISOString()
+            : getNextDay(date)?.toISOString(),
+        }
+      : {}
+
+  const filteredCategoryVariable =
+    dataS?.appSettings?.filterByCategories && selectedCategoryId
+      ? {
+          categories: [selectedCategoryId],
+        }
+      : {}
+
+  const filteredTagVariable =
+    dataS?.appSettings?.filterByTags && selectedTagId
+      ? {
+          tags: [selectedTagId],
+        }
+      : {}
 
   const variables = {
     wp_page: page,
     wp_per_page: 10,
     customDomain,
     terms: params.term || params.term_id,
+    ...filteredDateVariables,
+    ...filteredCategoryVariable,
+    ...filteredTagVariable,
   }
   const querySelected = variables.terms ? SearchPosts : AllPosts
-
-  const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data, fetchMore } = useQuery(querySelected, {
     skip: !params,
     variables,
   })
+
   const containerRef = useRef<null | HTMLElement>(null)
   const initialPageLoad = useRef(true)
   const { terms: term } = variables
@@ -181,6 +217,7 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
                 categories={categories}
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}
+                setSelectedCategoryId={setSelectedCategoryId}
               />
             </div>
           )}
@@ -190,6 +227,18 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
                 selectedTag={selectedTag}
                 setSelectedTag={setSelectedTag}
                 tags={tags}
+                setSelectedTagId={setSelectedTagId}
+              />
+            </div>
+          )}
+          {dataS?.appSettings?.filterByDate && (
+            <div className={`${handles.dateSelectContainer} w-40`}>
+              <WordpressDateSelect
+                date={date}
+                setDate={setDate}
+                endDate={endDate}
+                setEndDate={setEndDate}
+                setDateFilter={setDateFilter}
               />
             </div>
           )}
@@ -211,51 +260,37 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
                 isSearchPosts ? handles.searchListFlex : ''
               } mv4 flex flex-row flex-wrap`}
             >
-              {posts
-                .filter(
-                  (post: PostData) =>
-                    (selectedCategory && selectedCategory !== 'all'
-                      ? post.categories.find(
-                          (category: any) => category.name === selectedCategory
-                        )
-                      : post) &&
-                    (selectedTag && selectedTag !== 'all'
-                      ? post.tags.find((tag: any) => tag.name === selectedTag)
-                      : post)
-                )
-                .map((post: PostData, index: number) => (
-                  <div
-                    key={index}
-                    className={`${handles.listFlexItem} ${
-                      isSearchPosts ? handles.searchListFlexItem : ''
-                    } mv3 w-100-s w-50-l ph4`}
-                  >
-                    <WordpressTeaser
-                      title={post.title.rendered}
-                      author={post.author ? post.author.name : ''}
-                      categories={post.categories}
-                      subcategoryUrls={subcategoryUrls}
-                      excerpt={post.excerpt.rendered}
-                      date={post.date}
-                      id={post.id}
-                      slug={post.slug}
-                      link={post.link}
-                      customDomainSlug={
-                        isSearchPosts
-                          ? params.customdomainslug
-                          : customDomainSlug
-                      }
-                      featuredMedia={post.featured_media}
-                      mediaSize={mediaSize}
-                      showAuthor={false}
-                      showCategory
-                      showDate
-                      showExcerpt
-                      useTextOverlay={false}
-                      absoluteLinks={false}
-                    />
-                  </div>
-                ))}
+              {posts.map((post: PostData, index: number) => (
+                <div
+                  key={index}
+                  className={`${handles.listFlexItem} ${
+                    isSearchPosts ? handles.searchListFlexItem : ''
+                  } mv3 w-100-s w-50-l ph4`}
+                >
+                  <WordpressTeaser
+                    title={post.title.rendered}
+                    author={post.author ? post.author.name : ''}
+                    categories={post.categories}
+                    subcategoryUrls={subcategoryUrls}
+                    excerpt={post.excerpt.rendered}
+                    date={post.date}
+                    id={post.id}
+                    slug={post.slug}
+                    link={post.link}
+                    customDomainSlug={
+                      isSearchPosts ? params.customdomainslug : customDomainSlug
+                    }
+                    featuredMedia={post.featured_media}
+                    mediaSize={mediaSize}
+                    showAuthor={false}
+                    showCategory
+                    showDate
+                    showExcerpt
+                    useTextOverlay={false}
+                    absoluteLinks={false}
+                  />
+                </div>
+              ))}
             </div>
             <div className={`${handles.paginationComponent} ph3`}>
               <PaginationComponent

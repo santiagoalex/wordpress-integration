@@ -2,13 +2,23 @@ import WordpressProxyDataSource from '../clients/wordpressProxy'
 
 const postsWithTag = async (
   wordpressProxy: WordpressProxyDataSource,
-  { page, per_page: perPage, search, customDomain }: any
+  {
+    page,
+    per_page: perPage,
+    search,
+    customDomain,
+    before,
+    after,
+    categories,
+    tags: filterTag,
+  }: any
 ) => {
   const { data: tags } = await wordpressProxy.getTags({
     slug: search,
     customDomain,
+    include: filterTag,
   })
-  const total = tags.length
+  let total = tags.reduce((sum, tag) => sum + tag.count, 0)
 
   if (!total)
     return {
@@ -18,9 +28,24 @@ const postsWithTag = async (
       total: 0,
     }
 
-  const pages = Math.ceil(total / perPage)
-  const partialPage = perPage - (total % perPage) - 1
   const tagIds = tags.map(tag => tag.id)
+
+  // get correct post total if filtered by date or categories
+  if (before || after || categories) {
+    const { headers: filteredHeaders } = await wordpressProxy.getPosts({
+      search,
+      tags: tagIds,
+      customDomain,
+      before,
+      after,
+      categories,
+    })
+
+    total = Number(filteredHeaders['x-wp-total'])
+  }
+
+  const pages = Math.ceil(total / perPage)
+  const partialPage = perPage - (total % perPage)
 
   if (page > pages) {
     return {
@@ -38,6 +63,9 @@ const postsWithTag = async (
     search,
     tags: tagIds,
     customDomain,
+    before,
+    after,
+    categories,
   })
 
   return {
@@ -50,16 +78,34 @@ const postsWithTag = async (
 }
 const postsWithContent = async (
   wordpressProxy: WordpressProxyDataSource,
-  { page, per_page: perPage, search, customDomain }: any,
+  {
+    page,
+    per_page: perPage,
+    search,
+    customDomain,
+    before,
+    after,
+    categories,
+    tags,
+  }: any,
   { pages, partialPage, tagIds, data: tagPosts }: any
 ) => {
+  const contentPostPage = pages ? Math.max(page - pages, 1) : page
+  const contentPerPage = tagPosts.length ? partialPage : perPage
+  const postsOffset =
+    (contentPostPage - 1) * contentPerPage + Number(partialPage)
+
   const { headers, data } = await wordpressProxy.getPosts({
-    page: Math.max(page - pages, 1),
-    per_page: tagPosts.length ? partialPage : perPage,
+    page: contentPostPage === 1 ? 1 : undefined,
+    per_page: contentPerPage,
     search,
-    offset: tagPosts.length ? undefined : partialPage,
+    offset: tagPosts.length ? undefined : postsOffset,
     tags_exclude: tagIds || undefined,
     customDomain,
+    before,
+    after,
+    categories,
+    tags,
   })
 
   const posts = tagPosts.length === perPage ? [] : data

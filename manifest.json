@@ -38,9 +38,7 @@
     },
     "free": true,
     "type": "free",
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "settingsSchema": {
     "title": "Wordpress Integration",
@@ -89,6 +87,12 @@
       "filterByTags": {
         "title": "Filter by tags",
         "description": "Shows a dropdown containing all tags allowing you to filter your posts by the selected tag.",
+        "type": "boolean",
+        "default": false
+      },
+      "filterByDate": {
+        "title": "Filter by date",
+        "description": "Shows date fields to filter your posts by a single date or date range.",
         "type": "boolean",
         "default": false
       }

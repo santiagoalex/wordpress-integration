@@ -522,6 +522,7 @@ type Settings {
   displayShowRowsText: Boolean
   filterByCategories: Boolean
   filterByTags: Boolean
+  filterByDate: Boolean
 }
 
 type HeaderTags {
@@ -563,6 +564,10 @@ type Query {
     per_page: Int = 10
     search: String
     customDomain: String
+    before: String
+    after: String
+    categories: [Int]
+    tags: [Int]
   ): WPPostsResult @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
   wpPost(id: Int!, password: String, customDomain: String): WPPost
     @cacheControl(scope: PUBLIC, maxAge: MEDIUM)

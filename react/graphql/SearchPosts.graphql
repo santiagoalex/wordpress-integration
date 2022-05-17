@@ -3,12 +3,20 @@ query SearchPosts(
   $wp_per_page: Int
   $terms: String
   $customDomain: String
+  $before: String
+  $after: String
+  $categories: [Int]
+  $tags: [Int]
 ) {
   wpPostsSearch(
     page: $wp_page
     per_page: $wp_per_page
     search: $terms
     customDomain: $customDomain
+    before: $before
+    after: $after
+    categories: $categories
+    tags: $tags
   ) {
     posts {
       title {
