@@ -20,6 +20,7 @@ interface PostData {
   featured_media: WPMedia
   headerTags: HeaderTags
   tags: [WPTag]
+  amp_enabled: boolean
 }
 
 interface WPTitle {

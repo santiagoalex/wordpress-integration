@@ -10,6 +10,7 @@ interface AllPostsProps {
   subcategoryUrls: boolean
   mediaSize: MediaSize
   postsPerPage: number
+  ampLinks: boolean
 }
 
 const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
@@ -18,6 +19,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
   subcategoryUrls,
   mediaSize,
   postsPerPage,
+  ampLinks,
 }) => {
   return (
     <WordpressPosts
@@ -27,6 +29,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
       mediaSize={mediaSize}
       postsPerPage={postsPerPage}
       categoryVariable={null}
+      ampLinks={ampLinks}
     />
   )
 }

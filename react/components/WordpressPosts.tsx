@@ -39,6 +39,7 @@ interface PostsProps {
   postsPerPage: number
   customDomainSlug: string
   categoryVariable: any
+  ampLinks: boolean
 }
 
 const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
@@ -48,6 +49,7 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
   postsPerPage,
   customDomainSlug,
   categoryVariable,
+  ampLinks,
 }) => {
   const {
     route: { params },
@@ -296,6 +298,8 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
                     showExcerpt
                     useTextOverlay={false}
                     absoluteLinks={false}
+                    ampLinks={ampLinks}
+                    ampEnabled={post.amp_enabled}
                   />
                 </div>
               ))}

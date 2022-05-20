@@ -36,6 +36,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
   customDomain,
   customDomainSlug,
   showPostButton,
+  ampLinks,
 }) => {
   const { route } = useRuntime()
   const { loading, error, data } = useQuery(CategoryPosts, {
@@ -109,6 +110,8 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
                   useTextOverlay={useTextOverlays}
                   absoluteLinks={absoluteLinks}
                   showPostButton={showPostButton}
+                  ampLinks={ampLinks}
+                  ampEnabled={post.amp_enabled}
                 />
               </div>
             ))}
@@ -171,6 +174,7 @@ interface WPCategoryBlockProps {
   customDomain: string
   customDomainSlug: string
   showPostButton: boolean
+  ampLinks: boolean
 }
 
 WordpressCategoryBlock.defaultProps = {

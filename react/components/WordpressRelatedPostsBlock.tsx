@@ -28,6 +28,7 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
   mediaSize,
   customDomain,
   customDomainSlug,
+  ampLinks,
 }) => {
   const { product } = useContext(ProductContext) as any
   const { loading, error, data } = useQuery(TagPosts, {
@@ -78,6 +79,8 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
                     showExcerpt={showExcerpts}
                     absoluteLinks={absoluteLinks}
                     useTextOverlay={useTextOverlays}
+                    ampLinks={ampLinks}
+                    ampEnabled={post.amp_enabled}
                   />
                 </div>
               )
@@ -105,6 +108,7 @@ interface WPRelatedPostsBlockProps {
   mediaSize: MediaSize
   customDomain: string
   customDomainSlug: string
+  ampLinks: boolean
 }
 
 interface ProductProperties {

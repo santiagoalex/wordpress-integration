@@ -35,6 +35,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
   excludeCategories,
   customDomain,
   customDomainSlug,
+  ampLinks,
 }) => {
   const { route } = useRuntime()
   const { loading, error, data } = useQuery(AllPosts, {
@@ -99,6 +100,8 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     showExcerpt={showExcerpts}
                     absoluteLinks={absoluteLinks}
                     useTextOverlay={useTextOverlays}
+                    ampLinks={ampLinks}
+                    ampEnabled={posts[0].amp_enabled}
                   />
                 </div>
                 <div
@@ -128,6 +131,8 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                         showExcerpt={showExcerpts}
                         absoluteLinks={absoluteLinks}
                         useTextOverlay={useTextOverlays}
+                        ampLinks={ampLinks}
+                        ampEnabled={post.amp_enabled}
                       />
                     </div>
                   ))}
@@ -158,6 +163,8 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     showExcerpt={showExcerpts}
                     absoluteLinks={absoluteLinks}
                     useTextOverlay={useTextOverlays}
+                    ampLinks={ampLinks}
+                    ampEnabled={post.amp_enabled}
                   />
                 </div>
               ))
@@ -193,6 +200,7 @@ interface WPLatestPostsBlockProps {
   mediaSize: MediaSize
   customDomain: string
   customDomainSlug: string
+  ampLinks: boolean
 }
 
 WordpressLatestPostsBlock.defaultProps = {

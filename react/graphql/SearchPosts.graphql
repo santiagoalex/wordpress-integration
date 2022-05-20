@@ -65,6 +65,7 @@ query SearchPosts(
       id
       slug
       link
+      amp_enabled
     }
     total_count
   }

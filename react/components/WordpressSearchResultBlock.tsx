@@ -30,6 +30,7 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
   mediaSize,
   customDomain,
   customDomainSlug,
+  ampLinks,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { loading, error, data } = useQuery(SearchPosts, {
@@ -78,6 +79,8 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
                   showExcerpt={showExcerpts}
                   absoluteLinks={absoluteLinks}
                   useTextOverlay={useTextOverlays}
+                  ampLinks={ampLinks}
+                  ampEnabled={post.amp_enabled}
                 />
               </div>
             ))}
@@ -119,6 +122,7 @@ interface WPSearchResultBlockProps {
   mediaSize: MediaSize
   customDomain: string
   customDomainSlug: string
+  ampLinks: boolean
 }
 
 WordpressSearchResultBlock.defaultProps = {

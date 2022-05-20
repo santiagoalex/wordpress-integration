@@ -10,6 +10,7 @@ interface SearchProps {
   subcategoryUrls: boolean
   mediaSize: MediaSize
   postsPerPage: number
+  ampLinks: boolean
 }
 
 const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
@@ -17,6 +18,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
   subcategoryUrls,
   mediaSize,
   postsPerPage,
+  ampLinks,
 }) => {
   const {
     route: { params },
@@ -40,6 +42,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
       postsPerPage={postsPerPage}
       customDomainSlug={params.customDomainSlug}
       categoryVariable={null}
+      ampLinks={ampLinks}
     />
   )
 }

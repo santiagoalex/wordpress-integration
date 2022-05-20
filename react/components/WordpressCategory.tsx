@@ -166,6 +166,8 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
                       showExcerpt
                       useTextOverlay={false}
                       absoluteLinks={false}
+                      ampLinks={false}
+                      ampEnabled={post.amp_enabled}
                     />
                   </div>
                 )

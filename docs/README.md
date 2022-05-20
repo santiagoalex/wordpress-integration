@@ -149,8 +149,7 @@ The Wordpress Integration app provides the following blocks for your use:
 | `showAuthors`       | `boolean`       | Whether the post author should be shown (`true`) or not (`false`).                                                                                                                                                                           | `false`       |
 | `showExcerpts`      | `boolean`       | Whether the post excerpts should be shown (`true`) or not (`false`).                                                                                                                                                                         | `false`       |
 | `mediaSize`         | `MediaSizeEnum` | WordPress media image size that should be used in the blog's preview blocks.                                                                                                                                                                 | `full`        |
-
-| `absoluteLinks` | `boolean` | Whether the links from each blog post should point to the external blog in a new tab (`true`) or not (`false`). | `false` |
+| `absoluteLinks`     | `boolean`       | Whether the links from each blog post should point to the external blog in a new tab (`true`) or not (`false`).                                                                                                                              | `false`       |
 
 #### `blog-category-preview.wordpress-category-preview` props
 
@@ -167,10 +166,8 @@ The Wordpress Integration app provides the following blocks for your use:
 | `showAuthors`      | `boolean`       | Whether the post author should be shown (`true`) or not (`false`).                                                                                                                                                                          | `false`                  |
 | `showExcerpts`     | `boolean`       | Whether the post excerpts should be shown (`true`) or not (`false`).                                                                                                                                                                        | `false`                  |
 | `mediaSize`        | `MediaSizeEnum` | WordPress media image size that should be used in the blog's preview blocks.                                                                                                                                                                | `full`                   |
-
-| `absoluteLinks` | `boolean` | Whether the links from each blog post should point to the external blog in a new tab (`true`) or not (`false`). | `false` |
-
-| `showPostButton` | `boolean` | Displays a button that allows the user to link directly to WP post (`true`) or not (`false`). | `false` |
+| `absoluteLinks`    | `boolean`       | Whether the links from each blog post should point to the external blog in a new tab (`true`) or not (`false`).                                                                                                                             | `false`                  |
+| `showPostButton`   | `boolean`       | Displays a button that allows the user to link directly to WP post (`true`) or not (`false`).                                                                                                                                               | `false`                  |
 
 #### `blog-search.wordpress-search` props
 
@@ -195,8 +192,7 @@ The Wordpress Integration app provides the following blocks for your use:
 | `showAuthors`     | `boolean`       | Whether the post author should be shown (`true`) or not (`false`).                                                                                                                                                                           | `false`       |
 | `showExcerpts`    | `boolean`       | Whether the post excerpts should be shown (`true`) or not (`false`).                                                                                                                                                                         | `false`       |
 | `mediaSize`       | `MediaSizeEnum` | WordPress media image size that should be used in the blog's preview blocks.                                                                                                                                                                 | `full`        |
-
-| `absoluteLinks` | `boolean` | Whether the links from each blog post should point to the external blog in a new tab (`true`) or not (`false`). | `false` |
+| `absoluteLinks`   | `boolean`       | Whether the links from each blog post should point to the external blog in a new tab (`true`) or not (`false`).                                                                                                                              | `false`       |
 
 #### `blog-related-posts.wordpress-related-posts` props
 
@@ -210,8 +206,7 @@ The Wordpress Integration app provides the following blocks for your use:
 | `showAuthors`     | `boolean`       | Whether the post author should be shown (`true`) or not (`false`).                                                                                                                                                                           | `false`       |
 | `showExcerpts`    | `boolean`       | Whether the post excerpts should be shown (`true`) or not (`false`).                                                                                                                                                                         | `false`       |
 | `mediaSize`       | `MediaSizeEnum` | WordPress media image size that should be used in the blog's preview blocks.                                                                                                                                                                 | `full`        |
-
-| `absoluteLinks` | `boolean` | Whether the links from each blog post should point to the external blog in a new tab (`true`) or not (`false`). | `false` |
+| `absoluteLinks`   | `boolean`       | Whether the links from each blog post should point to the external blog in a new tab (`true`) or not (`false`).                                                                                                                              | `false`       |
 
 #### `blog-search-list.wordpress-category-related-posts` props
 

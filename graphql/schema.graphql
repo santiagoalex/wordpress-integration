@@ -23,6 +23,7 @@ type WPPost {
   template: String
   categories(customDomain: String): [WPCategory]
   tags(customDomain: String): [WPTag]
+  amp_enabled: Boolean
 }
 
 type WPGuid {
