@@ -8,6 +8,7 @@ interface Settings {
   initializeSitemap?: boolean
   filterByCategories?: boolean
   filterByTags?: boolean
+  filterByDate?: boolean
 }
 
 interface AppSettings extends Settings {

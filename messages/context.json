@@ -89,5 +89,6 @@
   "store/wordpress-integration.wordpressCategorySelect.filterByCategory": "store/wordpress-integration.wordpressCategorySelect.filterByCategory",
   "store/wordpress-integration.WordpressTagSelect.allTags": "store/wordpress-integration.WordpressTagSelect.allTags",
   "store/wordpress-integration.WordpressTagSelect.filterByTag": "store/wordpress-integration.WordpressTagSelect.filterByTag",
-  "store/wordpress-integration.WordpressTeaser.showPostButton": "store/wordpress-integration.WordpressTeaser.showPostButton"
+  "store/wordpress-integration.WordpressTeaser.showPostButton": "store/wordpress-integration.WordpressTeaser.showPostButton",
+  "store/wordpress-integration.wordpressDateSelect.filterByDate": "store/wordpress-integration.wordpressDateSelect.filterByDate"
 }

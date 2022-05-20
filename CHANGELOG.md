@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix search result pagination to display new results after the second page instead of repeating same posts
+
+### Added
+
+- Add date filter in WordpressPosts
+- Change category and tag filter in WordpressPosts to send request to WordPress API to update pagination correctly
+
 ## [2.18.2] - 2022-04-01
 
 ### Fixed
@@ -16,7 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
--  Turn off initialize site map setting when the account has a secondary bindings.
+- Turn off initialize site map setting when the account has a secondary bindings.
 
 ## [2.18.0] - 2022-02-16
 
@@ -31,6 +40,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix the documentation table about `mediaSize` props values and names.
 
 ## [2.17.0] - 2022-02-08
+
 ### Added
 
 - `showPostButton` prop to `blog-category-preview.wordpress-category-preview`, displays a button that allows the user to link directly to WP post

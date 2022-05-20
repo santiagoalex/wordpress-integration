@@ -106,6 +106,10 @@ export const queries = {
       per_page: number
       search?: string
       customDomain?: string
+      before?: string
+      after?: string
+      categories?: [number]
+      tags?: [number]
     },
     ctx: Context
   ): Promise<{ posts: WpPost[]; total_count: number }> => {
