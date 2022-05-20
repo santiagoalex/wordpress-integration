@@ -432,6 +432,11 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 | `categoryBlockFlexItem`                |
 | `categoryBlockLink`                    |
 | `categorySelectContainer`              |
+| `dateSelectContainer`                  |
+| `dateSelectInnerContainer`             |
+| `dateRangeInputsContainer`             |
+| `dateInputContainer`                   |
+| `dateFilterButtonsContainer`           |
 | `filtersContainer`                     |
 | `latestPostsBlockContainer`            |
 | `latestPostsBlockTitle`                |

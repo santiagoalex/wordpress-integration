@@ -174,6 +174,11 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
     ) : null
   }
 
+  const filterWidth =
+    dataS?.appSettings?.filterByCategories && dataS?.appSettings?.filterByTags
+      ? 'w-30'
+      : 'w-40'
+
   return (
     <Fragment>
       <HelmetComponent />
@@ -212,7 +217,9 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
           className={`${handles.filtersContainer} flex flex-row justify-between mt3 ph3`}
         >
           {dataS?.appSettings?.filterByCategories && (
-            <div className={`${handles.categorySelectContainer} w-40`}>
+            <div
+              className={`${handles.categorySelectContainer} ${filterWidth} ph2`}
+            >
               <WordpressCategorySelect
                 categories={categories}
                 selectedCategory={selectedCategory}
@@ -222,7 +229,7 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
             </div>
           )}
           {dataS?.appSettings?.filterByTags && (
-            <div className={`${handles.tagSelectContainer} w-40`}>
+            <div className={`${handles.tagSelectContainer} ${filterWidth} ph2`}>
               <WordpressTagSelect
                 selectedTag={selectedTag}
                 setSelectedTag={setSelectedTag}
@@ -232,12 +239,13 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
             </div>
           )}
           {dataS?.appSettings?.filterByDate && (
-            <div className={`${handles.dateSelectContainer} w-40`}>
+            <div className={`${handles.dateSelectContainer} w-40 ph2`}>
               <WordpressDateSelect
                 date={date}
                 setDate={setDate}
                 endDate={endDate}
                 setEndDate={setEndDate}
+                dateFilter={dateFilter}
                 setDateFilter={setDateFilter}
               />
             </div>
