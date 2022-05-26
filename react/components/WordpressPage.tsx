@@ -54,6 +54,8 @@ const sanitizerConfig = {
     'img',
     'iframe',
     'figure',
+    'source',
+    'video',
   ],
   allowedAttributes: {
     h1: allowClass,
@@ -78,7 +80,7 @@ const sanitizerConfig = {
     code: allowClass,
     hr: allowClass,
     br: allowClass,
-    div: allowClass,
+    div: ['class', 'style'],
     table: allowClass,
     thead: allowClass,
     caption: allowClass,
@@ -98,6 +100,8 @@ const sanitizerConfig = {
       'id',
     ],
     figure: allowClass,
+    video: ['class', 'id', 'width', 'height', 'preload', 'controls'],
+    source: ['type', 'src'],
   },
   allowedSchemes: ['http', 'https', 'mailto', 'tel'],
 }
