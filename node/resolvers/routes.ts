@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { LogLevel, method } from '@vtex/api'
+import { LogLevel, method, Binding } from '@vtex/api'
 
 import { getStoreBindings } from '../utils/bindings'
 import { queries } from './index'
@@ -11,8 +11,18 @@ const isValidBaseAddress = (address: string) => {
 }
 
 const getBaseUrl = async (ctx: Context) => {
-  const [storeBindings] = await getStoreBindings(ctx.clients.tenant)
-  const { canonicalBaseAddress } = storeBindings
+  const host = ctx.get('x-forwarded-host')
+  const rootPath = ctx.get('x-vtex-root-path')
+  const storeBindings = await getStoreBindings(ctx.clients.tenant)
+
+  const storeBinding =
+    storeBindings.length > 1
+      ? storeBindings.find(
+          (binding: Binding) => binding.canonicalBaseAddress === host + rootPath
+        )
+      : storeBindings[0]
+
+  const { canonicalBaseAddress } = storeBinding as Binding
 
   const baseUrl = isValidBaseAddress(canonicalBaseAddress)
     ? String(canonicalBaseAddress)
@@ -43,11 +53,11 @@ const buildEntries = ({
 
   return entries.map(
     entry => `<url>
-                <loc>https://${baseUrl}${path}${entry.slug}</loc>
-                <lastmod>${date}</lastmod>
-                <changefreq>monthly</changefreq>
-                <priority>0.7</priority>
-                </url>`
+			<loc>https://${baseUrl}${path}${entry.slug}</loc>
+			<lastmod>${date}</lastmod>
+			<changefreq>monthly</changefreq>
+			<priority>0.7</priority>
+			</url>`
   )
 }
 

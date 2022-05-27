@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Get the urlBase depending on the rooth path when multiple bindings on blog-posts and blog-categories sitemap entries.
+
 ## [2.19.1] - 2022-05-26
 
 ### Fixed
