@@ -79,6 +79,13 @@
   "admin/editor.wordpressExcludeCategories.description": "Posts containing any of the listed categories will be excluded",
   "admin/editor.wordpressMediaSize.title": "WordPress Media Tamanho",
   "admin/editor.wordpressMediaSize.description": "Selecione o tamanho da imagem que deve ser usada no bloco de preview. A imagem de origem é usada por padrão",
+  "admin/editor.wordpressAmpLinks.title": "Use os links da AMP (página acelerada para dispositivos móveis)",
+  "admin/editor.wordpressAmpLinks.description": "Link para a URL externa da AMP do WordPress em vez da URL relativa da loja",
+  "admin/editor.wordpressAmpUrlFormat.title": "Formato URL da AMP",
+  "admin/editor.wordpressAmpUrlFormat.description": "Selecione o formato URL das suas páginas AMP",
+  "admin/editor.wordpressAmpPathSuffix": "Sufixo do caminho da AMP (/amp)",
+  "admin/editor.wordpressAmpQuery": "Consulta AMP (?amp)",
+  "admin/editor.wordpressAmpQueryValue": "Consulta AMP com valor (?amp=1)",
   "store/wordpress-integration.wordpressPostNavigation.next": "Próximo Artigo >",
   "store/wordpress-integration.wordpressPostNavigation.previous": "< Artigo Anterior",
   "store/wordpress-integration.wordpressPagination.postsPerPage": "postagens por página",
@@ -90,5 +97,6 @@
   "store/wordpress-integration.wordpressCategorySelect.filterByCategory": "Filtrar por categoria",
   "store/wordpress-integration.WordpressTagSelect.allTags": "Todas as tags",
   "store/wordpress-integration.WordpressTagSelect.filterByTag": "Filtrar por tags",
-  "store/wordpress-integration.WordpressTeaser.showPostButton": "Mostrar postagem"
+  "store/wordpress-integration.WordpressTeaser.showPostButton": "Mostrar postagem",
+  "store/wordpress-integration.wordpressDateSelect.filterByDate": "Filtrar por intervalo de datas"
 }

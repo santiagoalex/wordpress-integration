@@ -17,6 +17,8 @@ interface CategoryProps {
   customDomains: string
   postsPerPage: number
   mediaSize: MediaSize
+  ampLinks?: boolean
+  ampUrlFormat?: string
 }
 
 const CSS_HANDLES = [
@@ -31,6 +33,8 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
   customDomains,
   postsPerPage,
   mediaSize,
+  ampLinks,
+  ampUrlFormat,
 }) => {
   const {
     route: { params },
@@ -166,8 +170,8 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
                       showExcerpt
                       useTextOverlay={false}
                       absoluteLinks={false}
-                      ampLinks={false}
-                      ampEnabled={post.amp_enabled}
+                      ampLinks={ampLinks && post.amp_enabled}
+                      ampUrlFormat={ampUrlFormat}
                     />
                   </div>
                 )
@@ -231,6 +235,34 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressMediaSize.description',
   },
+  ampLinksTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpLinks.title',
+  },
+  ampLinksDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpLinks.description',
+  },
+  ampUrlFormatTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpUrlFormat.title',
+  },
+  ampUrlFormatDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpUrlFormat.description',
+  },
+  ampPathSuffix: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpPathSuffix',
+  },
+  ampQuery: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpQuery',
+  },
+  ampQueryValue: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpQueryValue',
+  },
 })
 
 WordpressCategory.defaultProps = {
@@ -259,6 +291,39 @@ WordpressCategory.schema = {
       enumNames: ['Thumbnail', 'Medium', 'Medium Large', 'Large', 'Full'],
       isLayout: false,
       default: '',
+    },
+    ampLinks: {
+      title: messages.ampLinksTitle.id,
+      description: messages.ampLinksDescription.id,
+      type: 'boolean',
+      isLayout: false,
+      default: '',
+    },
+  },
+  dependencies: {
+    ampLinks: {
+      oneOf: [
+        {
+          properties: {
+            ampLinks: {
+              enum: [true],
+            },
+            ampUrlFormat: {
+              title: messages.ampUrlFormatTitle.id,
+              description: messages.ampUrlFormatDescription.id,
+              type: 'string',
+              enum: ['ampPathSuffix', 'ampQuery', 'ampQueryValue'],
+              enumNames: [
+                messages.ampPathSuffix.id,
+                messages.ampQuery.id,
+                messages.ampQueryValue.id,
+              ],
+              isLayout: false,
+              default: 'ampPathSuffix',
+            },
+          },
+        },
+      ],
     },
   },
 }

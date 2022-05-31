@@ -229,8 +229,6 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
                       showExcerpt
                       useTextOverlay={false}
                       absoluteLinks={false}
-                      ampLinks={false}
-                      ampEnabled={post.amp_enabled}
                     />
                   </div>
                 ))}

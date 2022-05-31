@@ -29,6 +29,7 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
   customDomain,
   customDomainSlug,
   ampLinks,
+  ampUrlFormat,
 }) => {
   const { product } = useContext(ProductContext) as any
   const { loading, error, data } = useQuery(TagPosts, {
@@ -79,8 +80,8 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
                     showExcerpt={showExcerpts}
                     absoluteLinks={absoluteLinks}
                     useTextOverlay={useTextOverlays}
-                    ampLinks={ampLinks}
-                    ampEnabled={post.amp_enabled}
+                    ampLinks={ampLinks && post.amp_enabled}
+                    ampUrlFormat={ampUrlFormat}
                   />
                 </div>
               )
@@ -108,7 +109,8 @@ interface WPRelatedPostsBlockProps {
   mediaSize: MediaSize
   customDomain: string
   customDomainSlug: string
-  ampLinks: boolean
+  ampLinks?: boolean
+  ampUrlFormat?: string
 }
 
 interface ProductProperties {
@@ -287,6 +289,34 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressMediaSize.description',
   },
+  ampLinksTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpLinks.title',
+  },
+  ampLinksDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpLinks.description',
+  },
+  ampUrlFormatTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpUrlFormat.title',
+  },
+  ampUrlFormatDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpUrlFormat.description',
+  },
+  ampPathSuffix: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpPathSuffix',
+  },
+  ampQuery: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpQuery',
+  },
+  ampQueryValue: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpQueryValue',
+  },
 })
 
 WordpressRelatedPostsBlock.schema = {
@@ -379,6 +409,39 @@ WordpressRelatedPostsBlock.schema = {
       enumNames: ['Thumbnail', 'Medium', 'Medium Large', 'Large', 'Full'],
       isLayout: false,
       default: '',
+    },
+    ampLinks: {
+      title: messages.ampLinksTitle.id,
+      description: messages.ampLinksDescription.id,
+      type: 'boolean',
+      isLayout: false,
+      default: '',
+    },
+  },
+  dependencies: {
+    ampLinks: {
+      oneOf: [
+        {
+          properties: {
+            ampLinks: {
+              enum: [true],
+            },
+            ampUrlFormat: {
+              title: messages.ampUrlFormatTitle.id,
+              description: messages.ampUrlFormatDescription.id,
+              type: 'string',
+              enum: ['ampPathSuffix', 'ampQuery', 'ampQueryValue'],
+              enumNames: [
+                messages.ampPathSuffix.id,
+                messages.ampQuery.id,
+                messages.ampQueryValue.id,
+              ],
+              isLayout: false,
+              default: 'ampPathSuffix',
+            },
+          },
+        },
+      ],
     },
   },
 }

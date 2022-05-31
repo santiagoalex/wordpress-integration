@@ -36,6 +36,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
   customDomain,
   customDomainSlug,
   ampLinks,
+  ampUrlFormat,
 }) => {
   const { route } = useRuntime()
   const { loading, error, data } = useQuery(AllPosts, {
@@ -100,8 +101,8 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     showExcerpt={showExcerpts}
                     absoluteLinks={absoluteLinks}
                     useTextOverlay={useTextOverlays}
-                    ampLinks={ampLinks}
-                    ampEnabled={posts[0].amp_enabled}
+                    ampLinks={ampLinks && posts[0].amp_enabled}
+                    ampUrlFormat={ampUrlFormat}
                   />
                 </div>
                 <div
@@ -131,8 +132,8 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                         showExcerpt={showExcerpts}
                         absoluteLinks={absoluteLinks}
                         useTextOverlay={useTextOverlays}
-                        ampLinks={ampLinks}
-                        ampEnabled={post.amp_enabled}
+                        ampLinks={ampLinks && post.amp_enabled}
+                        ampUrlFormat={ampUrlFormat}
                       />
                     </div>
                   ))}
@@ -163,8 +164,8 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     showExcerpt={showExcerpts}
                     absoluteLinks={absoluteLinks}
                     useTextOverlay={useTextOverlays}
-                    ampLinks={ampLinks}
-                    ampEnabled={post.amp_enabled}
+                    ampLinks={ampLinks && post.amp_enabled}
+                    ampUrlFormat={ampUrlFormat}
                   />
                 </div>
               ))
@@ -200,7 +201,8 @@ interface WPLatestPostsBlockProps {
   mediaSize: MediaSize
   customDomain: string
   customDomainSlug: string
-  ampLinks: boolean
+  ampLinks?: boolean
+  ampUrlFormat?: string
 }
 
 WordpressLatestPostsBlock.defaultProps = {
@@ -351,6 +353,34 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressMediaSize.description',
   },
+  ampLinksTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpLinks.title',
+  },
+  ampLinksDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpLinks.description',
+  },
+  ampUrlFormatTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpUrlFormat.title',
+  },
+  ampUrlFormatDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpUrlFormat.description',
+  },
+  ampPathSuffix: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpPathSuffix',
+  },
+  ampQuery: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpQuery',
+  },
+  ampQueryValue: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpQueryValue',
+  },
 })
 
 WordpressLatestPostsBlock.schema = {
@@ -483,6 +513,39 @@ WordpressLatestPostsBlock.schema = {
       enumNames: ['Thumbnail', 'Medium', 'Medium Large', 'Large', 'Full'],
       isLayout: false,
       default: '',
+    },
+    ampLinks: {
+      title: messages.ampLinksTitle.id,
+      description: messages.ampLinksDescription.id,
+      type: 'boolean',
+      isLayout: false,
+      default: '',
+    },
+  },
+  dependencies: {
+    ampLinks: {
+      oneOf: [
+        {
+          properties: {
+            ampLinks: {
+              enum: [true],
+            },
+            ampUrlFormat: {
+              title: messages.ampUrlFormatTitle.id,
+              description: messages.ampUrlFormatDescription.id,
+              type: 'string',
+              enum: ['ampPathSuffix', 'ampQuery', 'ampQueryValue'],
+              enumNames: [
+                messages.ampPathSuffix.id,
+                messages.ampQuery.id,
+                messages.ampQueryValue.id,
+              ],
+              isLayout: false,
+              default: 'ampPathSuffix',
+            },
+          },
+        },
+      ],
     },
   },
 }

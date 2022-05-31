@@ -27,8 +27,8 @@ interface TeaserProps {
   absoluteLinks: boolean
   useTextOverlay: boolean
   showPostButton?: boolean
-  ampLinks: boolean
-  ampEnabled: boolean
+  ampLinks?: boolean
+  ampUrlFormat?: string
 }
 
 const sanitizerConfigStripAll = {
@@ -83,8 +83,8 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   absoluteLinks,
   useTextOverlay,
   showPostButton,
-  ampLinks,
-  ampEnabled,
+  ampLinks = false,
+  ampUrlFormat = 'ampPathSuffix',
 }) => {
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
@@ -117,16 +117,20 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
       ? categories?.find(sub => sub.parent === category.id)
       : undefined
 
-  // eslint-disable-next-line no-console
-  console.log(
-    `Link used: ${
-      ampLinks && ampEnabled
-        ? 'amp link'
-        : absoluteLinks && (!ampLinks || !ampEnabled)
-        ? 'absolute link'
-        : 'native blog post'
-    }`
-  )
+  let ampLink
+  switch (ampUrlFormat) {
+    case 'ampPathSuffix':
+      ampLink = `${link}amp/`
+      break
+    case 'ampQuery':
+      ampLink = `${link.replace(/\/$/, '')}?amp`
+      break
+    case 'ampQueryValue':
+      ampLink = `${link.replace(/\/$/, '')}?amp=1`
+      break
+    default:
+      break
+  }
 
   return (
     <div className={`${handles.teaserContainer}`}>
@@ -188,15 +192,15 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                     <div
                       className={`${handles.teaserTextOverlayTitle} t-heading-5 white fw5 mb3`}
                     >
-                      {ampLinks && ampEnabled ? (
+                      {ampLinks ? (
                         <Link
-                          to={`${link}amp`}
+                          to={`${ampLink}`}
                           target="_blank"
                           className="white no-underline"
                         >
                           {title}
                         </Link>
-                      ) : absoluteLinks && (!ampLinks || !ampEnabled) ? (
+                      ) : absoluteLinks ? (
                         <Link
                           to={link}
                           target="_blank"
@@ -271,9 +275,9 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
               </div>
             ) : (
               <Fragment>
-                {ampLinks && ampEnabled ? (
+                {ampLinks ? (
                   <Link
-                    to={`${link}amp`}
+                    to={`${ampLink}`}
                     target="_blank"
                     className={`${handles.teaserImageContainer} tc-m db`}
                   >
@@ -283,7 +287,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                       alt={altText}
                     ></img>
                   </Link>
-                ) : absoluteLinks && (!ampLinks || !ampEnabled) ? (
+                ) : absoluteLinks ? (
                   <Link
                     to={link}
                     target="_blank"
@@ -323,17 +327,17 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
               <h3
                 className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}
               >
-                {ampLinks && ampEnabled ? (
+                {ampLinks ? (
                   <Link
                     className={`${handles.teaserTitleLink}`}
-                    to={`${link}amp`}
+                    to={`${ampLink}`}
                     target="_blank"
                   >
                     <span
                       dangerouslySetInnerHTML={{ __html: sanitizedTitle }}
                     />
                   </Link>
-                ) : absoluteLinks && (!ampLinks || !ampEnabled) ? (
+                ) : absoluteLinks ? (
                   <Link
                     className={`${handles.teaserTitleLink}`}
                     to={link}
@@ -368,15 +372,15 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
           )}
           {showPostButton && (
             <>
-              {ampLinks && ampEnabled ? (
+              {ampLinks ? (
                 <Link
                   className={`${handles.teaserShowPostButton}`}
-                  to={`${link}amp`}
+                  to={`${ampLink}`}
                   target="_blank"
                 >
                   <Button>{intl.formatMessage(messages.showPostButton)}</Button>
                 </Link>
-              ) : absoluteLinks && (!ampLinks || !ampEnabled) ? (
+              ) : absoluteLinks ? (
                 <Link
                   className={`${handles.teaserShowPostButton}`}
                   to={link}
