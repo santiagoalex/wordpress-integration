@@ -34,7 +34,5 @@
     "prettier": "1.19.1",
     "typescript": "3.7.5"
   },
-  "dependencies": {
-    "cypress": "9.7.0"
-  }
+  "dependencies": {}
 }
