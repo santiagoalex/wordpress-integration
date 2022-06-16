@@ -61,7 +61,7 @@ workspace:
     # So, installing wordpress-integration@2.x version
     - vtex.wordpress-integration@2.x
     # Published a new theme for wordpress-integration-qa-theme for E2E test
-    - vtex.wordpress-integration-qa-theme@0.0.1
+    - vtex.wordpress-integration-qa-theme@0.0.2
   removeApps:
     - vtex.bitcot-qa-theme
   wipe:
