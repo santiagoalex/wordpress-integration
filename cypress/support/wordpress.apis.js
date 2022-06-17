@@ -3,18 +3,20 @@ import { VTEX_AUTH_HEADER, FAIL_ON_STATUS_CODE } from './common/constants'
 import { updateRetry } from './common/support'
 
 const config = Cypress.env()
-
+const version = '2.19.2'
+const app = 'vtex.wordpress-integration'
 export function configureTargetWorkspace(
-  app,
-  version,
   endpoint,
-  bindingBounded = false,
-  displayShowRowsText = false,
-  ignoreRobotsMetaTag = false,
-  initializeSitemap = false,
-  filterByCategories = false,
-  filterByTags = false,
-  filterByDate = false
+  titleTag,
+  {
+    bindingBounded = false,
+    displayShowRowsText = false,
+    ignoreRobotsMetaTag = false,
+    initializeSitemap = false,
+    filterByCategories = false,
+    filterByTags = false,
+    filterByDate = false,
+  } = {}
 ) {
   it(`Configuring target workspace in ${app}`, updateRetry(2), () => {
     cy.getVtexItems().then(vtex => {
@@ -30,7 +32,7 @@ export function configureTargetWorkspace(
       const QUERY_VARIABLES = {
         app,
         version,
-        settings: `{\"bindingBounded\":${bindingBounded},\"displayShowRowsText\":${displayShowRowsText},\"ignoreRobotsMetaTag\":${ignoreRobotsMetaTag},\"initializeSitemap\":${initializeSitemap},\"filterByCategories\":${filterByCategories},\"filterByTags\":${filterByTags},\"filterByDate\":${filterByDate},\"endpoint\": "${endpoint}\"}`,
+        settings: `{\"bindingBounded\":${bindingBounded},\"displayShowRowsText\":${displayShowRowsText},\"ignoreRobotsMetaTag\":${ignoreRobotsMetaTag},\"initializeSitemap\":${initializeSitemap},\"filterByCategories\":${filterByCategories},\"filterByTags\":${filterByTags},\"filterByDate\":${filterByDate},\"endpoint\": "${endpoint}\",\"titleTag\":"${titleTag}"}`,
       }
       // Mutating it to the new workspace
       cy.request({
