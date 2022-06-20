@@ -8,11 +8,12 @@ import { appDetails } from '../support/wordpress.outputvalidation'
 import wordpresspost from '../support/wordpress-integration.post'
 import wordpressSelectors from '../support/wordpressintegrationSelectors'
 
-const { app, version, endpoint } = appDetails
+const { titleTag, endpoint } = appDetails
 
 describe('Filter By Tags', () => {
   testSetup()
-  configureTargetWorkspace(app, version, endpoint, { filterByTags: true })
+  configureTargetWorkspace(endpoint, titleTag, { filterByTags: true })
+
   it(
     'Go to  blog page and verify filter by tag option is displaying',
     updateRetry(3),
@@ -33,18 +34,8 @@ describe('Filter By Tags', () => {
     cy.get(wordpresspost.mothersDay.link).should('be.visible')
   })
 
-  configureTargetWorkspace(
-    app,
-    version,
-    endpoint,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-  )
+  configureTargetWorkspace(endpoint, titleTag, { filterByTags: false })
+
   it(
     'Disable the filter by tags option from configuration and verify the filter option is not displaying',
     updateRetry(3),
@@ -61,5 +52,12 @@ describe('Filter By Tags', () => {
       cy.get(wordpressSelectors.DropdownTag).should('not.exist')
     }
   )
+  it('verify slug on pagination url', updateRetry(3), () => {
+    cy.get(wordpressSelectors.BlogPageBreadCrumb).click()
+    cy.get(wordpressSelectors.SearchArticle).should('be.visible')
+    cy.get(wordpressSelectors.Pagination).click()
+    cy.url().should('include', '/blog?page=2')
+    cy.get(wordpressSelectors.RoryMcllroy).should('be.visible')
+  })
   preserveCookie()
 })

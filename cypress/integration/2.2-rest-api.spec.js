@@ -1,4 +1,4 @@
-import { testSetup } from '../support/common/support'
+import { preserveCookie, testSetup } from '../support/common/support'
 import {
   verifySitemap,
   verifySitemapBlogCategories,
@@ -7,12 +7,13 @@ import {
 import { configureTargetWorkspace } from '../support/wordpress.apis'
 import { appDetails } from '../support/wordpress.outputvalidation'
 
-const { app, version, endpoint } = appDetails
+const { endpoint, titleTag } = appDetails
 
 describe('Rest API', () => {
   testSetup()
-  configureTargetWorkspace(app, version, endpoint, { initializeSitemap: true })
+  configureTargetWorkspace(endpoint, titleTag, { initializeSitemap: true })
   verifySitemap()
   verifySitemapBlogpost()
   verifySitemapBlogCategories()
+  preserveCookie()
 })

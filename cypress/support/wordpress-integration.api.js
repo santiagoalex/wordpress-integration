@@ -1,4 +1,4 @@
-import { updateRetry } from './common/support'
+import { preserveCookie, updateRetry } from './common/support'
 import { sitemapAPI, blogPostAPI, blogPostCategoriesAPI } from './product.api'
 
 export function verifySitemap() {
@@ -8,6 +8,11 @@ export function verifySitemap() {
       cy.log(vtex.baseUrl)
       cy.getAPI(sitemapAPI(vtex.baseUrl)).then(response => {
         expect(response.status).to.equal(200)
+        const urls = Cypress.$(response.body)
+          .find('loc')
+          .toArray()
+          .map(el => el.innerText)
+        expect(urls).to.have.lengthOf(4)
       })
     })
   })

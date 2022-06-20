@@ -3,7 +3,7 @@ import { appDetails } from '../support/wordpress.outputvalidation'
 import { configureTargetWorkspace } from '../support/wordpress.apis'
 import wordpressSelectors from '../support/wordpress.selectors'
 
-const { app, version, endpoint } = appDetails
+const { titleTag, endpoint } = appDetails
 
 const categoryName = 'Lifestyle'
 
@@ -12,12 +12,11 @@ describe('Categories filter and validate', () => {
   testSetup(false)
 
   describe('Enable categories filter and validate', () => {
-    configureTargetWorkspace(app, version, endpoint, {
-      filterByCategories: true,
-    })
+    configureTargetWorkspace(endpoint, titleTag, { filterByCategories: true })
 
     it('Open storefront and verify category filter is displaying', () => {
-      cy.visit('/blog')
+      cy.openStoreFront()
+      cy.get(wordpressSelectors.BlogPage).click()
       cy.get(wordpressSelectors.CategoryContainer).should('exist')
     })
 
@@ -34,18 +33,7 @@ describe('Categories filter and validate', () => {
   })
 
   describe('Disable categories filter and validate', () => {
-    configureTargetWorkspace(
-      app,
-      version,
-      endpoint,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false
-    )
+    configureTargetWorkspace(endpoint, titleTag, { filterByCategories: false })
 
     it('Open storefront and verify category filter is not displaying', () => {
       cy.visit('/blog')

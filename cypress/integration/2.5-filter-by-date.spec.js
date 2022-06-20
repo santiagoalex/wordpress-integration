@@ -20,17 +20,21 @@ describe('Filter By Date', () => {
 
   configureTargetWorkspace(endpoint, titleTag, { filterByDate: true })
 
-  it('Verify Filter by date option is displaying', () => {
+  it('Verify Filter by date option is displaying', updateRetry(3), () => {
     verifyFilterByDate()
   })
 
-  it('Select date & verify list is showing up between given date', () => {
-    selectDateAndVerify()
-  })
+  it(
+    'Select date & verify list is showing up between given date',
+    updateRetry(3),
+    () => {
+      selectDateAndVerify()
+    }
+  )
 
   configureTargetWorkspace(endpoint, titleTag)
 
-  it('Verify Filter by date option is not displaying', () => {
+  it('Verify Filter by date option is not displaying', updateRetry(3), () => {
     disableFilterByDate()
   })
 
