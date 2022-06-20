@@ -17,7 +17,7 @@ export default {
   VerifyPost: ':nth-child(5) > .vtex-store-components-3-x-container',
   VerifyLatestPosts:
     '.vtex-wordpress-integration-2-x-latestPostsBlockFlexFirstColumnItem > .vtex-wordpress-integration-2-x-teaserContainer > .vtex-card > .tc-m > .vtex-wordpress-integration-2-x-teaserGradientOverlay > .vtex-wordpress-integration-2-x-teaserTextOverlay > .vtex-wordpress-integration-2-x-teaserTextOverlayMeta > .vtex-wordpress-integration-2-x-teaserCategoryLink',
-  CategoryLink:
+  CategoryLink1:
     '.vtex-wordpress-integration-2-x-latestPostsBlockFlexFirstColumnItem > .vtex-wordpress-integration-2-x-teaserContainer > .vtex-card > .tc-m > .vtex-wordpress-integration-2-x-teaserGradientOverlay > .vtex-wordpress-integration-2-x-teaserTextOverlay > .vtex-wordpress-integration-2-x-teaserTextOverlayMeta > .vtex-wordpress-integration-2-x-teaserCategoryLink',
   SelectPageLimit:
     ':nth-child(1) > .flex-column > .justify-between > .items-baseline > .vtex-styleguide-9-x-dropdown > label.h-100 > .vtex-styleguide-9-x-container > .o-0',

@@ -11,10 +11,12 @@ import {
   verifyLatestPostsAndCategoriesLink,
   verifyBreadcrumbsAndSlugUrl,
   verifyPostNotFound,
+  verifyLayoutLatestPosts,
 } from '../support/wordpress.common'
 
 const { endpoint, titleTag } = appDetails
-describe('Testing', () => {
+
+describe('UI-testcase', () => {
   // Load test setup
   testSetup()
 
@@ -32,11 +34,15 @@ describe('Testing', () => {
     verifyPostsAndPagination()
   })
 
+  it('Verify Layout- Latest post should be shown in two columns', () => {
+    verifyLayoutLatestPosts()
+  })
+
   it('Verify Latest Post has link to categories & pagination works fine in categories', () => {
     verifyLatestPostsAndCategoriesLink()
   })
 
-  it('Verify Latest Post has link to categories & pagination works fine in categories', () => {
+  it('Verify Post Not Found', () => {
     verifyPostNotFound()
   })
 

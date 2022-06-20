@@ -11,18 +11,7 @@ const { app, version, endpoint } = appDetails
 
 describe('Rest API', () => {
   testSetup()
-  configureTargetWorkspace(
-    app,
-    version,
-    endpoint,
-    false,
-    false,
-    false,
-    true,
-    false,
-    false,
-    false
-  )
+  configureTargetWorkspace(app, version, endpoint, { initializeSitemap: true })
   verifySitemap()
   verifySitemapBlogpost()
   verifySitemapBlogCategories()

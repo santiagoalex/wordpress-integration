@@ -3,7 +3,8 @@ import { appDetails } from '../support/wordpress.outputvalidation'
 import { configureTargetWorkspace } from '../support/wordpress.apis'
 
 const { endpoint, titleTag } = appDetails
-describe('Testing', () => {
+
+describe('Configure wordpress via Graphql', () => {
   // Load test setup
   testSetup()
 

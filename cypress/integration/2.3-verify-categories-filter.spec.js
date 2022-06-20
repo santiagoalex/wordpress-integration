@@ -12,33 +12,26 @@ describe('Categories filter and validate', () => {
   testSetup(false)
 
   describe('Enable categories filter and validate', () => {
-  configureTargetWorkspace(
-    app,
-    version,
-    endpoint,
-    false,
-    false,
-    false,
-    false,
-    true,
-    false,
-    false
-  )
+    configureTargetWorkspace(app, version, endpoint, {
+      filterByCategories: true,
+    })
 
-  it('Open storefront and verify category filter is displaying',() => {
+    it('Open storefront and verify category filter is displaying', () => {
       cy.visit('/blog')
-      cy.get(wordpressSelectors.CategoryContainer).should('exist');
-  })
+      cy.get(wordpressSelectors.CategoryContainer).should('exist')
+    })
 
-  it('Select category and verify only selected category related list is showing',() => {
-    cy.getVtexItems().then((vtex) => {
-      cy.intercept('POST', `${vtex.baseUrl}/**`).as('Filter')
-      cy.get(wordpressSelectors.CategorySelectField).select(categoryName)
-      cy.wait('@Filter')
-    cy.get(wordpressSelectors.CategoryLink).eq(1).contains(categoryName)
+    it('Select category and verify only selected category related list is showing', () => {
+      cy.getVtexItems().then(vtex => {
+        cy.intercept('POST', `${vtex.baseUrl}/**`).as('Filter')
+        cy.get(wordpressSelectors.CategorySelectField).select(categoryName)
+        cy.wait('@Filter')
+        cy.get(wordpressSelectors.CategoryLink)
+          .eq(1)
+          .contains(categoryName)
+      })
     })
   })
-})
 
   describe('Disable categories filter and validate', () => {
     configureTargetWorkspace(
@@ -53,11 +46,10 @@ describe('Categories filter and validate', () => {
       false,
       false
     )
-  
-    it('Open storefront and verify category filter is not displaying',() => {
-        cy.visit('/blog')
-        cy.get(wordpressSelectors.CategoryContainer).should('not.exist');
+
+    it('Open storefront and verify category filter is not displaying', () => {
+      cy.visit('/blog')
+      cy.get(wordpressSelectors.CategoryContainer).should('not.exist')
     })
-  
   })
 })

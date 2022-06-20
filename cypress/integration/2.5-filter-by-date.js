@@ -13,7 +13,8 @@ import {
 } from '../support/wordpress.common'
 
 const { endpoint, titleTag } = appDetails
-describe('Testing', () => {
+
+describe('Filter By Date', () => {
   // Load test setup
   testSetup()
 

@@ -12,18 +12,7 @@ const { app, version, endpoint } = appDetails
 
 describe('Filter By Tags', () => {
   testSetup()
-  configureTargetWorkspace(
-    app,
-    version,
-    endpoint,
-    false,
-    false,
-    false,
-    false,
-    false,
-    true,
-    false
-  )
+  configureTargetWorkspace(app, version, endpoint, { filterByTags: true })
   it(
     'Go to  blog page and verify filter by tag option is displaying',
     updateRetry(3),

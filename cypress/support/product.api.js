@@ -1,11 +1,11 @@
 export default {
-  sitemapAPI: (baseUrl) => {
+  sitemapAPI: baseUrl => {
     return `${baseUrl}/sitemap.xml`
   },
-  blogPostAPI: (baseUrl) => {
+  blogPostAPI: baseUrl => {
     return `${baseUrl}/sitemap/blog-posts.xml`
   },
-  blogPostCategoriesAPI: (baseUrl) => {
+  blogPostCategoriesAPI: baseUrl => {
     return `${baseUrl}/sitemap/blog-categories.xml`
   },
 }
