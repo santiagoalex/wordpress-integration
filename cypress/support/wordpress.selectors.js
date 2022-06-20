@@ -31,4 +31,14 @@ export default {
   RoryMcllroy:
     '.vtex-wordpress-integration-2-x-listFlex > :nth-child(1) > .vtex-wordpress-integration-2-x-teaserContainer > .vtex-card > .vtex-wordpress-integration-2-x-teaserImageContainer > .vtex-wordpress-integration-2-x-teaserImage',
   GoButton: '.flex-row > .pointer',
+  BlogPage:
+    '.vtex-flex-layout-0-x-flexColChild > .vtex-menu-2-x-menuContainerNav > .vtex-menu-2-x-menuContainer > :nth-child(4) > .vtex-menu-2-x-styledLinkContainer',
+  DropdownTag:
+    '.vtex-wordpress-integration-2-x-tagSelectContainer > .vtex-styleguide-9-x-dropdown > label.h-100 > .vtex-styleguide-9-x-container > .o-0',
+  BreadCrumbLink: 'a[class*=breadcrumbLink]',
+  BreadCrumbCurrentPage: 'span[class*=breadcrumbCurrentPage]',
+  PostContainer: 'div[class*=postContainer]',
+  PaginationComponent: 'div[class*=paginationComponent] button',
+  TeaserContainer: 'div[class*=teaserContainer]',
+  ListItemName: 'div[class*=listItem] > button',
 }
