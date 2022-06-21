@@ -21,13 +21,18 @@ describe('Categories filter and validate', () => {
     })
 
     it('Select category and verify only selected category related list is showing', () => {
-      cy.getVtexItems().then(vtex => {
-        cy.intercept('POST', `${vtex.baseUrl}/**`).as('Filter')
-        cy.get(wordpressSelectors.CategorySelectField).select(categoryName)
-        cy.wait('@Filter')
-        cy.get(wordpressSelectors.CategoryLink)
-          .eq(1)
-          .contains(categoryName)
+      cy.get(wordpressSelectors.CategorySelectField).select(categoryName)
+      cy.get('body').then($body => {
+        if ($body.find(wordpressSelectors.CategoryLink).length>0) {
+          const categoryListLength = $body.find(wordpressSelectors.CategoryLink)
+            .length
+          cy.log(categoryListLength)
+          for (let i=0; i < categoryListLength; i++) {
+            cy.get(wordpressSelectors.CategoryLink)
+              .eq(i)
+              .contains(categoryName)
+          }
+        }
       })
     })
   })
@@ -36,7 +41,8 @@ describe('Categories filter and validate', () => {
     configureTargetWorkspace(endpoint, titleTag, { filterByCategories: false })
 
     it('Open storefront and verify category filter is not displaying', () => {
-      cy.visit('/blog')
+      cy.openStoreFront()
+      cy.get(wordpressSelectors.BlogPage).click()
       cy.get(wordpressSelectors.CategoryContainer).should('not.exist')
     })
   })
