@@ -165,10 +165,10 @@
   resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-4.0.2.tgz#6286b4c7228d58ab7866d19716f3696e03a09397"
   integrity sha512-Q5vtl1W5ue16D+nIaW8JWebSSraJVlK+EthKn7e7UcD4KWsaSJ8BqGPXNaPghgtcn/fhvrN17Tv8ksUsQpiplw==
 
-"@vtex/api@6.45.4":
-  version "6.45.4"
-  resolved "https://registry.yarnpkg.com/@vtex/api/-/api-6.45.4.tgz#58be7497c0c0f91a388fabd42149e48cb95e271d"
-  integrity sha512-DVAJr5BkSjXupjn2h5Z1In8C3Li9kZwCXPwRQbpIgyS7s9dN2ZEFQc6nQlJm6ZoDCoyYBg62LgD7Kurvz9jc3w==
+"@vtex/api@6.45.12":
+  version "6.45.12"
+  resolved "https://registry.yarnpkg.com/@vtex/api/-/api-6.45.12.tgz#b13c04398b12f576263ea823369f09c970d57479"
+  integrity sha512-SVLKo+Q/TxQy+1UKzH8GswTI3F2OCRCLfgaNQOrVAVdbM6Ci4wzTeX8j/S4Q1aEEnqBFlH/wVpHf8I6NBa+g9A==
   dependencies:
     "@types/koa" "^2.11.0"
     "@types/koa-compose" "^3.2.3"
@@ -1831,9 +1831,9 @@ vary@^1.1.2:
   version "9.146.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.1/public/@types/vtex.styleguide#66db40ca1b78ad77ce4beedabecee320e1ef2ead"
 
-"vtex.wordpress-integration@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.wordpress-integration@2.19.2/public/@types/vtex.wordpress-integration":
-  version "2.19.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.wordpress-integration@2.19.2/public/@types/vtex.wordpress-integration#8912152648b57ae8c12a5ddd7e50046b3b2dda21"
+"vtex.wordpress-integration@https://annawordpress2--rmoils.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@2.19.1+build1655827217/public/@types/vtex.wordpress-integration":
+  version "2.19.1"
+  resolved "https://annawordpress2--rmoils.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@2.19.1+build1655827217/public/@types/vtex.wordpress-integration#461541eb91211cd867094a0c946ccf4055555bb3"
 
 w3c-hr-time@^1.0.2:
   version "1.0.2"

@@ -22,6 +22,7 @@
     "react-intl": "^5.13.4"
   },
   "devDependencies": {
+    "@types/node": "^13.1.4",
     "@types/jest": "^24.0.25",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
@@ -39,6 +40,6 @@
     "vtex.store-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.159.5/public/@types/vtex.store-components",
     "vtex.store-sitemap": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-sitemap@2.14.0/public/@types/vtex.store-sitemap",
     "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.1/public/@types/vtex.styleguide",
-    "vtex.wordpress-integration": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.wordpress-integration@2.19.2/public/@types/vtex.wordpress-integration"
+    "vtex.wordpress-integration": "https://annawordpress2--rmoils.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@2.19.1+build1655827217/public/@types/vtex.wordpress-integration"
   }
 }

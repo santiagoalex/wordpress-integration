@@ -16,7 +16,7 @@
     "@types/he": "^1.1.0",
     "@types/jsdom": "^16.2.10",
     "@types/sanitize-html": "^1.20.2",
-    "@vtex/api": "6.45.4",
+    "@vtex/api": "6.45.12",
     "vtex.blog-interfaces": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.blog-interfaces@0.2.0/public/@types/vtex.blog-interfaces",
     "vtex.css-handles": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.4/public/@types/vtex.css-handles",
     "vtex.product-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-context@0.10.0/public/@types/vtex.product-context",
@@ -28,6 +28,6 @@
     "vtex.store-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.159.5/public/@types/vtex.store-components",
     "vtex.store-sitemap": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-sitemap@2.14.0/public/@types/vtex.store-sitemap",
     "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.1/public/@types/vtex.styleguide",
-    "vtex.wordpress-integration": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.wordpress-integration@2.19.2/public/@types/vtex.wordpress-integration"
+    "vtex.wordpress-integration": "https://annawordpress2--rmoils.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@2.19.1+build1655827217/public/@types/vtex.wordpress-integration"
   }
 }

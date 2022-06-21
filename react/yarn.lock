@@ -165,6 +165,11 @@
   dependencies:
     jest-diff "^24.3.0"
 
+"@types/node@^13.1.4":
+  version "13.13.52"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.52.tgz#03c13be70b9031baaed79481c0c0cfb0045e53f7"
+  integrity sha512-s3nugnZumCC//n4moGGe6tkNMyYEdaDBitVjwPxXmR5lnMG5dHePinH2EdxkG3Rh1ghFHHixAG4NJhpJW1rthQ==
+
 "@types/prop-types@*":
   version "15.7.5"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
@@ -581,9 +586,9 @@ tslib@^2.1.0:
   version "9.146.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.1/public/@types/vtex.styleguide#66db40ca1b78ad77ce4beedabecee320e1ef2ead"
 
-"vtex.wordpress-integration@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.wordpress-integration@2.19.2/public/@types/vtex.wordpress-integration":
-  version "2.19.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.wordpress-integration@2.19.2/public/@types/vtex.wordpress-integration#8912152648b57ae8c12a5ddd7e50046b3b2dda21"
+"vtex.wordpress-integration@https://annawordpress2--rmoils.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@2.19.1+build1655827217/public/@types/vtex.wordpress-integration":
+  version "2.19.1"
+  resolved "https://annawordpress2--rmoils.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@2.19.1+build1655827217/public/@types/vtex.wordpress-integration#461541eb91211cd867094a0c946ccf4055555bb3"
 
 zen-observable-ts@^0.8.21:
   version "0.8.21"
