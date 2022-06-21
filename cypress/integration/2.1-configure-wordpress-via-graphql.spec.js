@@ -8,7 +8,7 @@ describe('Configure wordpress via Graphql', () => {
   // Load test setup
   testSetup()
 
-  configureTargetWorkspace(endpoint, titleTag, { initializeSitemap: true })
+  configureTargetWorkspace(endpoint, titleTag)
 
   preserveCookie()
 })

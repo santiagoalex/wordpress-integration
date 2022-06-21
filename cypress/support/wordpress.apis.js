@@ -1,8 +1,6 @@
-/* eslint-disable */
-import { VTEX_AUTH_HEADER, FAIL_ON_STATUS_CODE } from './common/constants'
+import { FAIL_ON_STATUS_CODE } from './common/constants'
 import { updateRetry } from './common/support'
 
-const config = Cypress.env()
 const version = '2.19.2'
 const app = 'vtex.wordpress-integration'
 export function configureTargetWorkspace(

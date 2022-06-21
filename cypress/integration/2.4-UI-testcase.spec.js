@@ -22,7 +22,7 @@ describe('UI-testcase', () => {
 
   configureTargetWorkspace(endpoint, titleTag, { displayShowRowsText: true })
 
-  it('Verify Home Page & Title', () => {
+  it('Verify Home Page & Title', updateRetry(3), () => {
     verifyHomePageAndTitle()
   })
 
@@ -30,19 +30,31 @@ describe('UI-testcase', () => {
     verifyBreadcrumbsAndSlugUrl()
   })
 
-  it('Verify User is able to see posts per page text in pagination & Latest post has link to categories', () => {
-    verifyPostsAndPagination()
-  })
+  it(
+    'Verify User is able to see posts per page text in pagination & Latest post has link to categories',
+    updateRetry(3),
+    () => {
+      verifyPostsAndPagination()
+    }
+  )
 
-  it('Verify Layout- Latest post should be shown in two columns', () => {
-    verifyLayoutLatestPosts()
-  })
+  it(
+    'Verify Layout- Latest post should be shown in two columns',
+    updateRetry(3),
+    () => {
+      verifyLayoutLatestPosts()
+    }
+  )
 
-  it('Verify Latest Post has link to categories & pagination works fine in categories', () => {
-    verifyLatestPostsAndCategoriesLink()
-  })
+  it(
+    'Verify Latest Post has link to categories & pagination works fine in categories',
+    updateRetry(3),
+    () => {
+      verifyLatestPostsAndCategoriesLink()
+    }
+  )
 
-  it('Verify Post Not Found', () => {
+  it('Verify Post Not Found', updateRetry(3), () => {
     verifyPostNotFound()
   })
 

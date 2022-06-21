@@ -23,11 +23,11 @@ describe('Categories filter and validate', () => {
     it('Select category and verify only selected category related list is showing', () => {
       cy.get(wordpressSelectors.CategorySelectField).select(categoryName)
       cy.get('body').then($body => {
-        if ($body.find(wordpressSelectors.CategoryLink).length>0) {
+        if ($body.find(wordpressSelectors.CategoryLink).length > 0) {
           const categoryListLength = $body.find(wordpressSelectors.CategoryLink)
             .length
           cy.log(categoryListLength)
-          for (let i=0; i < categoryListLength; i++) {
+          for (let i = 0; i < categoryListLength; i++) {
             cy.get(wordpressSelectors.CategoryLink)
               .eq(i)
               .contains(categoryName)

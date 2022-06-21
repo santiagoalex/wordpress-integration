@@ -1,4 +1,4 @@
-import { preserveCookie, updateRetry } from './common/support'
+import { updateRetry } from './common/support'
 import { sitemapAPI, blogPostAPI, blogPostCategoriesAPI } from './product.api'
 
 export function verifySitemap() {
@@ -12,7 +12,7 @@ export function verifySitemap() {
           .find('loc')
           .toArray()
           .map(el => el.innerText)
-        expect(urls).to.have.lengthOf(4)
+        expect(urls).to.have.lengthOf(5)
       })
     })
   })
