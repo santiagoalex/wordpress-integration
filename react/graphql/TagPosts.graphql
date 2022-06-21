@@ -4,7 +4,8 @@ query TagPosts(
   $tag: String!
   $customDomain: String
 ) {
-  wpTags(search: $tag, customDomain: $customDomain) {
+  wpTags(search: $tag, customDomain: $customDomain)
+    @context(provider: "vtex.wordpress-integration") {
     tags {
       name
       wpPosts(

@@ -17,7 +17,7 @@ query SearchPosts(
     after: $after
     categories: $categories
     tags: $tags
-  ) {
+  ) @context(provider: "vtex.wordpress-integration") {
     posts {
       title {
         rendered

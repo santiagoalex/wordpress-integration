@@ -4,7 +4,8 @@ query CategoryPostsBySlug(
   $categorySlug: String!
   $customDomain: String
 ) {
-  wpCategories(slug: [$categorySlug], customDomain: $customDomain) {
+  wpCategories(slug: [$categorySlug], customDomain: $customDomain)
+    @context(provider: "vtex.wordpress-integration") {
     categories {
       name
       id

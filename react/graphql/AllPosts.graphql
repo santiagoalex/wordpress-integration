@@ -19,7 +19,7 @@ query AllPosts(
     before: $before
     after: $after
     categories: $categories
-  ) {
+  ) @context(provider: "vtex.wordpress-integration") {
     posts {
       title {
         rendered

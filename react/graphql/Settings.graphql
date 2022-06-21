@@ -1,5 +1,5 @@
 query Settings {
-  appSettings {
+  appSettings @context(provider: "vtex.wordpress-integration") {
     titleTag
     displayShowRowsText
     filterByCategories

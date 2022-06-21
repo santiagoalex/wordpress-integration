@@ -1,5 +1,6 @@
 query SinglePostAfterDate($date: String!, $customDomain: String) {
-  wpPosts(after: $date, order: asc, per_page: 1, customDomain: $customDomain) {
+  wpPosts(after: $date, order: asc, per_page: 1, customDomain: $customDomain)
+    @context(provider: "vtex.wordpress-integration") {
     posts {
       title {
         rendered
