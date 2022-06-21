@@ -586,10 +586,6 @@ tslib@^2.1.0:
   version "9.146.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.1/public/@types/vtex.styleguide#66db40ca1b78ad77ce4beedabecee320e1ef2ead"
 
-"vtex.wordpress-integration@https://annawordpress2--rmoils.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@2.19.1+build1655827217/public/@types/vtex.wordpress-integration":
-  version "2.19.1"
-  resolved "https://annawordpress2--rmoils.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@2.19.1+build1655827217/public/@types/vtex.wordpress-integration#461541eb91211cd867094a0c946ccf4055555bb3"
-
 zen-observable-ts@^0.8.21:
   version "0.8.21"
   resolved "https://registry.yarnpkg.com/zen-observable-ts/-/zen-observable-ts-0.8.21.tgz#85d0031fbbde1eba3cd07d3ba90da241215f421d"
