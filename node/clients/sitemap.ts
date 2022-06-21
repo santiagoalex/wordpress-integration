@@ -1,4 +1,5 @@
-import { InstanceOptions, IOContext, AppGraphQLClient } from '@vtex/api'
+import type { InstanceOptions, IOContext } from '@vtex/api'
+import { AppGraphQLClient } from '@vtex/api'
 
 const saveIndexMutation = `mutation SaveIndex($index: String!) {
     saveIndex(index: $index)
@@ -35,11 +36,14 @@ export default class Sitemap extends AppGraphQLClient {
       const hasInitMap = settings.settings.find(
         (binding: any) => binding.initializeSitemap
       )
+
       if (hasInitMap) {
         for (let i = 0; i < settings.settings.length; i++) {
           const binding = settings.settings[i]
+
           binding.initializeSitemap = false
         }
+
         await apps.saveAppSettings(appId, settings)
 
         return false

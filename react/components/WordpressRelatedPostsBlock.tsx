@@ -35,13 +35,15 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
   const { loading, error, data } = useQuery(TagPosts, {
     skip: !product?.productReference,
     variables: {
-      // eslint-disable-next-line @typescript-eslint/camelcase
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       wp_per_page: numberOfPosts,
       tag: `prod-${product?.productReference}`,
       customDomain,
     },
   })
+
   const handles = useCssHandles(CSS_HANDLES)
+
   return product?.productReference ? (
     <div className={`${handles.relatedPostsBlockContainer} pv4 pb9`}>
       {loading && <Spinner />}

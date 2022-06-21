@@ -1,4 +1,5 @@
-import React, { FunctionComponent, Fragment, useMemo } from 'react'
+import type { FunctionComponent } from 'react'
+import React, { Fragment, useMemo } from 'react'
 import { Card, Button } from 'vtex.styleguide'
 import { Link, useRuntime } from 'vtex.render-runtime'
 import insane from 'insane'
@@ -98,9 +99,11 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   const sanitizedTitle = useMemo(() => {
     return insane(title, sanitizerConfigStripAll)
   }, [title, sanitizerConfigStripAll])
+
   const sanitizedExcerpt = useMemo(() => {
     return insane(excerpt, sanitizerConfigStripAll)
   }, [excerpt, sanitizerConfigStripAll])
+
   const {
     media_type: mediaType,
     alt_text: altText,
@@ -111,23 +114,27 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
     (mediaSize && mediaDetail?.sizes[mediaSize]?.source_url) ||
     featuredMedia?.source_url
 
-  const category = categories?.length && categories?.find(c => c.parent === 0)
+  const category = categories?.length && categories?.find((c) => c.parent === 0)
   const subcategory =
     subcategoryUrls && category
-      ? categories?.find(sub => sub.parent === category.id)
+      ? categories?.find((sub) => sub.parent === category.id)
       : undefined
 
   let ampLink
+
   switch (ampUrlFormat) {
     case 'ampPathSuffix':
       ampLink = `${link}amp/`
       break
+
     case 'ampQuery':
       ampLink = `${link.replace(/\/$/, '')}?amp`
       break
+
     case 'ampQueryValue':
       ampLink = `${link.replace(/\/$/, '')}?amp=1`
       break
+
     default:
       break
   }

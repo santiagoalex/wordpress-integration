@@ -17,7 +17,9 @@ const WordpressPostContainer: StorefrontFunctionComponent<PostProps> = ({
   const {
     route: { params },
   } = useRuntime()
+
   let parsedCustomDomains = null
+
   try {
     parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
   } catch (e) {

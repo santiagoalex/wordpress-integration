@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Container } from 'vtex.store-components'
 import React, { Fragment, useState, useEffect, useRef } from 'react'
 import { useQuery } from 'react-apollo'
@@ -43,6 +43,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
   } = useRuntime()
 
   let parsedCustomDomains = null
+
   try {
     parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
   } catch (e) {
@@ -63,6 +64,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
       params.categoryslug ||
       params.categoryslug_id,
   }
+
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data, fetchMore } = useQuery(CategoryPostsBySlug, {
@@ -88,6 +90,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
 
       return
     }
+
     if (containerRef.current) {
       window.scrollTo({
         top:

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 import React from 'react'
 import { defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
@@ -25,12 +25,15 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
   const {
     route: { params },
   } = useRuntime()
+
   let parsedCustomDomains = null
+
   try {
     parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
   } catch (e) {
     console.error(`${e.name}: ${e.message}`)
   }
+
   const customDomain =
     params.customdomainslug && parsedCustomDomains
       ? parsedCustomDomains[params.customdomainslug]

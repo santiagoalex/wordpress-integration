@@ -1,5 +1,6 @@
 import { Container } from 'vtex.store-components'
-import React, { FunctionComponent, Fragment } from 'react'
+import type { FunctionComponent } from 'react'
+import React, { Fragment } from 'react'
 import { defineMessages } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
 import { Link } from 'vtex.render-runtime'
@@ -47,6 +48,7 @@ const WordpressCategoryBreadcrumb: FunctionComponent<CategoryProps> = ({
     variables: { categorySlug, customDomain },
     skip: !categorySlug,
   })
+
   if (loading || error) return <Fragment></Fragment>
   if (data?.wpCategories?.categories?.length) {
     const [{ categories }] = data.wpPosts?.posts || [data.wpCategories]
@@ -88,6 +90,7 @@ const WordpressCategoryBreadcrumb: FunctionComponent<CategoryProps> = ({
       </Container>
     )
   }
+
   return null
 }
 
@@ -168,6 +171,7 @@ const WordpressBreadcrumb: StorefrontFunctionComponent<Props> = ({
   const handles = useCssHandles(CSS_HANDLES)
 
   let parsedCustomDomains = null
+
   try {
     parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
   } catch (e) {

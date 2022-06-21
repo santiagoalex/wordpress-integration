@@ -40,7 +40,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
 }) => {
   const { route } = useRuntime()
   const { loading, error, data } = useQuery(AllPosts, {
-    // eslint-disable-next-line @typescript-eslint/camelcase
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     variables: {
       wp_per_page: numberOfPosts + 1,
       tags: tags?.length ? tags : undefined,
@@ -51,12 +51,13 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
       customDomain,
     },
   })
+
   const handles = useCssHandles(CSS_HANDLES)
 
   const filteredPosts =
     data?.wpPosts?.posts &&
     (data.wpPosts.posts as PostData[]).filter(
-      post => post.slug !== route.params.slug
+      (post) => post.slug !== route.params.slug
     )
 
   const posts =

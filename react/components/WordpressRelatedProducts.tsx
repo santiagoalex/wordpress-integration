@@ -1,6 +1,7 @@
 import { ProductList } from 'vtex.shelf'
 import React from 'react'
-import { Query, DataProps } from 'react-apollo'
+import type { DataProps } from 'react-apollo'
+import { Query } from 'react-apollo'
 import { defineMessages } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -13,6 +14,7 @@ const WordpressRelatedProducts: StorefrontFunctionComponent<DataPropsExtended> =
   productList,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
+
   return (
     <WPRelatedProductsContext.Consumer>
       {({ productIds }) => (
@@ -26,12 +28,14 @@ const WordpressRelatedProducts: StorefrontFunctionComponent<DataPropsExtended> =
             if (!data) {
               return null
             }
+
             const { productsByIdentifier } = data
             const productListProps = {
               products: productsByIdentifier || [],
               loading,
               ...productList,
             }
+
             return (
               <div className={handles.wordpressRelatedProducts}>
                 <ProductList {...productListProps} />
@@ -100,7 +104,7 @@ const messages = defineMessages({
   },
 })
 
-WordpressRelatedProducts.getSchema = props => {
+WordpressRelatedProducts.getSchema = (props) => {
   const productListSchema = ProductList.getSchema(props)
 
   return {

@@ -40,8 +40,9 @@ const WordpressCategorySelect: StorefrontFunctionComponent<WordpressCategorySele
       onChange={(_: any, v: any) => {
         setSelectedCategory(v)
         const selectedOption = categoryOptions.find(
-          option => option.value === v
+          (option) => option.value === v
         )
+
         setSelectedCategoryId(selectedOption.id)
       }}
     />

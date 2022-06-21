@@ -36,7 +36,7 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
   const handles = useCssHandles(CSS_HANDLES)
   const { loading, error, data } = useQuery(SearchPosts, {
     variables: {
-      // eslint-disable-next-line @typescript-eslint/camelcase
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       wp_per_page: numberOfPosts,
       terms: searchQuery?.data?.searchMetadata?.titleTag ?? null,
       customDomain,

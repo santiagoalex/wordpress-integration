@@ -107,6 +107,7 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
     ...filteredCategoryVariable,
     ...filteredTagVariable,
   }
+
   const querySelected = variables.terms ? SearchPosts : AllPosts
   const { loading, error, data, fetchMore } = useQuery(querySelected, {
     skip: !params,
@@ -128,8 +129,10 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
   useEffect(() => {
     if (initialPageLoad.current) {
       initialPageLoad.current = false
+
       return
     }
+
     if (containerRef.current) {
       window.scrollTo({
         top:
@@ -148,6 +151,7 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
           .reduce((acc: any, el: any) => [...acc, ...el.categories], [])
           .reduce((acc: any, current: any) => {
             const x = acc.find((item: any) => item.id === current.id)
+
             return !x ? acc.concat([current]) : acc
           }, [])
       )
@@ -157,6 +161,7 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
           .reduce((acc: any, el: any) => [...acc, ...el.tags], [])
           .reduce((acc: any, el: any) => {
             const x = acc.find((item: any) => item.id === el.id)
+
             return !x ? acc.concat([el]) : acc
           }, [])
       )

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 import React, { Fragment } from 'react'
 import { Link, useRuntime } from 'vtex.render-runtime'
 import { useQuery } from 'react-apollo'
@@ -47,6 +47,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
       customDomain,
     },
   })
+
   const handles = useCssHandles(CSS_HANDLES)
 
   const category = data?.wpCategory
@@ -54,13 +55,14 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
     subcategoryUrls &&
     category?.parent !== 0 &&
     data?.wpCategory?.wpPosts?.posts[0]?.categories
+
   const parentCategory = postCategories
     ? postCategories?.find((cat: WPCategory) => cat.id === category.parent)
     : null
 
   const filteredPosts =
     data?.wpCategory?.wpPosts?.posts &&
-    (data.wpCategory.wpPosts.posts as PostData[]).filter(post => {
+    (data.wpCategory.wpPosts.posts as PostData[]).filter((post) => {
       return post.slug !== route?.params?.slug
     })
 

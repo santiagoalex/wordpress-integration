@@ -18,6 +18,7 @@ const WordpressSearchBlock: StorefrontFunctionComponent<WordpressSearchProps> = 
     e.preventDefault()
     if (!inputValue) return
     const search = inputValue
+
     setValue('')
     navigate({
       page: 'store.blog-search-result',

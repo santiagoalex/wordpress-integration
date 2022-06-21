@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable no-restricted-syntax */
 interface Window extends Window {
   dataLayer: any[]
   __SETTINGS__: {
