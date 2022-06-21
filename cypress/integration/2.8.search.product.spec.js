@@ -4,7 +4,7 @@ import {
   updateRetry,
 } from '../support/common/support'
 import { verifyBreadcrumbsAndSlugUrl } from '../support/wordpress.common'
-import wordpressSelectors from '../support/wordpressintegrationSelectors'
+import wordpressSelectors from '../support/wordpress.selectors'
 
 const productName = 'golf'
 
