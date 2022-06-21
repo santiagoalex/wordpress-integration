@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Container } from 'vtex.store-components'
-import type { FunctionComponent } from 'react'
+import type { FunctionComponent, HTMLProps } from 'react'
 import React, { useMemo } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import { useQuery } from 'react-apollo'
@@ -15,7 +15,7 @@ import Settings from '../graphql/Settings.graphql'
 import linkParams from '../utils/categoryLinkParams'
 import WordpressHeader from './WordpressHeader'
 
-interface PostProps {
+interface PostProps extends HTMLProps<any> {
   customDomains: string
   subcategoryUrls: boolean
 }
@@ -170,7 +170,7 @@ const PostCategoryLink: FunctionComponent<PostCategoryLinkProps> = ({
   )
 }
 
-export interface WordpressPostInnerProps {
+export interface WordpressPostInnerProps extends HTMLProps<any> {
   postData: PostData
   customDomainSlug?: string
   subcategoryUrls?: boolean
