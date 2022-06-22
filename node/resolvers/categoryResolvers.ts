@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 export const categoryResolvers = {
   wpPosts: async (
     { id }: { id: number },
@@ -46,6 +46,7 @@ export const categoryResolvers = {
     const {
       clients: { wordpressProxy },
     } = ctx
+
     const options = {
       categories: [id],
       page,
@@ -67,10 +68,12 @@ export const categoryResolvers = {
       sticky,
       customDomain,
     }
+
     const { headers, data } = await wordpressProxy.getPosts(options)
     const posts = data
     const total_count = headers['x-wp-total']
     const result = { posts, total_count }
+
     return result
   },
 }

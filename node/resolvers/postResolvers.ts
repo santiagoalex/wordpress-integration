@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop */
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 const API_MAX_RETURN = 100
 
 export const postResolvers = {
@@ -11,6 +11,7 @@ export const postResolvers = {
     const {
       clients: { wordpressProxy },
     } = ctx
+
     try {
       return await wordpressProxy.getUser(author, customDomain)
     } catch (e) {
@@ -49,6 +50,7 @@ export const postResolvers = {
     } catch (err) {
       return []
     }
+
     return allCategories
   },
   tags: async (
@@ -83,6 +85,7 @@ export const postResolvers = {
     } catch (err) {
       return []
     }
+
     return allTags
   },
   featured_media: async (
@@ -93,6 +96,7 @@ export const postResolvers = {
     const {
       clients: { wordpressProxy },
     } = ctx
+
     if (featured_media > 0) {
       try {
         return await wordpressProxy.getMediaSingle(featured_media, customDomain)
@@ -100,6 +104,7 @@ export const postResolvers = {
         console.error(`${e.name}: ${e.message}`)
       }
     }
+
     return null
   },
 }

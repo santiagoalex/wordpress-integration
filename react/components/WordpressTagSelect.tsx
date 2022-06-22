@@ -38,7 +38,8 @@ const WordpressTagSelect: StorefrontFunctionComponent<WordpressTagSelectProps> =
       value={selectedTag}
       onChange={(_: any, l: any) => {
         setSelectedTag(l)
-        const selectedOption = tagOptions.find(option => option.value === l)
+        const selectedOption = tagOptions.find((option) => option.value === l)
+
         setSelectedTagId(selectedOption.id)
       }}
     />

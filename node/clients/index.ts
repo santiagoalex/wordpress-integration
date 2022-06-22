@@ -1,4 +1,5 @@
-import { ClientsConfig, IOClients, LRUCache } from '@vtex/api'
+import type { ClientsConfig } from '@vtex/api'
+import { IOClients, LRUCache } from '@vtex/api'
 
 import Sitemap from './sitemap'
 import StoreRoutes from './storeRoutes'
@@ -12,6 +13,7 @@ const defaultClientOptions = {
 }
 
 const cacheStorage = new LRUCache<string, any>({ max: 5000 })
+
 // eslint-disable-next-line no-undef
 metrics.trackCache('wordpressProxy', cacheStorage)
 

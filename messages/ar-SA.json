@@ -79,6 +79,13 @@
   "admin/editor.wordpressExcludeCategories.description": "سيتم استبعاد الوظائف التي تحتوي على أي من الفئات المدرجة في القائمة",
   "admin/editor.wordpressMediaSize.title": "حجم الوسائط في WordPress",
   "admin/editor.wordpressMediaSize.description": "حدد حجم الصورة التي يجب استخدامها في كتل المعاينة. يتم استخدام صورة المصدر بشكل افتراضي",
+  "admin/editor.wordpressAmpLinks.title": "استخدم روابط صفحة الهاتف المحمول المعجلة (AMP)",
+  "admin/editor.wordpressAmpLinks.description": "رابط إلى WordPress AMP الخارجي بدلاً من عنوان رابط المتجر النسبي",
+  "admin/editor.wordpressAmpUrlFormat.title": "تنسيق رابط AMP",
+  "admin/editor.wordpressAmpUrlFormat.description": "حدد تنسيق عنوان رابط لصفحات AMP الخاصة بك",
+  "admin/editor.wordpressAmpPathSuffix": "لاحقة مسار AMP (/amp)",
+  "admin/editor.wordpressAmpQuery": "استفسار AMP (?amp)",
+  "admin/editor.wordpressAmpQueryValue": "استفسار AMP بقيمة (?amp=1)",
   "store/wordpress-integration.wordpressPostNavigation.next": "المادة التالية >",
   "store/wordpress-integration.wordpressPostNavigation.previous": "< المقالة السابقة",
   "store/wordpress-integration.wordpressPagination.postsPerPage": "المشاركات لكل صفحة",
@@ -89,5 +96,6 @@
   "store/wordpress-integration.wordpressCategorySelect.allCategories": "كافة الفئات",
   "store/wordpress-integration.wordpressCategorySelect.filterByCategory": "تصفية حسب الفئة",
   "store/wordpress-integration.WordpressTagSelect.allTags": "جميع التسميات",
-  "store/wordpress-integration.WordpressTagSelect.filterByTag": "تصفية حسب التسميات"
+  "store/wordpress-integration.WordpressTagSelect.filterByTag": "تصفية حسب التسميات",
+  "store/wordpress-integration.wordpressDateSelect.filterByDate": "تصفية حسب نطاق التاريخ"
 }

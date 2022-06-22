@@ -1,6 +1,7 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Container } from 'vtex.store-components'
-import React, { FunctionComponent, useMemo } from 'react'
+import type { FunctionComponent } from 'react'
+import React, { useMemo } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
@@ -127,11 +128,12 @@ const CSS_HANDLES = [
   'postChildrenContainer',
 ] as const
 
-const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
+const WordpressPageInner: FunctionComponent<{ pageData: any }> = (props) => {
   const handles = useCssHandles(CSS_HANDLES)
   const {
     culture: { locale },
   } = useRuntime()
+
   const { loading: loadingS, data: dataS } = useQuery(Settings)
 
   if (!props.pageData) {
@@ -150,26 +152,32 @@ const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
     month: 'long',
     day: 'numeric',
   }
+
   const formattedDate = dateObj.toLocaleDateString(locale, dateOptions)
 
   const titleHtml = useMemo(() => {
     return insane(title.rendered, sanitizerConfig)
   }, [title.rendered, sanitizerConfig])
+
   const captionHtml = useMemo(() => {
     return featured_media?.caption?.rendered
       ? insane(featured_media.caption.rendered, sanitizerConfigStripAll)
       : null
   }, [featured_media?.caption?.rendered, sanitizerConfigStripAll])
+
   const bodyHtml = useMemo(() => {
     let html = insane(content.rendered, sanitizerConfig)
+
     // eslint-disable-next-line max-params
     html = html.replace(classRegex, (_, $1, $2, $3) => {
       const classArray = $2.split(' ')
       const newClasses = classArray.map(
         (item: string) => `vtex-wordpress-integration-2-x-${item}`
       )
+
       return `${$1}${newClasses.join(' ')}${$3}`
     })
+
     return html
   }, [content.rendered, sanitizerConfig])
 
@@ -180,6 +188,7 @@ const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
       </div>
     )
   }
+
   return (
     <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
       <WordpressHeader postData={props.pageData} dataS={dataS} />
@@ -239,6 +248,7 @@ const WordpressPage: StorefrontFunctionComponent<PageProps> = ({
   } = useRuntime()
 
   let parsedCustomDomains = null
+
   try {
     parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
   } catch (e) {
@@ -262,6 +272,7 @@ const WordpressPage: StorefrontFunctionComponent<PageProps> = ({
       </div>
     )
   }
+
   if (error) {
     return (
       <div className="ph5" style={{ minHeight: 800 }}>
@@ -269,6 +280,7 @@ const WordpressPage: StorefrontFunctionComponent<PageProps> = ({
       </div>
     )
   }
+
   if (!data?.wpPages?.pages) {
     return (
       <div>
@@ -276,6 +288,7 @@ const WordpressPage: StorefrontFunctionComponent<PageProps> = ({
       </div>
     )
   }
+
   return <WordpressPageInner pageData={data.wpPages.pages[0]} />
 }
 

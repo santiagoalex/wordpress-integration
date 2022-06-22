@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 export const pageResolvers = {
   author: async (
     { author, customDomain }: { author: number; customDomain: string },
@@ -8,6 +8,7 @@ export const pageResolvers = {
     const {
       clients: { wordpressProxy },
     } = ctx
+
     try {
       return await wordpressProxy.getUser(author, customDomain)
     } catch (e) {
@@ -25,6 +26,7 @@ export const pageResolvers = {
     const {
       clients: { wordpressProxy },
     } = ctx
+
     if (featured_media > 0) {
       try {
         return await wordpressProxy.getMediaSingle(featured_media, customDomain)
@@ -32,6 +34,7 @@ export const pageResolvers = {
         console.error(`${e.name}: ${e.message}`)
       }
     }
+
     return null
   },
 }

@@ -1,5 +1,6 @@
 import { SearchPageContext } from 'vtex.search-page-context/SearchPageContext'
-import React, { ComponentType } from 'react'
+import type { ComponentType } from 'react'
+import React from 'react'
 
 function withSearchContext(WrappedComponent: ComponentType<any>) {
   return (props: any) => {

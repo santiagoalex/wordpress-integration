@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import { ExternalClient, InstanceOptions, IOContext, Apps } from '@vtex/api'
+import type { InstanceOptions, IOContext } from '@vtex/api'
+import { ExternalClient, Apps } from '@vtex/api'
 
 const DEFAULT_API_PATH = 'wp-json/wp/v2/'
 
@@ -34,12 +35,14 @@ export default class WordpressProxyDataSource extends ExternalClient {
   private async getEndpoint(vtex: IOContext) {
     const settings = await this.getAppSettings(vtex)
     const endpoint = settings.endpoint ?? 'http://demo.wp-api.org/'
+
     this.endpoint = endpoint.replace('https://', 'http://')
   }
 
   private async getApiPath(vtex: IOContext) {
     const settings = await this.getAppSettings(vtex)
     const apiPath = settings.apiPath ?? DEFAULT_API_PATH
+
     this.apiPath = apiPath
   }
 
@@ -47,14 +50,17 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let returnStr = ''
     const keys = Object.keys(wpOptions)
     const len = keys.length
+
     for (let i = 0; i < len; i++) {
       if (wpOptions[keys[i]] && keys[i] !== 'customDomain') {
         returnStr += `${(returnStr ? '&' : '') + keys[i]}=${wpOptions[keys[i]]}`
       }
     }
+
     if (returnStr) {
       if (this.apiPath && this.apiPath.indexOf('?') >= 0) {
         returnStr = `&${returnStr}`
@@ -62,6 +68,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
         returnStr = `?${returnStr}`
       }
     }
+
     return returnStr
   }
 
@@ -69,15 +76,19 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let combinedArgs = ''
     let { endpoint } = this
+
     if (wpOptions) {
       combinedArgs = await this.buildArgs(wpOptions)
       if (wpOptions.customDomain) endpoint = wpOptions.customDomain
     }
+
     return this.http.getRaw<WpPost[]>(
       `${endpoint}${this.apiPath}posts${combinedArgs}`,
       {
@@ -90,12 +101,16 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let { endpoint } = this
+
     if (customDomain) endpoint = customDomain
     let formattedPassword = ''
+
     if (password) {
       if (this.apiPath && this.apiPath.indexOf('?') >= 0) {
         formattedPassword = `&password=${password}`
@@ -116,11 +131,14 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let combinedArgs = ''
     let { endpoint } = this
+
     if (wpOptions) {
       combinedArgs = await this.buildArgs(wpOptions)
       if (wpOptions.customDomain) endpoint = wpOptions.customDomain
@@ -138,11 +156,15 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let { endpoint } = this
+
     if (customDomain) endpoint = customDomain
+
     return this.http.get(`${endpoint}${this.apiPath}categories/${id}`, {
       metric: `category${id}`,
     })
@@ -152,11 +174,14 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let combinedArgs = ''
     let { endpoint } = this
+
     if (wpOptions) {
       combinedArgs = await this.buildArgs(wpOptions)
       if (wpOptions.customDomain) endpoint = wpOptions.customDomain
@@ -174,11 +199,15 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let { endpoint } = this
+
     if (customDomain) endpoint = customDomain
+
     return this.http.get(`${endpoint}${this.apiPath}tags/${id}`, {
       metric: `tag${id}`,
     })
@@ -188,11 +217,14 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let combinedArgs = ''
     let { endpoint } = this
+
     if (wpOptions) {
       combinedArgs = await this.buildArgs(wpOptions)
       if (wpOptions.customDomain) endpoint = wpOptions.customDomain
@@ -207,11 +239,14 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let formattedPassword = ''
     let { endpoint } = this
+
     if (customDomain) endpoint = customDomain
     if (password) {
       if (this.apiPath && this.apiPath.indexOf('?') >= 0) {
@@ -233,10 +268,13 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let combinedArgs = ''
+
     if (wpOptions) {
       combinedArgs = await this.buildArgs(wpOptions)
     }
@@ -253,10 +291,13 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let formattedPassword = ''
+
     if (password) {
       if (this.apiPath && this.apiPath.indexOf('?') >= 0) {
         formattedPassword = `&password=${password}`
@@ -277,10 +318,13 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let formattedType = ''
+
     if (type) {
       if (this.apiPath && this.apiPath.indexOf('?') >= 0) {
         formattedType = `&type=${type}`
@@ -288,6 +332,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
         formattedType = `?type=${type}`
       }
     }
+
     return this.http.get(
       `${this.endpoint}${this.apiPath}taxonomies${formattedType}`,
       {
@@ -300,9 +345,11 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     return this.http.get(
       `${this.endpoint}${this.apiPath}taxonomies/${taxonomy}`,
       {
@@ -315,10 +362,13 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let combinedArgs = ''
+
     if (wpOptions) {
       combinedArgs = await this.buildArgs(wpOptions)
     }
@@ -335,11 +385,15 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let { endpoint } = this
+
     if (customDomain) endpoint = customDomain
+
     return this.http.get(`${endpoint}${this.apiPath}media/${id}`, {
       metric: `media-single${id}`,
     })
@@ -349,10 +403,13 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let combinedArgs = ''
+
     if (wpOptions) {
       combinedArgs = await this.buildArgs(wpOptions)
     }
@@ -369,11 +426,15 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     let { endpoint } = this
+
     if (customDomain) endpoint = customDomain
+
     return this.http.get(`${endpoint}${this.apiPath}users/${id}`, {
       metric: `user${id}`,
     })
@@ -383,9 +444,11 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     return this.http.get(`${this.endpoint}${this.apiPath}types`, {
       metric: 'post-types',
     })
@@ -395,9 +458,11 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     return this.http.get(`${this.endpoint}${this.apiPath}types/${type}`, {
       metric: `post-type${type}`,
     })
@@ -407,9 +472,11 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     return this.http.get(`${this.endpoint}${this.apiPath}statuses`, {
       metric: 'post-statuses',
     })
@@ -419,9 +486,11 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     return this.http.get(`${this.endpoint}${this.apiPath}statuses/${status}`, {
       metric: `post-status${status}`,
     })
@@ -431,9 +500,11 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+
     if (!this.apiPath) {
       await this.getApiPath(this.context)
     }
+
     return this.http.get(`${this.endpoint}${this.apiPath}settings`, {
       metric: 'settings',
     })

@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable no-restricted-syntax */
 interface Window extends Window {
   dataLayer: any[]
   __SETTINGS__: {
@@ -20,6 +21,7 @@ interface PostData {
   featured_media: WPMedia
   headerTags: HeaderTags
   tags: [WPTag]
+  amp_enabled: boolean
 }
 
 interface WPTitle {

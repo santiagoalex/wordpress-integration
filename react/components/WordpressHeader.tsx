@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet'
 
 interface WordpressHeaderProps {
@@ -12,7 +13,7 @@ const buildMetaTag = ({ name, property, content }: MetaTags) => {
   return <meta property={property} content={content} />
 }
 
-const WordpressHeader: FunctionComponent<WordpressHeaderProps> = props => {
+const WordpressHeader: FunctionComponent<WordpressHeaderProps> = (props) => {
   const { postData, dataS } = props
   const {
     type,
@@ -30,7 +31,7 @@ const WordpressHeader: FunctionComponent<WordpressHeaderProps> = props => {
     return (
       <Helmet>
         <title>{headerTitle}</title>
-        {headerTags.metaTags.map(tag => buildMetaTag(tag))}
+        {headerTags.metaTags.map((tag) => buildMetaTag(tag))}
         <script type="application/ld+json">{headerTags.ldJson}</script>
       </Helmet>
     )
@@ -38,10 +39,7 @@ const WordpressHeader: FunctionComponent<WordpressHeaderProps> = props => {
 
   const description =
     type === 'page'
-      ? excerpt?.rendered
-          ?.replace(/<p>/gi, '')
-          .replace(/<\/p>/gi, '')
-          .trim()
+      ? excerpt?.rendered?.replace(/<p>/gi, '').replace(/<\/p>/gi, '').trim()
       : excerpt?.rendered?.replace(/(<([^>]+)>)/gi, '').trim()
 
   return (
