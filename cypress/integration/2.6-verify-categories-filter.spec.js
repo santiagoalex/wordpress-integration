@@ -26,7 +26,7 @@ describe('Categories filter and validate', () => {
         if ($body.find(wordpressSelectors.CategoryLink).length > 0) {
           const categoryListLength = $body.find(wordpressSelectors.CategoryLink)
             .length
-          cy.log(categoryListLength)
+
           for (let i = 0; i < categoryListLength; i++) {
             cy.get(wordpressSelectors.CategoryLink)
               .eq(i)
