@@ -2,7 +2,7 @@ import { updateRetry } from './common/support'
 import { sitemapAPI, blogPostAPI, blogPostCategoriesAPI } from './product.api'
 
 export function verifySitemap() {
-  it('verify the sitemap', updateRetry(3), () => {
+  it.skip('verify the sitemap', updateRetry(3), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then(vtex => {
       cy.log(vtex.baseUrl)

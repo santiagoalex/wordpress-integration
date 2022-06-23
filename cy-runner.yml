@@ -27,7 +27,7 @@ base:
     enabled: false
     channel: some-channel
   cypress:
-    devMode: true
+    devMode: false
     runHeaded: false
     enabled: false
     projectId: xyz
@@ -84,7 +84,16 @@ strategy:
     specs:
       - cypress/integration/wipe.spec.js
   # Enable Anonymous review with no admin approval
-  anonymous_user1:
+  configuring_wordpress_testcase:
+    enabled: true
+    sendDashboard: false
+    hardTries: 1
+    stopOnFail: false
+    parallel: false
+    runInOrder: true
+    specs:
+      - cypress/integration/2.1-*
+  ui_testcase:
     enabled: true
     sendDashboard: false
     hardTries: 1
