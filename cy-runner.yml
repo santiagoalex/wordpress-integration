@@ -9,11 +9,7 @@ base:
     domain: myvtex.com
     vtexIdUrl: https://vtexid.vtex.com.br/api/vtexid/pub/authenticate/default
     deployCli:
-      # using robot Mail, we are not able to link wish-list app
-      # deployCli is disabled for now.
-      # So, before testing wishlist app ensure you are logged in to vtex account using your mail
-      # Command to check: vtex whoami
-      enabled: false
+      enabled: true
       git: https://github.com/vtex/toolbelt.git
       branch: qe/cypress
   twilio:
@@ -24,13 +20,12 @@ base:
     board: jira-key
     issueType: task
   slack:
-    enabled: false
     channel: some-channel
   cypress:
     devMode: false
     runHeaded: false
     enabled: false
-    projectId: xyz
+    projectId: xm9var
     getCookies: true
     maxJobs: 3
     quiet: true
@@ -47,6 +42,7 @@ base:
     pageLoadTimeout: 45000
     browser: chrome
     chromeWebSecurity: false
+    sorry: false
   stateFiles: [.wordpress.json]
 
 workspace:
@@ -73,47 +69,28 @@ workspace:
     enabled: true
 
 strategy:
-  # Clear reviews before testcase
-  wipe:
-    enabled: false
-    sendDashboard: false
-    hardTries: 1
-    stopOnFail: false
-    parallel: false
-    runInOrder: true
-    specs:
-      - cypress/integration/wipe.spec.js
   # Enable Anonymous review with no admin approval
   configuring_wordpress_testcase:
     enabled: true
     sendDashboard: false
     hardTries: 1
     stopOnFail: false
-    parallel: false
-    runInOrder: true
+    parallel: true
     specs:
-      - cypress/integration/2.1-*
+      - cypress/integration/2.1-configure-wordpress-via-graphql.spec.js
   ui_testcase:
     enabled: true
     sendDashboard: false
     hardTries: 1
     stopOnFail: false
-    parallel: false
+    parallel: true
     runInOrder: true
     specs:
-      - cypress/integration/2.3-*
-      - cypress/integration/2.4-*
-      - cypress/integration/2.5-*
-      - cypress/integration/2.6-*
-      - cypress/integration/2.7-*
-      - cypress/integration/2.8-*
+      - cypress/integration/2.2-rest-api.spec.js
+      - cypress/integration/2.3-filter-by-tags.spec.js
+      - cypress/integration/2.4-UI-testcase.spec.js
+      - cypress/integration/2.5-filter-by-date.spec.js
+      - cypress/integration/2.6-verify-categories-filter.spec.js
+      - cypress/integration/2.7-verify-search_articles.spec.js
+      - cypress/integration/2.8.search.product.spec.js
 
-  rest_api_testcase:
-    enabled: true
-    sendDashboard: false
-    hardTries: 3
-    stopOnFail: false
-    parallel: false
-    runInOrder: true
-    specs:
-      - cypress/integration/2.2-*
