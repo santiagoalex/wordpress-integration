@@ -28,9 +28,7 @@ describe('Categories filter and validate', () => {
             .length
 
           for (let i = 0; i < categoryListLength; i++) {
-            cy.get(wordpressSelectors.CategoryLink)
-              .eq(i)
-              .contains(categoryName)
+            cy.get(wordpressSelectors.CategoryLink).eq(i).contains(categoryName)
           }
         }
       })

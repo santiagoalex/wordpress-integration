@@ -1,8 +1,9 @@
 import { FAIL_ON_STATUS_CODE } from './common/constants'
 import { updateRetry } from './common/support'
 
-const version = '2.19.2'
+const version = '*.x'
 const app = 'vtex.wordpress-integration'
+
 export function configureTargetWorkspace(
   endpoint,
   titleTag,
@@ -27,11 +28,13 @@ export function configureTargetWorkspace(
         'mutation' +
         '($app:String,$version:String,$settings:String)' +
         '{saveAppSettings(app:$app,version:$version,settings:$settings){message}}'
+
       const QUERY_VARIABLES = {
         app,
         version,
-        settings: `{\"bindingBounded\":${bindingBounded},\"displayShowRowsText\":${displayShowRowsText},\"ignoreRobotsMetaTag\":${ignoreRobotsMetaTag},\"initializeSitemap\":${initializeSitemap},\"filterByCategories\":${filterByCategories},\"filterByTags\":${filterByTags},\"filterByDate\":${filterByDate},\"endpoint\": "${endpoint}\",\"titleTag\":"${titleTag}"}`,
+        settings: `{"bindingBounded":${bindingBounded},"displayShowRowsText":${displayShowRowsText},"ignoreRobotsMetaTag":${ignoreRobotsMetaTag},"initializeSitemap":${initializeSitemap},"filterByCategories":${filterByCategories},"filterByTags":${filterByTags},"filterByDate":${filterByDate},"endpoint": "${endpoint}","titleTag":"${titleTag}"}`,
       }
+
       // Mutating it to the new workspace
       cy.request({
         method: 'POST',

@@ -10,19 +10,10 @@ export function selectDateAndVerify() {
   cy.get(wordpressSelectors.SelectDate1).click()
   /* eslint-disable cypress/no-unnecessary-waiting */
   cy.wait(1000)
-  cy.get(wordpressSelectors.SelectMonth)
-    .click()
-    .click()
-    .click()
-    .click()
-    .click()
-  cy.get(wordpressSelectors.SelectDay1)
-    .contains('19')
-    .click()
+  cy.get(wordpressSelectors.SelectMonth).click().click().click().click().click()
+  cy.get(wordpressSelectors.SelectDay1).contains('19').click()
   cy.get(wordpressSelectors.SelectDate2).click()
-  cy.get(wordpressSelectors.SelectDay2)
-    .contains('21')
-    .click()
+  cy.get(wordpressSelectors.SelectDay2).contains('21').click()
   cy.get(wordpressSelectors.ApplyButton).click()
 }
 
@@ -43,9 +34,7 @@ export function verifyHomePageAndTitle() {
 }
 
 export function verifyPostsAndPagination() {
-  cy.get(wordpressSelectors.PaginationButton)
-    .should('be.visible')
-    .click()
+  cy.get(wordpressSelectors.PaginationButton).should('be.visible').click()
   /* eslint-disable cypress/no-unnecessary-waiting */
   cy.wait(10000)
   //   cy.get(wordpressSelectors.VerifyPost).should(

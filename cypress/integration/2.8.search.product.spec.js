@@ -22,9 +22,7 @@ describe('Search product scenarios', () => {
   })
 
   it('Using pagination and opening articles', updateRetry(3), () => {
-    cy.get(wordpressSelectors.PaginationComponent)
-      .eq(1)
-      .click()
+    cy.get(wordpressSelectors.PaginationComponent).eq(1).click()
     cy.contains('Slot Machine').should('be.visible')
     cy.contains('Slot Machine').click()
     cy.get(wordpressSelectors.PostContainer).should('be.visible')

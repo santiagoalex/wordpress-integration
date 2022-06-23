@@ -20,11 +20,11 @@ base:
     board: jira-key
     issueType: task
   slack:
+    enabled: false
     channel: some-channel
   cypress:
     devMode: false
     runHeaded: false
-    enabled: false
     projectId: xm9var
     getCookies: true
     maxJobs: 3
@@ -93,4 +93,3 @@ strategy:
       - cypress/integration/2.6-verify-categories-filter.spec.js
       - cypress/integration/2.7-verify-search_articles.spec.js
       - cypress/integration/2.8.search.product.spec.js
-
