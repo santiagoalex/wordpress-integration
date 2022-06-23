@@ -1,13 +1,8 @@
 /* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Container } from 'vtex.store-components'
-import React, {
-  ChangeEvent,
-  Fragment,
-  useState,
-  useEffect,
-  useRef,
-} from 'react'
+import type { ChangeEvent } from 'react'
+import React, { Fragment, useState, useEffect, useRef } from 'react'
 import { defineMessages, useIntl } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { Spinner, Pagination } from 'vtex.styleguide'
@@ -52,6 +47,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
     route: { params },
     query,
   } = useRuntime()
+
   const intl = useIntl()
   const initialPage = params.page ?? query?.page ?? '1'
   const [page, setPage] = useState(parseInt(initialPage, 10))
@@ -64,6 +60,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
       categories: [category],
     },
   ] = searchQuery?.data?.productSearch.products ?? null
+
   const terms = params?.term ?? category?.replaceAll('/', ' ').trim()
   const variables = {
     terms,
@@ -71,10 +68,12 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
     wp_per_page: perPage,
     customDomain,
   }
+
   const { loading, error, data, fetchMore } = useQuery(SearchPosts, {
     skip: !searchQuery,
     variables,
   })
+
   useEffect(() => {
     console.log('terms::', terms)
   }, [terms])
@@ -88,6 +87,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
 
       return
     }
+
     if (containerRef.current) {
       window.scrollTo({
         top:
@@ -131,6 +131,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
           },
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult) return prev
+
             return fetchMoreResult
           },
         })
@@ -138,6 +139,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
       onPrevClick={() => {
         if (page <= 1) return
         const prevPage = page - 1
+
         setPage(page - 1)
         fetchMore({
           variables: {
@@ -148,12 +150,14 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
           },
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult) return prev
+
             return fetchMoreResult
           },
         })
       }}
       onNextClick={() => {
         const nextPage = page + 1
+
         setPage(page + 1)
         fetchMore({
           variables: {
@@ -164,12 +168,14 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
           },
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult) return prev
+
             return fetchMoreResult
           },
         })
       }}
     />
   )
+
   return searchQuery?.data?.searchMetadata?.titleTag ? (
     <Fragment>
       <h2

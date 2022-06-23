@@ -1,4 +1,5 @@
-import React, { FunctionComponent, Fragment, useMemo } from 'react'
+import type { FunctionComponent } from 'react'
+import React, { Fragment, useMemo } from 'react'
 import { Card, Button } from 'vtex.styleguide'
 import { Link, useRuntime } from 'vtex.render-runtime'
 import insane from 'insane'
@@ -27,6 +28,8 @@ interface TeaserProps {
   absoluteLinks: boolean
   useTextOverlay: boolean
   showPostButton?: boolean
+  ampLinks?: boolean
+  ampUrlFormat?: string
 }
 
 const sanitizerConfigStripAll = {
@@ -81,6 +84,8 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   absoluteLinks,
   useTextOverlay,
   showPostButton,
+  ampLinks = false,
+  ampUrlFormat = 'ampPathSuffix',
 }) => {
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
@@ -94,9 +99,11 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   const sanitizedTitle = useMemo(() => {
     return insane(title, sanitizerConfigStripAll)
   }, [title, sanitizerConfigStripAll])
+
   const sanitizedExcerpt = useMemo(() => {
     return insane(excerpt, sanitizerConfigStripAll)
   }, [excerpt, sanitizerConfigStripAll])
+
   const {
     media_type: mediaType,
     alt_text: altText,
@@ -107,11 +114,30 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
     (mediaSize && mediaDetail?.sizes[mediaSize]?.source_url) ||
     featuredMedia?.source_url
 
-  const category = categories?.length && categories?.find(c => c.parent === 0)
+  const category = categories?.length && categories?.find((c) => c.parent === 0)
   const subcategory =
     subcategoryUrls && category
-      ? categories?.find(sub => sub.parent === category.id)
+      ? categories?.find((sub) => sub.parent === category.id)
       : undefined
+
+  let ampLink
+
+  switch (ampUrlFormat) {
+    case 'ampPathSuffix':
+      ampLink = `${link}amp/`
+      break
+
+    case 'ampQuery':
+      ampLink = `${link.replace(/\/$/, '')}?amp`
+      break
+
+    case 'ampQueryValue':
+      ampLink = `${link.replace(/\/$/, '')}?amp=1`
+      break
+
+    default:
+      break
+  }
 
   return (
     <div className={`${handles.teaserContainer}`}>
@@ -173,7 +199,17 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                     <div
                       className={`${handles.teaserTextOverlayTitle} t-heading-5 white fw5 mb3`}
                     >
-                      {absoluteLinks ? (
+                      {ampLinks && (
+                        <Link
+                          to={`${ampLink}`}
+                          target="_blank"
+                          className="white no-underline"
+                        >
+                          {title}
+                        </Link>
+                      )}
+
+                      {!ampLinks && absoluteLinks && (
                         <Link
                           to={link}
                           target="_blank"
@@ -181,7 +217,9 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                         >
                           {title}
                         </Link>
-                      ) : (
+                      )}
+
+                      {!ampLinks && !absoluteLinks && (
                         <Link
                           page="store.blog-post"
                           params={{
@@ -248,7 +286,21 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
               </div>
             ) : (
               <Fragment>
-                {absoluteLinks ? (
+                {ampLinks && (
+                  <Link
+                    to={`${ampLink}`}
+                    target="_blank"
+                    className={`${handles.teaserImageContainer} tc-m db`}
+                  >
+                    <img
+                      className={`${handles.teaserImage}`}
+                      src={mediaSourceURL}
+                      alt={altText}
+                    ></img>
+                  </Link>
+                )}
+
+                {!ampLinks && absoluteLinks && (
                   <Link
                     to={link}
                     target="_blank"
@@ -260,7 +312,9 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                       alt={altText}
                     ></img>
                   </Link>
-                ) : (
+                )}
+
+                {!ampLinks && !absoluteLinks && (
                   <Link
                     page="store.blog-post"
                     params={{
@@ -288,7 +342,19 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
               <h3
                 className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}
               >
-                {absoluteLinks ? (
+                {ampLinks && (
+                  <Link
+                    className={`${handles.teaserTitleLink}`}
+                    to={`${ampLink}`}
+                    target="_blank"
+                  >
+                    <span
+                      dangerouslySetInnerHTML={{ __html: sanitizedTitle }}
+                    />
+                  </Link>
+                )}
+
+                {!ampLinks && absoluteLinks && (
                   <Link
                     className={`${handles.teaserTitleLink}`}
                     to={link}
@@ -298,7 +364,9 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                       dangerouslySetInnerHTML={{ __html: sanitizedTitle }}
                     />
                   </Link>
-                ) : (
+                )}
+
+                {!ampLinks && !absoluteLinks && (
                   <Link
                     className={`${handles.teaserTitleLink}`}
                     page="store.blog-post"
@@ -323,7 +391,17 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
           )}
           {showPostButton && (
             <>
-              {absoluteLinks ? (
+              {ampLinks && (
+                <Link
+                  className={`${handles.teaserShowPostButton}`}
+                  to={`${ampLink}`}
+                  target="_blank"
+                >
+                  <Button>{intl.formatMessage(messages.showPostButton)}</Button>
+                </Link>
+              )}
+
+              {!ampLinks && absoluteLinks && (
                 <Link
                   className={`${handles.teaserShowPostButton}`}
                   to={link}
@@ -331,7 +409,9 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                 >
                   <Button>{intl.formatMessage(messages.showPostButton)}</Button>
                 </Link>
-              ) : (
+              )}
+
+              {!ampLinks && !absoluteLinks && (
                 <Link
                   className={`${handles.teaserShowPostButton}`}
                   page="store.blog-post"

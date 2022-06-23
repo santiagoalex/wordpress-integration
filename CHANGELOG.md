@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.20.0] - 2022-06-22
+
+### Added
+
+- Add option to link to blog post AMP pages on external WordPress site when AMP plugin used
+
 ## [2.19.2] - 2022-05-30
 
 ### Fixed

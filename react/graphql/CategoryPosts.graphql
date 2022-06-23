@@ -4,7 +4,8 @@ query CategoryPosts(
   $category: Int!
   $customDomain: String
 ) {
-  wpCategory(id: $category, customDomain: $customDomain) {
+  wpCategory(id: $category, customDomain: $customDomain)
+    @context(provider: "vtex.wordpress-integration") {
     name
     slug
     wpPosts(
@@ -56,6 +57,7 @@ query CategoryPosts(
         id
         slug
         link
+        amp_enabled
       }
       total_count
     }

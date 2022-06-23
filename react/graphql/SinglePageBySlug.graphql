@@ -1,5 +1,6 @@
 query SinglePagebySlug($slug: String!, $customDomain: String) {
-  wpPages(slug: [$slug], customDomain: $customDomain) {
+  wpPages(slug: [$slug], customDomain: $customDomain)
+    @context(provider: "vtex.wordpress-integration") {
     pages {
       title {
         rendered

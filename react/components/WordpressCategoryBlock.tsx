@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 import React, { Fragment } from 'react'
 import { Link, useRuntime } from 'vtex.render-runtime'
 import { useQuery } from 'react-apollo'
@@ -36,6 +36,8 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
   customDomain,
   customDomainSlug,
   showPostButton,
+  ampLinks,
+  ampUrlFormat,
 }) => {
   const { route } = useRuntime()
   const { loading, error, data } = useQuery(CategoryPosts, {
@@ -45,6 +47,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
       customDomain,
     },
   })
+
   const handles = useCssHandles(CSS_HANDLES)
 
   const category = data?.wpCategory
@@ -52,13 +55,14 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
     subcategoryUrls &&
     category?.parent !== 0 &&
     data?.wpCategory?.wpPosts?.posts[0]?.categories
+
   const parentCategory = postCategories
     ? postCategories?.find((cat: WPCategory) => cat.id === category.parent)
     : null
 
   const filteredPosts =
     data?.wpCategory?.wpPosts?.posts &&
-    (data.wpCategory.wpPosts.posts as PostData[]).filter(post => {
+    (data.wpCategory.wpPosts.posts as PostData[]).filter((post) => {
       return post.slug !== route?.params?.slug
     })
 
@@ -109,6 +113,8 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
                   useTextOverlay={useTextOverlays}
                   absoluteLinks={absoluteLinks}
                   showPostButton={showPostButton}
+                  ampLinks={ampLinks && post.amp_enabled}
+                  ampUrlFormat={ampUrlFormat}
                 />
               </div>
             ))}
@@ -171,6 +177,8 @@ interface WPCategoryBlockProps {
   customDomain: string
   customDomainSlug: string
   showPostButton: boolean
+  ampLinks?: boolean
+  ampUrlFormat?: string
 }
 
 WordpressCategoryBlock.defaultProps = {
@@ -320,6 +328,34 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressMediaSize.description',
   },
+  ampLinksTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpLinks.title',
+  },
+  ampLinksDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpLinks.description',
+  },
+  ampUrlFormatTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpUrlFormat.title',
+  },
+  ampUrlFormatDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpUrlFormat.description',
+  },
+  ampPathSuffix: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpPathSuffix',
+  },
+  ampQuery: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpQuery',
+  },
+  ampQueryValue: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpQueryValue',
+  },
 })
 
 WordpressCategoryBlock.schema = {
@@ -433,6 +469,39 @@ WordpressCategoryBlock.schema = {
       enumNames: ['Thumbnail', 'Medium', 'Medium Large', 'Large', 'Full'],
       isLayout: false,
       default: '',
+    },
+    ampLinks: {
+      title: messages.ampLinksTitle.id,
+      description: messages.ampLinksDescription.id,
+      type: 'boolean',
+      isLayout: false,
+      default: '',
+    },
+  },
+  dependencies: {
+    ampLinks: {
+      oneOf: [
+        {
+          properties: {
+            ampLinks: {
+              enum: [true],
+            },
+            ampUrlFormat: {
+              title: messages.ampUrlFormatTitle.id,
+              description: messages.ampUrlFormatDescription.id,
+              type: 'string',
+              enum: ['ampPathSuffix', 'ampQuery', 'ampQueryValue'],
+              enumNames: [
+                messages.ampPathSuffix.id,
+                messages.ampQuery.id,
+                messages.ampQueryValue.id,
+              ],
+              isLayout: false,
+              default: 'ampPathSuffix',
+            },
+          },
+        },
+      ],
     },
   },
 }

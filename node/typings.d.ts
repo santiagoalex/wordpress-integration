@@ -1,7 +1,6 @@
 declare module 'colossus' {
-  import { Context as KoaContext } from 'koa'
+  import type { Context as KoaContext } from 'koa'
 
-  // eslint-disable-next-line @typescript-eslint/interface-name-prefix
   export interface IOContext {
     account: string
     workspace: string

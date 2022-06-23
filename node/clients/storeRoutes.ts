@@ -1,4 +1,5 @@
-import { InstanceOptions, IOContext, ExternalClient } from '@vtex/api'
+import type { InstanceOptions, IOContext } from '@vtex/api'
+import { ExternalClient } from '@vtex/api'
 
 type BlogPage = 'store.blog-post' | 'store.blog-category'
 interface PagesRuntime {

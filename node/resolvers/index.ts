@@ -3,7 +3,7 @@ import { LogLevel } from '@vtex/api'
 import searchPostTagsAndContent from '../utils/search'
 import { addCSShandles, addHeaderTags } from '../utils/jsdom'
 
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 export const queries = {
   wpPosts: async (
     _: any,
@@ -89,14 +89,18 @@ export const queries = {
       sticky,
       customDomain,
     }
+
     const { headers, data } = await wordpressProxy.getPosts(options)
     const posts = data
+
     if (data.length) {
       posts[0].content.rendered = addCSShandles(data[0].content.rendered)
       posts[0].headerTags = await addHeaderTags(ctx, data[0])
     }
+
     const total_count = headers['x-wp-total']
     const result = { posts, total_count }
+
     return result
   },
   wpPostsSearch: async (
@@ -180,6 +184,7 @@ export const queries = {
     const categories = data
     const total_count = headers['x-wp-total']
     const result = { categories, total_count }
+
     return result
   },
   wpCategory: async (
@@ -190,9 +195,12 @@ export const queries = {
     const {
       clients: { wordpressProxy },
     } = ctx
+
     try {
       const result = await wordpressProxy.getCategory(id, customDomain)
+
       if (!result) return null
+
       return result
     } catch (e) {
       console.error(`${e.name}: ${e.message}`)
@@ -247,10 +255,12 @@ export const queries = {
       slug,
       customDomain,
     }
+
     const { headers, data } = await wordpressProxy.getTags(options)
     const tags = data
     const total_count = headers['x-wp-total']
     const result = { tags, total_count }
+
     return result
   },
   wpTag: async (_: any, { id }: { id: number }, ctx: Context) => {
@@ -330,12 +340,15 @@ export const queries = {
 
     const { headers, data } = await wordpressProxy.getPages(options)
     const pages = data
+
     if (data.length) {
       pages[0].content.rendered = addCSShandles(data[0].content.rendered)
       pages[0].headerTags = addHeaderTags(ctx, data[0])
     }
+
     const total_count = headers['x-wp-total']
     const result = { pages, total_count }
+
     return result
   },
   wpPage: async (
@@ -427,6 +440,7 @@ export const queries = {
     const comments = data
     const total_count = headers['x-wp-total']
     const result = { comments, total_count }
+
     return result
   },
   wpComment: async (
@@ -527,6 +541,7 @@ export const queries = {
     const media = data
     const total_count = headers['x-wp-total']
     const result = { media, total_count }
+
     return result
   },
   wpMediaSingle: async (_: any, { id }: { id: number }, ctx: Context) => {
@@ -584,6 +599,7 @@ export const queries = {
     const users = data
     const total_count = headers['x-wp-total']
     const result = { users, total_count }
+
     return result
   },
   wpUser: async (_: any, { id }: { id: number }, ctx: Context) => {
@@ -635,6 +651,7 @@ export const queries = {
   appSettings: async (_: any, __: any, ctx: Context) => {
     const appId = process.env.VTEX_APP_ID as string
     const settings = await ctx.clients.apps.getAppSettings(appId)
+
     return settings
   },
 }

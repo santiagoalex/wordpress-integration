@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import { LogLevel, method, Binding } from '@vtex/api'
+/* eslint-disable @typescript-eslint/naming-convention */
+import type { Binding } from '@vtex/api'
+import { LogLevel, method } from '@vtex/api'
 
 import { getStoreBindings } from '../utils/bindings'
 import { queries } from './index'

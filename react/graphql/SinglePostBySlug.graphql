@@ -1,5 +1,6 @@
 query SinglePostBySlug($slug: String!, $customDomain: String) {
-  wpPosts(slug: [$slug], customDomain: $customDomain) {
+  wpPosts(slug: [$slug], customDomain: $customDomain)
+    @context(provider: "vtex.wordpress-integration") {
     posts {
       title {
         rendered

@@ -1,5 +1,6 @@
 import { Container } from 'vtex.store-components'
-import React, { FunctionComponent, useMemo } from 'react'
+import type { FunctionComponent } from 'react'
+import React, { useMemo } from 'react'
 import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
@@ -73,15 +74,17 @@ const sanitizerConfig = {
 const WordpressCategoryRelatedPost: FunctionComponent<{
   post: any
   index: number
-}> = props => {
+}> = (props) => {
   const { post, index } = props
   const handles = useCssHandles(CSS_HANDLES)
   const sanitizedTitle = useMemo(() => {
     return insane(post.title.rendered, sanitizerConfig)
   }, [post.title.rendered, sanitizerConfig])
+
   const sanitizedContent = useMemo(() => {
     return insane(post.content.rendered, sanitizerConfig)
   }, [post.content.rendered, sanitizerConfig])
+
   return (
     <div
       key={index}
@@ -125,12 +128,13 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
   const { data } = useQuery(TagPosts, {
     skip: !categoryIdentifier,
     variables: {
-      // eslint-disable-next-line @typescript-eslint/camelcase
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       wp_per_page: numberOfPosts,
       tag: `category-${categoryIdentifier}`,
       customDomain,
     },
   })
+
   if (data?.wpTags?.tags[0]?.wpPosts.posts) {
     return (
       <div className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}>
@@ -142,6 +146,7 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
       </div>
     )
   }
+
   return null
 }
 

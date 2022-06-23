@@ -1,4 +1,4 @@
-import WordpressProxyDataSource from '../clients/wordpressProxy'
+import type WordpressProxyDataSource from '../clients/wordpressProxy'
 
 const postsWithTag = async (
   wordpressProxy: WordpressProxyDataSource,
@@ -18,15 +18,17 @@ const postsWithTag = async (
     customDomain,
     include: filterTag,
   })
+
   let total = tags.reduce((sum, tag) => sum + tag.count, 0)
 
-  if (!total)
+  if (!total) {
     return {
       pageOffset: 0,
       partialPage: 0,
       data: [],
       total: 0,
     }
+  }
 
   const tagIds = tags.map(tag => tag.id)
 
@@ -76,6 +78,7 @@ const postsWithTag = async (
     total,
   }
 }
+
 const postsWithContent = async (
   wordpressProxy: WordpressProxyDataSource,
   {
@@ -130,4 +133,5 @@ const searchPostTagsAndContent = async (ctx: Context, query: any) => {
     total_count: tagSearchResult.total + contentSearchResult.total,
   }
 }
+
 export default searchPostTagsAndContent
