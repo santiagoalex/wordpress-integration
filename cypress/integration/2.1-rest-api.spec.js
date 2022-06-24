@@ -11,7 +11,15 @@ const { endpoint, titleTag } = appDetails
 
 describe('Rest API', () => {
   testSetup()
-  configureTargetWorkspace(endpoint, titleTag, { initializeSitemap: true })
+  configureTargetWorkspace(endpoint, titleTag, {
+    bindingBounded: true,
+    displayShowRowsText: true,
+    ignoreRobotsMetaTag: true,
+    initializeSitemap: true,
+    filterByCategories: true,
+    filterByTags: true,
+    filterByDate: true,
+  })
   verifySitemap()
   verifySitemapBlogpost()
   verifySitemapBlogCategories()

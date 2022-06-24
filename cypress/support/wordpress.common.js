@@ -18,10 +18,7 @@ export function selectDateAndVerify() {
 }
 
 export function disableFilterByDate() {
-  cy.openStoreFront()
   cy.get(wordpressSelectors.BlogButton).click()
-  /* eslint-disable cypress/no-unnecessary-waiting */
-  cy.wait(5000)
   cy.get(wordpressSelectors.VerifyDate).should('not.exist')
 }
 
@@ -29,14 +26,10 @@ export function verifyHomePageAndTitle() {
   cy.openStoreFront()
   cy.get(wordpressSelectors.BlogButton).click()
   cy.get('title').should('have.text', 'Blog')
-  /* eslint-disable cypress/no-unnecessary-waiting */
-  cy.wait(1000)
 }
 
 export function verifyPostsAndPagination() {
   cy.get(wordpressSelectors.PaginationButton).should('be.visible').click()
-  /* eslint-disable cypress/no-unnecessary-waiting */
-  cy.wait(10000)
   //   cy.get(wordpressSelectors.VerifyPost).should(
   //     'be.visible'
   //   )
@@ -60,7 +53,7 @@ export function verifyBreadcrumbsAndSlugUrl() {
   cy.get(wordpressSelectors.BlogPageBreadCrumb).click()
   cy.get(wordpressSelectors.SearchArticle).should('be.visible')
   cy.get(wordpressSelectors.Pagination).click()
-  cy.url().should('include', '/blog?page=2')
+  cy.verifySlug('/blog?page=2')
   cy.get(wordpressSelectors.RoryMcllroy).should('be.visible')
 }
 

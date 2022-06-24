@@ -10,3 +10,7 @@ Cypress.Commands.add('openStoreFront', (login = false) => {
       .should('have.contain', `Hello,`)
   }
 })
+
+Cypress.Commands.add('verifySlug', data => {
+  cy.url({ timeout: 5000 }).should('include', data)
+})

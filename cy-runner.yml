@@ -72,24 +72,38 @@ strategy:
   # Enable Anonymous review with no admin approval
   configuring_wordpress_testcase:
     enabled: true
-    sendDashboard: false
+    sendDashboard: true
     hardTries: 1
-    stopOnFail: false
+    stopOnFail: true
     parallel: true
     specs:
-      - cypress/integration/2.1-configure-wordpress-via-graphql.spec.js
+      - cypress/integration/2.1-rest-api.spec.js
   ui_testcase:
     enabled: true
-    sendDashboard: false
+    sendDashboard: true
     hardTries: 1
     stopOnFail: false
     parallel: true
-    runInOrder: true
     specs:
-      - cypress/integration/2.2-rest-api.spec.js
-      - cypress/integration/2.3-filter-by-tags.spec.js
-      - cypress/integration/2.4-UI-testcase.spec.js
-      - cypress/integration/2.5-filter-by-date.spec.js
-      - cypress/integration/2.6-verify-categories-filter.spec.js
-      - cypress/integration/2.7-verify-search_articles.spec.js
-      - cypress/integration/2.8.search.product.spec.js
+      - cypress/integration/2.2-filter-by-tags.spec.js
+      - cypress/integration/2.3-UI-testcase.spec.js
+      - cypress/integration/2.4-filter-by-date.spec.js
+      - cypress/integration/2.5-verify-categories-filter.spec.js
+      - cypress/integration/2.6-verify-search_articles.spec.js
+      - cypress/integration/2.7-search.product.spec.js
+  disable_config_testcase:
+      enabled: true
+      sendDashboard: true
+      hardTries: 1
+      stopOnFail: false
+      parallel: false
+      specs:
+        - cypress/integration/2.8-disable-configurations-and-validate.spec.js
+      dependency:
+        - cypress/integration/2.2-filter-by-tags.spec.js
+        - cypress/integration/2.3-UI-testcase.spec.js
+        - cypress/integration/2.4-filter-by-date.spec.js
+        - cypress/integration/2.5-verify-categories-filter.spec.js
+        - cypress/integration/2.6-verify-search_articles.spec.js
+        - cypress/integration/2.7-search.product.spec.js
+
