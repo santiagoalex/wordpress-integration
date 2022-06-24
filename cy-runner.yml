@@ -69,7 +69,6 @@ workspace:
     enabled: true
 
 strategy:
-  # Enable Anonymous review with no admin approval
   configuring_wordpress_testcase:
     enabled: true
     sendDashboard: true

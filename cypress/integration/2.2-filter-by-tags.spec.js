@@ -4,7 +4,6 @@ import {
   updateRetry,
 } from '../support/common/support'
 import wordpresspost from '../support/wordpress-integration.post'
-import { verifyBreadcrumbsAndSlugUrl } from '../support/wordpress.common'
 import wordpressSelectors from '../support/wordpress.selectors'
 
 const prefix = 'Filter by tags'
@@ -35,10 +34,6 @@ describe('Filter By Tags', () => {
       cy.get(wordpresspost.mothersDay.link).should('be.visible')
     }
   )
-
-  it(`${prefix} - Verify slug on pagination url`, updateRetry(3), () => {
-    verifyBreadcrumbsAndSlugUrl()
-  })
 
   preserveCookie()
 })
