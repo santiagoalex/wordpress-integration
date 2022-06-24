@@ -1,0 +1,108 @@
+---
+base:
+  secrets:
+    enabled: true
+    name: VTEX_QE
+  vtex:
+    account: productusqa
+    id: 2001459804
+    domain: myvtex.com
+    vtexIdUrl: https://vtexid.vtex.com.br/api/vtexid/pub/authenticate/default
+    deployCli:
+      enabled: true
+      git: https://github.com/vtex/toolbelt.git
+      branch: qe/cypress
+  twilio:
+    enabled: true
+  jira:
+    enabled: false
+    account: config-dev
+    board: jira-key
+    issueType: task
+  slack:
+    enabled: false
+    channel: some-channel
+  cypress:
+    devMode: false
+    runHeaded: false
+    projectId: xm9var
+    getCookies: true
+    maxJobs: 3
+    quiet: true
+    video: false
+    videoCompression: false
+    videoUploadOnPasses: false
+    screenshotOnRunFailure: true
+    trashAssetsBeforeRuns: false
+    viewportWidth: 1440
+    viewportHeight: 1500
+    defaultCommandTimeout: 25000
+    requestTimeout: 25000
+    watchForFileChanges: false
+    pageLoadTimeout: 45000
+    browser: chrome
+    chromeWebSecurity: false
+    sorry: false
+  stateFiles: [.wordpress.json]
+
+workspace:
+  name: random
+  prefix: wordpressintegration
+  linkApp:
+    enabled: true
+    logOutput:
+      enabled: false
+  installApps:
+    # wordpress-integration theme will work only when its peer dependency wordpress-integration is added in the workspace
+    # So, installing wordpress-integration@2.x version
+    - vtex.wordpress-integration@2.x
+    # Published a new theme for wordpress-integration-qa-theme for E2E test
+    - vtex.wordpress-integration-qa-theme@0.0.3
+  removeApps:
+    - vtex.bitcot-qa-theme
+  wipe:
+    enabled: false
+    stopOnFail: false
+    specs:
+      - cypress/integration/wipe.spec.js
+  teardown:
+    enabled: true
+
+strategy:
+  configuring_wordpress_testcase:
+    enabled: true
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: true
+    parallel: true
+    specs:
+      - cypress/integration/2.1-rest-api.spec.js
+  ui_testcase:
+    enabled: true
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: false
+    parallel: true
+    specs:
+      - cypress/integration/2.2-filter-by-tags.spec.js
+      - cypress/integration/2.3-UI-testcase.spec.js
+      - cypress/integration/2.4-filter-by-date.spec.js
+      - cypress/integration/2.5-verify-categories-filter.spec.js
+      - cypress/integration/2.6-verify-search_articles.spec.js
+      - cypress/integration/2.7-search.product.spec.js
+  disable_config_testcase:
+      enabled: true
+      sendDashboard: true
+      hardTries: 1
+      stopOnFail: false
+      parallel: false
+      specs:
+        - cypress/integration/2.8-disable-configurations-and-validate.spec.js
+      dependency:
+        - cypress/integration/2.2-filter-by-tags.spec.js
+        - cypress/integration/2.3-UI-testcase.spec.js
+        - cypress/integration/2.4-filter-by-date.spec.js
+        - cypress/integration/2.5-verify-categories-filter.spec.js
+        - cypress/integration/2.6-verify-search_articles.spec.js
+        - cypress/integration/2.7-search.product.spec.js
+
