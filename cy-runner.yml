@@ -15,10 +15,12 @@ base:
   twilio:
     enabled: true
   jira:
-    enabled: false
-    account: config-dev
-    board: jira-key
-    issueType: task
+    enabled: true
+    account: vtex-dev
+    board: WORDPRESS
+    issueType: Bug
+    priority: High
+    testing: true
   slack:
     enabled: false
     channel: some-channel
@@ -29,7 +31,7 @@ base:
     getCookies: true
     maxJobs: 3
     quiet: true
-    video: false
+    video: true
     videoCompression: false
     videoUploadOnPasses: false
     screenshotOnRunFailure: true
