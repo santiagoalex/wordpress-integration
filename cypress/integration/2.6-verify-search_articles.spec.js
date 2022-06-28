@@ -40,8 +40,7 @@ describe('Verify Titles ,Breadcrumbs and titles', () => {
     () => {
       cy.get(wordpressSelectors.SearchArticle)
         .should('be.visible')
-        .click()
-        .type('Products and Brands {enter}')
+        .type('Products and Brands {enter}', { force: true })
         .wait(1000)
     }
   )
