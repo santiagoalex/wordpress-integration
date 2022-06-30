@@ -30,11 +30,13 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
   mediaSize,
   customDomain,
   customDomainSlug,
+  ampLinks,
+  ampUrlFormat,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { loading, error, data } = useQuery(SearchPosts, {
     variables: {
-      // eslint-disable-next-line @typescript-eslint/camelcase
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       wp_per_page: numberOfPosts,
       terms: searchQuery?.data?.searchMetadata?.titleTag ?? null,
       customDomain,
@@ -78,6 +80,8 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
                   showExcerpt={showExcerpts}
                   absoluteLinks={absoluteLinks}
                   useTextOverlay={useTextOverlays}
+                  ampLinks={ampLinks && post.amp_enabled}
+                  ampUrlFormat={ampUrlFormat}
                 />
               </div>
             ))}
@@ -119,6 +123,8 @@ interface WPSearchResultBlockProps {
   mediaSize: MediaSize
   customDomain: string
   customDomainSlug: string
+  ampLinks?: boolean
+  ampUrlFormat?: string
 }
 
 WordpressSearchResultBlock.defaultProps = {
@@ -232,6 +238,34 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressMediaSize.description',
   },
+  ampLinksTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpLinks.title',
+  },
+  ampLinksDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpLinks.description',
+  },
+  ampUrlFormatTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpUrlFormat.title',
+  },
+  ampUrlFormatDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpUrlFormat.description',
+  },
+  ampPathSuffix: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpPathSuffix',
+  },
+  ampQuery: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpQuery',
+  },
+  ampQueryValue: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpQueryValue',
+  },
 })
 
 WordpressSearchResultBlock.schema = {
@@ -317,6 +351,39 @@ WordpressSearchResultBlock.schema = {
       enumNames: ['Thumbnail', 'Medium', 'Medium Large', 'Large', 'Full'],
       isLayout: false,
       default: '',
+    },
+    ampLinks: {
+      title: messages.ampLinksTitle.id,
+      description: messages.ampLinksDescription.id,
+      type: 'boolean',
+      isLayout: false,
+      default: '',
+    },
+  },
+  dependencies: {
+    ampLinks: {
+      oneOf: [
+        {
+          properties: {
+            ampLinks: {
+              enum: [true],
+            },
+            ampUrlFormat: {
+              title: messages.ampUrlFormatTitle.id,
+              description: messages.ampUrlFormatDescription.id,
+              type: 'string',
+              enum: ['ampPathSuffix', 'ampQuery', 'ampQueryValue'],
+              enumNames: [
+                messages.ampPathSuffix.id,
+                messages.ampQuery.id,
+                messages.ampQueryValue.id,
+              ],
+              isLayout: false,
+              default: 'ampPathSuffix',
+            },
+          },
+        },
+      ],
     },
   },
 }

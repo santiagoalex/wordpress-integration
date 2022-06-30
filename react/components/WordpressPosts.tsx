@@ -39,6 +39,8 @@ interface PostsProps {
   postsPerPage: number
   customDomainSlug: string
   categoryVariable: any
+  ampLinks?: boolean
+  ampUrlFormat?: string
 }
 
 const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
@@ -48,6 +50,8 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
   postsPerPage,
   customDomainSlug,
   categoryVariable,
+  ampLinks,
+  ampUrlFormat,
 }) => {
   const {
     route: { params },
@@ -103,6 +107,7 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
     ...filteredCategoryVariable,
     ...filteredTagVariable,
   }
+
   const querySelected = variables.terms ? SearchPosts : AllPosts
   const { loading, error, data, fetchMore } = useQuery(querySelected, {
     skip: !params,
@@ -124,8 +129,10 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
   useEffect(() => {
     if (initialPageLoad.current) {
       initialPageLoad.current = false
+
       return
     }
+
     if (containerRef.current) {
       window.scrollTo({
         top:
@@ -144,6 +151,7 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
           .reduce((acc: any, el: any) => [...acc, ...el.categories], [])
           .reduce((acc: any, current: any) => {
             const x = acc.find((item: any) => item.id === current.id)
+
             return !x ? acc.concat([current]) : acc
           }, [])
       )
@@ -153,6 +161,7 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
           .reduce((acc: any, el: any) => [...acc, ...el.tags], [])
           .reduce((acc: any, el: any) => {
             const x = acc.find((item: any) => item.id === el.id)
+
             return !x ? acc.concat([el]) : acc
           }, [])
       )
@@ -296,6 +305,8 @@ const WordpressPosts: StorefrontFunctionComponent<PostsProps> = ({
                     showExcerpt
                     useTextOverlay={false}
                     absoluteLinks={false}
+                    ampLinks={ampLinks && post.amp_enabled}
+                    ampUrlFormat={ampUrlFormat}
                   />
                 </div>
               ))}

@@ -1,6 +1,7 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Container } from 'vtex.store-components'
-import React, { FunctionComponent, useMemo } from 'react'
+import type { FunctionComponent, HTMLProps } from 'react'
+import React, { useMemo } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { Link, useRuntime } from 'vtex.render-runtime'
@@ -14,7 +15,7 @@ import Settings from '../graphql/Settings.graphql'
 import linkParams from '../utils/categoryLinkParams'
 import WordpressHeader from './WordpressHeader'
 
-interface PostProps {
+interface PostProps extends HTMLProps<any> {
   customDomains: string
   subcategoryUrls: boolean
 }
@@ -148,7 +149,7 @@ const PostCategoryLink: FunctionComponent<PostCategoryLinkProps> = ({
   const parentCategory =
     subcategoryUrls &&
     category.parent !== 0 &&
-    categories.find(c => c.id === category.parent)
+    categories.find((c) => c.id === category.parent)
 
   return (
     <Link
@@ -169,14 +170,16 @@ const PostCategoryLink: FunctionComponent<PostCategoryLinkProps> = ({
   )
 }
 
-export interface WordpressPostInnerProps {
+export interface WordpressPostInnerProps extends HTMLProps<any> {
   postData: PostData
   customDomainSlug?: string
   subcategoryUrls?: boolean
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const WordpressPostInner: FunctionComponent<WordpressPostInnerProps> = props => {
+const WordpressPostInner: FunctionComponent<WordpressPostInnerProps> = (
+  props
+) => {
   const handles = useCssHandles(CSS_HANDLES)
   const {
     culture: { locale },
@@ -208,6 +211,7 @@ const WordpressPostInner: FunctionComponent<WordpressPostInnerProps> = props => 
     month: 'long',
     day: 'numeric',
   }
+
   const formattedDate = dateObj.toLocaleDateString(locale, dateOptions)
 
   const productIds = tags
@@ -217,21 +221,24 @@ const WordpressPostInner: FunctionComponent<WordpressPostInnerProps> = props => 
   const titleHtml = useMemo(() => {
     return insane(title.rendered, sanitizerConfig)
   }, [title.rendered, sanitizerConfig])
+
   const captionHtml = useMemo(() => {
     return featured_media?.caption?.rendered
       ? insane(featured_media.caption.rendered, sanitizerConfigStripAll)
       : null
   }, [featured_media?.caption?.rendered, sanitizerConfigStripAll])
+
   const bodyHtml = useMemo(() => {
     return insane(content.rendered, sanitizerConfig)
   }, [content.rendered, sanitizerConfig])
 
-  if (loadingS)
+  if (loadingS) {
     return (
       <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
         <Spinner />
       </div>
     )
+  }
 
   return (
     <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
@@ -311,7 +318,9 @@ const WordpressPost: StorefrontFunctionComponent<PostProps> = ({
   const {
     route: { params },
   } = useRuntime()
+
   let parsedCustomDomains = null
+
   try {
     parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
   } catch (e) {
@@ -335,6 +344,7 @@ const WordpressPost: StorefrontFunctionComponent<PostProps> = ({
       </div>
     )
   }
+
   if (error) {
     return (
       <div className="ph5" style={{ minHeight: 800 }}>
@@ -342,6 +352,7 @@ const WordpressPost: StorefrontFunctionComponent<PostProps> = ({
       </div>
     )
   }
+
   if (data?.wpPosts?.posts) {
     return (
       <WordpressPostInner
@@ -352,6 +363,7 @@ const WordpressPost: StorefrontFunctionComponent<PostProps> = ({
       />
     )
   }
+
   return (
     <div>
       <h2>No post found.</h2>

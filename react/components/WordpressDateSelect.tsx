@@ -32,6 +32,7 @@ const WordpressDateSelect: StorefrontFunctionComponent<WordpressDateSelectProps>
   const {
     culture: { locale },
   } = useRuntime()
+
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -85,6 +86,7 @@ const WordpressDateSelect: StorefrontFunctionComponent<WordpressDateSelectProps>
                 setTempEndDate(tempStartDate)
                 setDate(tempEndDate)
                 setEndDate(tempStartDate)
+
                 return
               }
 

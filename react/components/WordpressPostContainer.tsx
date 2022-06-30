@@ -1,4 +1,5 @@
 import React from 'react'
+import type { HTMLProps } from 'react'
 import { defineMessages } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
@@ -6,7 +7,7 @@ import { useRuntime } from 'vtex.render-runtime'
 import { WPPostContainerContext } from '../contexts/WordpressPostContainer'
 import SinglePostBySlug from '../graphql/SinglePostBySlug.graphql'
 
-interface PostProps {
+interface PostProps extends HTMLProps<any> {
   customDomains: string
 }
 
@@ -17,7 +18,9 @@ const WordpressPostContainer: StorefrontFunctionComponent<PostProps> = ({
   const {
     route: { params },
   } = useRuntime()
+
   let parsedCustomDomains = null
+
   try {
     parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
   } catch (e) {

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 import React from 'react'
 import { defineMessages } from 'react-intl'
 
@@ -10,6 +10,8 @@ interface AllPostsProps {
   subcategoryUrls: boolean
   mediaSize: MediaSize
   postsPerPage: number
+  ampLinks?: boolean
+  ampUrlFormat?: string
 }
 
 const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
@@ -18,6 +20,8 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
   subcategoryUrls,
   mediaSize,
   postsPerPage,
+  ampLinks,
+  ampUrlFormat,
 }) => {
   return (
     <WordpressPosts
@@ -27,6 +31,8 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
       mediaSize={mediaSize}
       postsPerPage={postsPerPage}
       categoryVariable={null}
+      ampLinks={ampLinks}
+      ampUrlFormat={ampUrlFormat}
     />
   )
 }
@@ -76,6 +82,34 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressMediaSize.description',
   },
+  ampLinksTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpLinks.title',
+  },
+  ampLinksDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpLinks.description',
+  },
+  ampUrlFormatTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpUrlFormat.title',
+  },
+  ampUrlFormatDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpUrlFormat.description',
+  },
+  ampPathSuffix: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpPathSuffix',
+  },
+  ampQuery: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpQuery',
+  },
+  ampQueryValue: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAmpQueryValue',
+  },
 })
 
 WordpressAllPosts.defaultProps = {
@@ -120,6 +154,39 @@ WordpressAllPosts.schema = {
       enumNames: ['Thumbnail', 'Medium', 'Medium Large', 'Large', 'Full'],
       isLayout: false,
       default: '',
+    },
+    ampLinks: {
+      title: messages.ampLinksTitle.id,
+      description: messages.ampLinksDescription.id,
+      type: 'boolean',
+      isLayout: false,
+      default: '',
+    },
+  },
+  dependencies: {
+    ampLinks: {
+      oneOf: [
+        {
+          properties: {
+            ampLinks: {
+              enum: [true],
+            },
+            ampUrlFormat: {
+              title: messages.ampUrlFormatTitle.id,
+              description: messages.ampUrlFormatDescription.id,
+              type: 'string',
+              enum: ['ampPathSuffix', 'ampQuery', 'ampQueryValue'],
+              enumNames: [
+                messages.ampPathSuffix.id,
+                messages.ampQuery.id,
+                messages.ampQueryValue.id,
+              ],
+              isLayout: false,
+              default: 'ampPathSuffix',
+            },
+          },
+        },
+      ],
     },
   },
 }

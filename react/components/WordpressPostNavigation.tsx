@@ -29,9 +29,11 @@ const WordpressPostNavigation: StorefrontFunctionComponent = () => {
   const { data: dataNext } = useQuery(SinglePostAfterDate, {
     variables: { date, customDomain },
   })
+
   const { data: dataPrev } = useQuery(SinglePostBeforeDate, {
     variables: { date, customDomain },
   })
+
   const slugPrev = dataPrev?.wpPosts?.posts[0]?.slug
   const slugNext = dataNext?.wpPosts?.posts[0]?.slug
 

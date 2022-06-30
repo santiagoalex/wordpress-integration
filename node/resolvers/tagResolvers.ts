@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 export const tagResolvers = {
   wpPosts: async (
     { id, customDomain }: { id: number; customDomain: string },
@@ -44,6 +44,7 @@ export const tagResolvers = {
     const {
       clients: { wordpressProxy },
     } = ctx
+
     const options = {
       page,
       per_page,
@@ -65,10 +66,12 @@ export const tagResolvers = {
       sticky,
       customDomain,
     }
+
     const { headers, data } = await wordpressProxy.getPosts(options)
     const posts = data
     const total_count = headers['x-wp-total']
     const result = { posts, total_count }
+
     return result
   },
 }

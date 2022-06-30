@@ -1,5 +1,5 @@
 import React from 'react'
-import { QueryResult } from 'react-apollo'
+import type { QueryResult } from 'react-apollo'
 
 interface WPPostContainerContextInterface {
   query: QueryResult<
